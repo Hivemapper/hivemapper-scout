@@ -3,12 +3,13 @@
   "license": "MIT",
   "version": "0.0.3",
   "private": false,
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup index.ts --format cjs,esm --dts",
-    "lint": "tsc"
+    "lint": "tsc",
+    "release": "pnpm lint && pnpm build && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
