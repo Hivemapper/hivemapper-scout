@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.5
+
+### Patch Changes
+
+- c10c76d: npmignore
+
 ## 0.0.4
 
 ### Patch Changes
