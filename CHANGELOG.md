@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.3
+
+### Patch Changes
+
+- 8c0da0b: Fix?
+
 ## 0.0.2
 
 ### Patch Changes
