@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.7
+
+### Patch Changes
+
+- b72be6d: File structure
+
 ## 0.0.6
 
 ### Patch Changes
