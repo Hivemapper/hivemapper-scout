@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.6
+
+### Patch Changes
+
+- fd2e601: React structure
+
 ## 0.0.5
 
 ### Patch Changes
