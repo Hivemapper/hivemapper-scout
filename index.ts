@@ -1,3 +1,1 @@
-export const hello = () => {
-  console.log('Hello World!');
-}
+export * from './src/components';
