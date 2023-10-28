@@ -10,5 +10,14 @@
     "noUncheckedIndexedAccess": true,
     "noEmit": true,
     "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+    },
   }
 }
