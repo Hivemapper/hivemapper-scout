@@ -3,17 +3,36 @@
   "license": "MIT",
   "version": "0.0.7",
   "private": false,
+  "repository": "https://github.com/Hivemapper/hivemapper-scout",
+  "homepage": "https://hivemapper.com",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "style": "./dist/index.css",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.js"
+    },
+    "./index.css": "./dist/index.css",
+    "./utils": {
+      "import": "./dist/utils/index.mjs",
+      "default": "./dist/utils/index.js"
+    }
+  },
   "scripts": {
-    "build": "tsup index.ts --format cjs,esm --dts",
+    "build": "tsup src/index.ts --format cjs,esm --dts --sourcemap --minify",
     "lint": "tsc",
     "release": "pnpm lint && pnpm build && changeset publish"
+  },
+  "engines": {
+    "node": ">=16.18.1",
+    "npm": ">=8.x"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
     "@types/react": "^18.2.33",
+    "classnames": "^2.3.2",
     "react": "^18.2.0",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"

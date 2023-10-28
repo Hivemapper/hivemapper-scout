@@ -10,10 +10,5 @@
     "noUncheckedIndexedAccess": true,
     "noEmit": true,
     "jsx": "react",
-    "declaration": true,
-    "declarationDir": "types",
-    "sourceMap": true,
-    "outDir": "dist",
-    "allowSyntheticDefaultImports": true,
   }
 }
