@@ -1,6 +1,5 @@
 import React from "react";
 import { Theme } from "./Layout.types";
-import "./layout.css";
 
 export interface LayoutProps {
   theme: Theme;

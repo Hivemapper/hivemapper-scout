@@ -5,3 +5,5 @@ tsconfig.json
 .gitignore
 .github
 .changeset
+tailwind.config.js
+postcss.config.js
