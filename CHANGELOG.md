@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.8
+
+### Patch Changes
+
+- 61ce27d: CSS from node_modules?
+
 ## 0.0.7
 
 ### Patch Changes
