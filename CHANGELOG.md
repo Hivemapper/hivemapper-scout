@@ -1,5 +1,13 @@
 # @hivemapper/scout
 
+## 0.0.9
+
+### Patch Changes
+
+- c2009b7: Fix fontFamily issue
+- f9a3f8a: Add shadcn
+- 09d3c0a: tailwindcss
+
 ## 0.0.8
 
 ### Patch Changes
