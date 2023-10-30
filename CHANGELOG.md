@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.11
+
+### Patch Changes
+
+- c6fecf9: Test if nextjs failures are due to local setup
+
 ## 0.0.10
 
 ### Patch Changes
