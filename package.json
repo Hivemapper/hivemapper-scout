@@ -21,7 +21,7 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --sourcemap --minify",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
     "lint": "tsc",
     "release": "pnpm lint && pnpm build && changeset publish"
   },
