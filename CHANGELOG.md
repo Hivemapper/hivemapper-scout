@@ -1,5 +1,12 @@
 # @hivemapper/scout
 
+## 0.0.12
+
+### Patch Changes
+
+- abd6fb0: More styles scaffolding, MapView first iteration
+- 4871e79: Wrap design system
+
 ## 0.0.11
 
 ### Patch Changes
