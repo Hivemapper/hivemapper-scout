@@ -1,0 +1,21 @@
+.rc-pagination {
+  display: flex;
+  align-items: center;
+}
+
+.rc-pagination-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.rc-pagination-prev {
+  margin-right: 8px;
+}
+
+.rc-pagination-next {
+  margin-left: 8px;
+}

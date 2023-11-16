@@ -1,7 +1,4 @@
 // Views
-// export { default as HmInfoView } from './hivemapper/views/lists/info';
-// export { default as HmThumbnailView } from './hivemapper/views/lists/thumbnail';
-// export { default as HmLocationView } from './hivemapper/views/location';
-export { default as HmMapView } from './hivemapper/views/map';
+export { default as HmView } from './hivemapper/views/Main';
 
 // Components

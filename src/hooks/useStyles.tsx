@@ -8,6 +8,7 @@ import React, {
 
 type Styles = {
   stripTailwindClasses?: boolean;
+  darkMode?: boolean;
 };
 
 export interface ContextState {

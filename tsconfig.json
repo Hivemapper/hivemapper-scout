@@ -1,17 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es2016",
+    "target": "es6",
+    "lib": ["dom", "es2019"],
     "module": "ESNext",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
     "skipLibCheck": true,
     "noUncheckedIndexedAccess": true,
     "noEmit": true,
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
+      "@api/*": [
+        "src/api/*"
+      ],
       "@components/*": [
         "src/components/*"
       ],
@@ -20,6 +23,9 @@
       ],
       "@hooks/*": [
         "src/hooks/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
       ],
       "types/*": [
         "src/types/*"
