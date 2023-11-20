@@ -10,7 +10,7 @@ import { FiltersState } from "types/filter";
 import { filterLocations } from "@utils/filter";
 import { ScoutLocation } from "types/location";
 import { Views } from "types/view";
-import Location from "@components/hivemapper/scout/locations/Location";
+import Location from "@components/hivemapper/scout/location/Location";
 import Config from "@components/hivemapper/hoc/Config";
 import Container from "@components/hivemapper/ui/Container";
 
