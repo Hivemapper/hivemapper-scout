@@ -24,7 +24,7 @@
     "generate": "node ./src/scripts/generateGlobalCSS.ts",
     "build": "pnpm generate && tsup src/index.ts --format cjs,esm --dts",
     "lint": "tsc",
-    "style": "prettier . --check",
+    "style": "prettier . --write",
     "release": "pnpm lint && pnpm build && changeset publish",
     "watch": "nodemon --ignore src/global.css"
   },
