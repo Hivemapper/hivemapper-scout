@@ -1,4 +1,4 @@
 export enum ListType {
-  Info = 'info',
-  Thumbnail = 'thumbnail',
+  Info = "info",
+  Thumbnail = "thumbnail",
 }

@@ -70,7 +70,7 @@ const Imagery: React.FC<Props> = ({
         const data = await getImagesForPolygon(
           location.searchShape.coordinates,
           week,
-          encodedCredentials
+          encodedCredentials,
         );
 
         if (!data || "error" in data) {

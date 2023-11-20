@@ -26,7 +26,7 @@ export interface MainViewProps extends ViewLocationsProps {
 }
 
 export enum Views {
-  Map = 'map',
-  Location = 'location',
-  Thumbnail = 'thumbnail',
+  Map = "map",
+  Location = "location",
+  Thumbnail = "thumbnail",
 }

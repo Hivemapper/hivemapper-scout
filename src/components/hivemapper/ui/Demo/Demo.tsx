@@ -45,7 +45,7 @@ const Demo: React.FC<DemoProps> = ({
     string | number | null
   >(null);
   const activeLocation = locations.find(
-    (location) => location._id === activeLocationId
+    (location) => location._id === activeLocationId,
   );
 
   const filteredLocations = filterLocations(locations, filters);

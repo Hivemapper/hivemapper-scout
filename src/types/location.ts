@@ -25,7 +25,7 @@ export interface Frame {
     latRef: string;
     lon: number;
     lonRef: string;
-    mountPosition: 'front' | 'right' | 'left' | 'back';
+    mountPosition: "front" | "right" | "left" | "back";
     gdop: number;
     hdop: number;
     pdop: number;

@@ -1,4 +1,4 @@
-const { fontFamily } = require("tailwindcss/defaultTheme")
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
 /** @type {import("tailwindcss").Config} */
 module.exports = {
@@ -65,7 +65,7 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "spin": {
+        spin: {
           from: { transform: "rotate(0deg)" },
           to: { transform: "rotate(360deg)" },
         },
@@ -78,8 +78,7 @@ module.exports = {
     },
   },
   plugins: [
-    require("tailwindcss-animate"), 
-    require("@tailwindcss/aspect-ratio")
+    require("tailwindcss-animate"),
+    require("@tailwindcss/aspect-ratio"),
   ],
-}
-
+};

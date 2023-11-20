@@ -1,14 +1,14 @@
 export const getImagesForPolygon = async (
   data: number[][][],
   day: string | null,
-  encodedCredentials: string
+  encodedCredentials: string,
 ) => {
   try {
     // const url = `https://hivemapper.com/api/developer/imagery/poly${
     //   day ? `?week=${day}` : ''
     // }`;
     const url = `http://localhost:10000/developer/imagery/poly${
-      day ? `?week=${day}` : ''
+      day ? `?week=${day}` : ""
     }`;
 
     const response = await fetch(url, {
@@ -18,12 +18,12 @@ export const getImagesForPolygon = async (
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': `Basic ${encodedCredentials}`
+        Authorization: `Basic ${encodedCredentials}`,
       },
       redirect: "follow",
       body: JSON.stringify({
         coordinates: data,
-        type: 'Polygon',
+        type: "Polygon",
       }),
     });
     return response.json();

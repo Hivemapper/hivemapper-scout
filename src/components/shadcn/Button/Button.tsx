@@ -29,7 +29,7 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
+  },
 );
 
 export interface ButtonProps
@@ -43,7 +43,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const buttonClasses = cn(buttonVariants({ variant }), className);
     const Comp = asChild ? Slot : "button";
     return <Comp className={buttonClasses} ref={ref} {...props} />;
-  }
+  },
 );
 Button.displayName = "Button";
 

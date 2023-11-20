@@ -19,7 +19,7 @@ const Pagination: React.FC<PaginationProps> = ({ total, onChange }) => {
 
   useEffect(() => {
     const element = document.getElementsByClassName(
-      "rc-pagination-item-active"
+      "rc-pagination-item-active",
     )[0] as HTMLElement;
 
     element.style.backgroundColor =

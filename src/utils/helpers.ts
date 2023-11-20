@@ -10,7 +10,7 @@ const twStore = {
 
 Object.freeze(twStore);
 export default twStore;
- 
+
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }

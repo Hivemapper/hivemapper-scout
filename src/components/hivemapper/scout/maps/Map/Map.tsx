@@ -74,7 +74,7 @@ const Map: React.FC<MapProps> = ({
       clearStaticLayersAndSources(
         map,
         [MAP_GEOJSON_LAYER, MAP_GEOJSON_STROKE],
-        [MAP_GEOJSON_SOURCE]
+        [MAP_GEOJSON_SOURCE],
       );
 
       const featureCollection = {

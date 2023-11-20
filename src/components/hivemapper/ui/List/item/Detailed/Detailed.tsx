@@ -54,7 +54,7 @@ const Detailed: React.FC<DetailedProps> = ({
             await getImagesForPolygon(
               location.searchShape.coordinates,
               week,
-              encodedCredentials
+              encodedCredentials,
             );
 
           if (!data || "error" in data) {
@@ -96,7 +96,7 @@ const Detailed: React.FC<DetailedProps> = ({
         {centroid && (
           <div className={cn.detailedItemCentroid()}>
             {`${centroid.geometry.coordinates[1].toFixed(
-              5
+              5,
             )}, ${centroid.geometry.coordinates[0].toFixed(5)}`}
           </div>
         )}

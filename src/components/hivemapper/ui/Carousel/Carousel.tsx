@@ -74,7 +74,7 @@ const Carousel: React.FC<Props> = ({
       activeSequenceIndex,
       setActiveSequenceIndex,
       sortedSequences,
-    ]
+    ],
   );
 
   const eventKeyCallback = useCallback(
@@ -90,7 +90,7 @@ const Carousel: React.FC<Props> = ({
           break;
       }
     },
-    [handleNavigation]
+    [handleNavigation],
   );
 
   useEffect(() => {
@@ -115,7 +115,7 @@ const Carousel: React.FC<Props> = ({
             {prettyDate(activeSequence[activeFrameIndex.value].timestamp, true)}
             {", "}
             {monthDayTime(
-              new Date(activeSequence[activeFrameIndex.value].timestamp)
+              new Date(activeSequence[activeFrameIndex.value].timestamp),
             )}
           </div>
         </div>

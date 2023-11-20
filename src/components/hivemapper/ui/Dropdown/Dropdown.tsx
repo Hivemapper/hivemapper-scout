@@ -43,7 +43,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           className={cn.buttonWrapper()}
         >
           {capitalizeFirstCharacter(
-            value ? uniques.find((element) => element === value) : placeholder
+            value ? uniques.find((element) => element === value) : placeholder,
           )}
           <ChevronsUpDown className={cn.buttonChevron()} />
         </Button>

@@ -75,7 +75,7 @@ const Modal: React.FC<Props> = ({
       activeSequenceIndex,
       setActiveSequenceIndex,
       sortedSequences,
-    ]
+    ],
   );
 
   const eventKeyCallback = useCallback(
@@ -94,7 +94,7 @@ const Modal: React.FC<Props> = ({
           break;
       }
     },
-    [handleNavigation, setShowModal]
+    [handleNavigation, setShowModal],
   );
 
   useEffect(() => {
@@ -125,11 +125,11 @@ const Modal: React.FC<Props> = ({
                 <div className={cn.modalDate()}>
                   {prettyDate(
                     activeSequence[activeFrameIndex.value].timestamp,
-                    true
+                    true,
                   )}
                   {", "}
                   {monthDayTime(
-                    new Date(activeSequence[activeFrameIndex.value].timestamp)
+                    new Date(activeSequence[activeFrameIndex.value].timestamp),
                   )}
                 </div>
               </>

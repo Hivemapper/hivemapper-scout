@@ -1,1 +1,1 @@
-export { default } from './MiniMap';
+export { default } from "./MiniMap";

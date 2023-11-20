@@ -91,7 +91,7 @@ const MiniMap: React.FC<Props> = ({
       clearStaticLayersAndSources(
         map,
         [MINIMAP_GEOJSON_LAYER, MINIMAP_GEOJSON_STROKE],
-        [MINIMAP_GEOJSON_SOURCE]
+        [MINIMAP_GEOJSON_SOURCE],
       );
 
       const sourceOptions: SourceOptions[] = [
@@ -213,7 +213,7 @@ const MiniMap: React.FC<Props> = ({
     clearStaticLayersAndSources(
       map,
       [MINIMAP_DOTS_LAYER],
-      [MINIMAP_DOTS_SOURCE]
+      [MINIMAP_DOTS_SOURCE],
     );
 
     const dotsGeoJSON = {
@@ -264,7 +264,7 @@ const MiniMap: React.FC<Props> = ({
     clearStaticLayersAndSources(
       map,
       [MINIMAP_ACTIVE_LINE_LAYER, MINIMAP_ACTIVE_DOTS_LAYER],
-      [MINIMAP_ACTIVE_DOTS_SOURCE, MINIMAP_ACTIVE_LINE_SOURCE]
+      [MINIMAP_ACTIVE_DOTS_SOURCE, MINIMAP_ACTIVE_LINE_SOURCE],
     );
 
     const activeLine = [];
@@ -350,7 +350,7 @@ const MiniMap: React.FC<Props> = ({
     clearStaticLayersAndSources(
       map,
       [MINIMAP_ACTIVE_FRAME_LAYER, MINIMAP_ACTIVE_FRAME_OUTLINE],
-      [MINIMAP_ACTIVE_FRAME_SOURCE]
+      [MINIMAP_ACTIVE_FRAME_SOURCE],
     );
 
     const activeFrame = activeSequence[activeFrameIndex.value];
@@ -406,7 +406,7 @@ const MiniMap: React.FC<Props> = ({
     createLayersAndSources(
       map,
       activeFrameLayersOptions,
-      activeFrameSourceOptions
+      activeFrameSourceOptions,
     );
   }, [map, apiCallsComplete, activeSequence, activeFrameIndex]);
 

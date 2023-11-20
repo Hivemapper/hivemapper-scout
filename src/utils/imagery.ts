@@ -1,6 +1,6 @@
-import distance from '@turf/distance';
-import { point } from '@turf/helpers';
-import geographiclib from 'geographiclib-geodesic';
+import distance from "@turf/distance";
+import { point } from "@turf/helpers";
+import geographiclib from "geographiclib-geodesic";
 import { Frame } from "types/location";
 
 const DEFAULT_STITCH_MAX_DISTANCE = 20;
@@ -12,7 +12,7 @@ const WGS84 = geographiclib.Geodesic.WGS84;
 export const absAngularDelta = (a: number, b: number): number => {
   const delta = Math.abs(a - b);
   return delta <= 180 ? delta : 360 - delta;
-}
+};
 
 export const boundariesIntersect = (a: Frame[], b: Frame[]): boolean => {
   const a0 = new Date(a[0].timestamp);
@@ -24,7 +24,7 @@ export const boundariesIntersect = (a: Frame[], b: Frame[]): boolean => {
   const earliestEnd = new Date(Math.min(a1.getTime(), b1.getTime()));
 
   return latestStart < earliestEnd;
-}
+};
 
 export const stitch = (
   frames: Frame[],
@@ -36,7 +36,7 @@ export const stitch = (
 
   const sequences: Record<string, Frame[]> = {};
 
-  frames.forEach(frame => {
+  frames.forEach((frame) => {
     const sequence = frame.sequence;
     if (!sequences[sequence]) sequences[sequence] = [];
     sequences[sequence].push(frame);
@@ -44,7 +44,7 @@ export const stitch = (
 
   const skipStitching: Frame[][] = [];
   const seqs = Object.values(sequences)
-    .filter(seq => {
+    .filter((seq) => {
       if (seq.length > 1) {
         return true;
       } else {
@@ -52,7 +52,7 @@ export const stitch = (
         return false;
       }
     })
-    .map(seq => seq.sort((a, b) => a.idx - b.idx))
+    .map((seq) => seq.sort((a, b) => a.idx - b.idx))
     .sort(
       (a, b) =>
         new Date(a[0].timestamp).getTime() - new Date(b[0].timestamp).getTime(),
@@ -112,7 +112,7 @@ export const stitch = (
 
     const from = point([lon_a1, lat_a1]);
     const to = point([lon_b0, lat_b0]);
-    const meters = distance(from, to, { units: 'meters' });
+    const meters = distance(from, to, { units: "meters" });
 
     if (meters > maxDistance) {
       remaining.push(seq);
@@ -157,8 +157,8 @@ export const stitch = (
     }
   }
 
-  const stitched = collections.map(coll => coll.flat());
-  const skipped = skipStitching.map(coll => coll.flat());
+  const stitched = collections.map((coll) => coll.flat());
+  const skipped = skipStitching.map((coll) => coll.flat());
 
   return [...stitched, ...skipped];
-}
+};

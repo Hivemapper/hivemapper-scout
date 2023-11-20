@@ -28,7 +28,7 @@ module.exports = {
     destructiveForeground: "#C7CCD1",
 
     ring: "#94A3B8",
-  }, 
+  },
   dark: {
     background: "#171B21",
     foreground: "#E1E7EF",
@@ -69,5 +69,5 @@ module.exports = {
       foreground: "#3D87F7",
       accent: "#1E498A",
     },
-  }
+  },
 };
