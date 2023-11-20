@@ -25,7 +25,7 @@
     "build": "pnpm generate && tsup src/index.ts --format cjs,esm --dts",
     "lint": "tsc",
     "style": "prettier . --write",
-    "release": "pnpm lint && pnpm build && changeset publish",
+    "release": "pnpm lint && && pnpm style && pnpm build && changeset publish",
     "watch": "nodemon --ignore src/global.css"
   },
   "nodemonConfig": {
@@ -66,11 +66,9 @@
     "date-fns": "^2.30.0",
     "eslint": "^8.53.0",
     "geographiclib-geodesic": "^2.0.0",
-    "lint-staged": "^15.1.0",
     "lucide-react": "^0.290.0",
     "maplibre-gl": "^3.5.2",
     "maplibregl-mapbox-request-transformer": "^0.0.2",
-    "mrm": "2",
     "nodemon": "^3.0.1",
     "prettier": "^3.1.0",
     "rc-pagination": "^3.7.0",
