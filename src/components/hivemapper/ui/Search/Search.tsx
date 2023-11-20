@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Input } from "@components/shadcn/Input";
+import Input from "@components/hivemapper/ui/Input";
 import CloseCircle from "@components/icons/CloseCircle";
 import palette from "@styles/palette";
-import { useStyles } from "@hooks/useStyles";
+import { useConfig } from "@hooks/useConfig";
+import * as cn from "./classNames";
 
 export interface SearchProps {
   placeholder?: string;
@@ -11,15 +12,15 @@ export interface SearchProps {
 
 const Search: React.FC<SearchProps> = ({ placeholder, onChange }) => {
   const [value, setValue] = useState("");
-  const { darkMode } = useStyles();
+  const { darkMode } = useConfig();
 
   return (
-    <div className="relative min-w-[30%]">
+    <div className={cn.searchWrapper()}>
       <div
-        className="absolute top-1/2 transform -translate-y-1/2 right-2"
-        onClick={() => setValue("")}
-        style={{
-          cursor: value ? "pointer" : "default",
+        className={cn.searchClear(value)}
+        onClick={() => {
+          setValue("");
+          onChange("");
         }}
       >
         <CloseCircle

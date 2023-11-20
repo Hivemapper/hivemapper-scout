@@ -14,6 +14,7 @@ import { sortSequencesByTimestamp } from "@utils/sort";
 import Loader from "@components/icons/Loader";
 import { Badge } from "@components/shadcn/Badge";
 import DotIcon from "@components/icons/Dot";
+import * as cn from "./classNames";
 
 export interface DetailedProps {
   location: ScoutLocation;
@@ -81,62 +82,51 @@ const Detailed: React.FC<DetailedProps> = ({
   }, [inView, location.searchShape.coordinates]);
 
   return (
-    <div ref={ref} className="flex p-4 border-b border-b-1">
-      <div className="w-1/3">
-        <div className="text-2xl font-semibold tracking-tight text-left">
-          {location.name}
-        </div>
-        <div className="text-primary text-lg font-semibold tracking-tight mt-2">
+    <div ref={ref} className={cn.detailedItemWrapper()}>
+      <div className={cn.detailedItemLeftSection()}>
+        <div className={cn.detailedItemLocation()}>{location.name}</div>
+        <div className={cn.detailedItemDescription()}>
           {location.description}
         </div>
-        <div className="mt-2">
+        <div className={cn.detailedItemTags()}>
           {location.tags.map((tag, index) => (
             <Badge key={`${tag}_${index.toString()}`}>{tag}</Badge>
           ))}
         </div>
         {centroid && (
-          <div className="text-sm font-medium tracking-normal text-blue-400 mt-2">
+          <div className={cn.detailedItemCentroid()}>
             {`${centroid.geometry.coordinates[1].toFixed(
               5
             )}, ${centroid.geometry.coordinates[0].toFixed(5)}`}
           </div>
         )}
         {sortedSequences.length > 0 && (
-          <div className="text-sm font-bold tracking-normal mt-2">
+          <div className={cn.detailedItemSequence()}>
             {sortedSequences.length} collections, {framesLength} images
           </div>
         )}
         {lastMapped && (
-          <div className="flex items-center mt-2">
+          <div className={cn.detailedItemDateSection()}>
             <DotIcon />
-            <span className="text-md font-bold ml-2">
+            <span className={cn.detailedItemDate()}>
               Mapped {prettyDate(lastMapped, true)}
             </span>
           </div>
         )}
       </div>
-      <div className="flex flex-row w-2/3">
+      <div className={cn.detailedItemImagery()}>
         {!apiCallsComplete ? (
-          <div className="flex w-full justify-center items-center">
+          <div className={cn.detailedItemLoader()}>
             <Loader />
           </div>
-        ) : (
-          <div
-            className="flex flex-row w-full overflow-x-scroll mt-3 focus:outline-none"
-            tabIndex={0}
-            style={{
-              scrollbarWidth: "none",
-            }}
-          >
+        ) : sortedSequences.length > 0 ? (
+          <div className={cn.detailedItemThumbnailSection()} tabIndex={0}>
             {sortedSequences.map((sequence: Frame[], index) => {
               const { url, timestamp } = sequence[0];
               const isLast = index === sortedSequences.length - 1;
 
               return (
-                <div
-                  key={url}
-                  className={`min-w-[30%] ${isLast ? "mr-0" : "mr-2"}`}
-                >
+                <div key={url} className={cn.detailedItemThumbnail(isLast)}>
                   <Thumbnail
                     url={url}
                     timestamp={timestamp}
@@ -145,6 +135,10 @@ const Detailed: React.FC<DetailedProps> = ({
                 </div>
               );
             })}
+          </div>
+        ) : (
+          <div className={cn.detailedItemNullState()}>
+            No imagery available in the last 14 days.
           </div>
         )}
       </div>

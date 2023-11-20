@@ -1,6 +1,6 @@
-import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Pagination from "@components/hivemapper/ui/Pagination";
-import Detailed from "./item/Detailed";
+import Detailed from "./item/Detailed/Detailed";
 import { ListType } from "types/list";
 import { ScoutLocation } from "types/location";
 import { useConfig } from "@hooks/useConfig";
@@ -28,10 +28,10 @@ const List: React.FC<ListProps> = ({
   const { credentials } = useConfig();
   const encodedCredentials = credentials || btoa(`${username}:${apiKey}`);
 
-  // const currentLocations = locations.slice(
-  //   (page - 1) * itemsPerPage,
-  //   page * itemsPerPage
-  // );
+  const currentLocations = locations.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
 
   const scrollToTarget = () => {
     if (scrollToRef?.current) {
@@ -44,7 +44,7 @@ const List: React.FC<ListProps> = ({
 
   return (
     <div ref={scrollToRef}>
-      {locations.map((location) => {
+      {currentLocations.map((location) => {
         return (
           <Detailed
             key={location._id}

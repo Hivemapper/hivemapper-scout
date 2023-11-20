@@ -4,7 +4,6 @@ import React, {
   SetStateAction,
   useEffect,
   useRef,
-  useState,
 } from "react";
 import Carousel from "@components/hivemapper/ui/Carousel";
 import Thumbnail from "@components/hivemapper/ui/Thumbnail";
@@ -19,6 +18,7 @@ import { Frame, ScoutLocation } from "types/location";
 import { preventScroll } from "@utils/keyboard";
 import { useConfig } from "@hooks/useConfig";
 import Loader from "@components/icons/Loader";
+import * as cn from "./classNames";
 
 interface Props {
   apiKey?: string;
@@ -53,8 +53,7 @@ const Imagery: React.FC<Props> = ({
   setShowModal,
   setFramesLength,
 }) => {
-  const [frames, setFrames] = useState<Frame[]>([]);
-  const [_, setIsFirstRender] = useState(true);
+  const isFirstRender = useRef(true);
 
   const divRef: RefObject<HTMLDivElement> = useRef(null);
   const thumbnailRefs = useRef<Array<RefObject<HTMLDivElement>>>([]);
@@ -128,25 +127,18 @@ const Imagery: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    if (activeSequenceIndex === 0) {
-      setIsFirstRender((prevState) => {
-        if (prevState) {
-          return false;
-        }
-
-        scrollTo(activeSequenceIndex);
-
-        return prevState;
-      });
-    } else {
-      scrollTo(activeSequenceIndex);
+    if (activeSequenceIndex === 0 && isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
     }
-  }, [setIsFirstRender, activeSequenceIndex]);
+
+    scrollTo(activeSequenceIndex);
+  }, [activeSequenceIndex]);
 
   return (
-    <div className="flex flex-col w-full h-auto ">
+    <div className={cn.imageryWrapper()}>
       {!apiCallsComplete ? (
-        <div className="flex w-full h-full justify-center items-center">
+        <div className={cn.imageryLoader()}>
           <Loader />
         </div>
       ) : (
@@ -164,19 +156,8 @@ const Imagery: React.FC<Props> = ({
               />
             )}
           </div>
-          {!sortedSequences ? (
-            <div className="flex w-full items-center justify-center text-base pb-2">
-              No imagery available in the last 14 days.
-            </div>
-          ) : (
-            <div
-              ref={divRef}
-              className="flex flex-row overflow-x-scroll mt-3 focus:outline-none"
-              tabIndex={0}
-              style={{
-                scrollbarWidth: "none",
-              }}
-            >
+          {sortedSequences.length > 0 ? (
+            <div ref={divRef} className={cn.imageryThumbnails()} tabIndex={0}>
               {sortedSequences.map((sequence, index) => {
                 const ref = React.createRef<HTMLDivElement>();
                 thumbnailRefs.current[index] = ref;
@@ -186,7 +167,7 @@ const Imagery: React.FC<Props> = ({
                   <div
                     key={sequence[0].url}
                     ref={ref}
-                    className={`min-w-[30%] ${isLast ? "mr-0" : "mr-2"}`}
+                    className={cn.imageryThumbnail(isLast)}
                   >
                     <Thumbnail
                       key={sequence[0].url}
@@ -201,6 +182,10 @@ const Imagery: React.FC<Props> = ({
                   </div>
                 );
               })}
+            </div>
+          ) : (
+            <div className={cn.imageryNullState()}>
+              No imagery available in the last 14 days.
             </div>
           )}
         </>

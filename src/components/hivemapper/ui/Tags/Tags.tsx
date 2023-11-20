@@ -18,6 +18,7 @@ const Tags: React.FC<TagsProps> = ({ tags, onChange }) => {
     <ToggleGroup type="multiple">
       {uniques.map((tag) => (
         <ToggleGroupItem
+          key={tag}
           value={tag}
           aria-label="Toggle tag"
           onClick={() =>

@@ -1,13 +1,9 @@
 import React, { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import { monthDayTime, prettyDate } from "@utils/dates";
 import { Frame } from "types/location";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@components/shadcn/Dialog";
-import { Button } from "@components/shadcn/Button";
+import { Dialog, DialogContent } from "@components/shadcn/Dialog";
 import Close from "@components/icons/Close";
+import * as cn from "./classNames";
 
 interface Props {
   sortedSequences: Frame[][];
@@ -111,22 +107,22 @@ const Modal: React.FC<Props> = ({
   return (
     <Dialog open={showModal}>
       <DialogContent>
-        <div className="flex items-center justify-center h-screen overflow-hidden">
-          <div className="relative">
+        <div className={cn.modalWrapper()}>
+          <div className={cn.modalSection()}>
             <div
               onClick={() => {
                 setShowModal(false);
               }}
-              className="absolute top-5 right-5 cursor-pointer"
+              className={cn.modalCloseButton()}
             >
               <Close />
             </div>
             {activeSequence[activeFrameIndex.value] && (
               <>
-                <div className="text-2xl absolute bottom-5 right-5">
+                <div className={cn.modalSequence()}>
                   {activeFrameIndex.value + 1} / {activeSequence.length}
                 </div>
-                <div className="text-2xl absolute bottom-5 left-5">
+                <div className={cn.modalDate()}>
                   {prettyDate(
                     activeSequence[activeFrameIndex.value].timestamp,
                     true
@@ -139,7 +135,7 @@ const Modal: React.FC<Props> = ({
               </>
             )}
             <img
-              className="max-w-full max-h-screen"
+              className={cn.modalFrame()}
               src={activeSequence[activeFrameIndex.value].url}
               alt="Active frame"
             />

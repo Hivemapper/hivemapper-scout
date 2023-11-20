@@ -16,6 +16,7 @@ import { Frame } from "types/location";
 import Reset from "@components/icons/Reset";
 import { SourceOptions } from "types/map";
 import palette from "@styles/palette";
+import * as cn from "./classNames";
 
 const MINIMAP_GEOJSON_LAYER = "minimap-geojson-hm-layer";
 const MINIMAP_GEOJSON_STROKE = "minimap-geojson-hm-stroke";
@@ -410,12 +411,9 @@ const MiniMap: React.FC<Props> = ({
   }, [map, apiCallsComplete, activeSequence, activeFrameIndex]);
 
   return (
-    <div
-      ref={mapContainer}
-      className="relative w-full h-full rounded-md overflow-hidden"
-    >
+    <div ref={mapContainer} className={cn.miniMapWrapper()}>
       <div
-        className="absolute top-4 right-4 z-10 cursor-pointer"
+        className={cn.miniMapReset()}
         onClick={() => {
           if (map && coordinates.length > 0) {
             map.fitBounds(getBounds(coordinates), {

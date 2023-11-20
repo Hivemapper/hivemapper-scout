@@ -1,11 +1,10 @@
 import React, { Dispatch, SetStateAction } from "react";
-import classNames from "classnames";
 import Search from "@components/hivemapper/ui/Search";
 import Dropdown from "@components/hivemapper/ui/Dropdown";
 import Tags from "@components/hivemapper/ui/Tags";
-import { useStyles } from "@hooks/useStyles";
 import { ScoutLocation } from "types/location";
 import { FilterTypes, FiltersState } from "types/filter";
+import * as cn from "./classNames";
 
 export interface FiltersProps {
   locations: ScoutLocation[];
@@ -13,13 +12,6 @@ export interface FiltersProps {
 }
 
 const Filters: React.FC<FiltersProps> = ({ locations, setFilters }) => {
-  const { stripTailwindClasses } = useStyles();
-
-  const headerClasses = classNames(
-    { "flex w-full justify-between": !stripTailwindClasses },
-    "hm-header"
-  );
-
   const onChange = (key: keyof FiltersState, value: string | string[]) => {
     setFilters((filters) => ({
       ...filters,
@@ -28,9 +20,9 @@ const Filters: React.FC<FiltersProps> = ({ locations, setFilters }) => {
   };
 
   return (
-    <div className={headerClasses}>
-      <div className="flex">
-        <div className="mr-2">
+    <div className={cn.filterWrapper()}>
+      <div className={cn.filterSection()}>
+        <div className={cn.filterDropdown()}>
           <Dropdown
             elements={locations
               .filter((location) => !!location.description)

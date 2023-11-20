@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 
-import { cn } from "@utils/helpers";
 import { Button } from "@components/shadcn/Button";
 import {
   Command,
@@ -16,6 +15,7 @@ import {
   PopoverTrigger,
 } from "@components/shadcn/Popover";
 import { capitalizeFirstCharacter } from "@utils/string";
+import * as cn from "./classNames";
 
 export interface DropdownProps {
   elements: string[];
@@ -40,15 +40,15 @@ const Dropdown: React.FC<DropdownProps> = ({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className={cn.buttonWrapper()}
         >
           {capitalizeFirstCharacter(
             value ? uniques.find((element) => element === value) : placeholder
           )}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronsUpDown className={cn.buttonChevron()} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
+      <PopoverContent className={cn.buttonPopover()}>
         <Command>
           <CommandInput placeholder="Search..." />
           <CommandEmpty>No element found.</CommandEmpty>
@@ -66,12 +66,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                   }
                 }}
               >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    value === element ? "opacity-100" : "opacity-0"
-                  )}
-                />
+                <Check className={cn.buttonCheckmark(value === element)} />
                 {capitalizeFirstCharacter(element)}
               </CommandItem>
             ))}

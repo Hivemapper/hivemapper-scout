@@ -12,6 +12,8 @@ export interface ContextState {
   setCredentials: Dispatch<SetStateAction<string>>;
   mapAccessToken: string;
   mapDefaultCoords: LngLatLike;
+  stripTailwindClasses: boolean;
+  darkMode: boolean;
 }
 
 interface CredentialsProps {
@@ -19,6 +21,8 @@ interface CredentialsProps {
   username: string;
   mapAccessToken: string;
   mapDefaultCoords: LngLatLike;
+  stripTailwindClasses?: boolean;
+  darkMode?: boolean;
   children: React.ReactNode;
 }
 
@@ -31,6 +35,8 @@ const ConfigProvider: React.FC<CredentialsProps> = ({
   username,
   mapAccessToken,
   mapDefaultCoords,
+  stripTailwindClasses,
+  darkMode,
   children,
 }) => {
   const encodedCredentials = btoa(`${username}:${apiKey}`);
@@ -38,7 +44,14 @@ const ConfigProvider: React.FC<CredentialsProps> = ({
 
   return (
     <ConfigContext.Provider
-      value={{ credentials, setCredentials, mapAccessToken, mapDefaultCoords }}
+      value={{
+        credentials,
+        setCredentials,
+        mapAccessToken,
+        mapDefaultCoords,
+        stripTailwindClasses,
+        darkMode,
+      }}
     >
       {children}
     </ConfigContext.Provider>
@@ -55,6 +68,8 @@ const useConfig = () => {
     credentials: context.credentials,
     mapAccessToken: context.mapAccessToken,
     mapDefaultCoords: context.mapDefaultCoords,
+    stripTailwindClasses: context.stripTailwindClasses,
+    darkMode: context.darkMode,
   };
 };
 

@@ -4,6 +4,7 @@ import ArrowRightCircle from "@components/icons/ArrowRightCircle";
 import Maximize from "@components/icons/Maximize";
 import { monthDayTime, prettyDate } from "@utils/dates";
 import { Frame } from "types/location";
+import * as cn from "./classNames";
 
 interface Props {
   sortedSequences: Frame[][];
@@ -102,14 +103,14 @@ const Carousel: React.FC<Props> = ({
 
   return (
     <>
-      <div className="flex w-full relative">
+      <div className={cn.carouselWrapper()}>
         <div
-          className="absolute z-10 top-5 right-5 cursor-pointer"
+          className={cn.carouselMaximize()}
           onClick={() => setShowModal(true)}
         >
           <Maximize />
         </div>
-        <div className="text-sm absolute z-10 bottom-5 left-5">
+        <div className={cn.carouselDate()}>
           <div>
             {prettyDate(activeSequence[activeFrameIndex.value].timestamp, true)}
             {", "}
@@ -118,14 +119,11 @@ const Carousel: React.FC<Props> = ({
             )}
           </div>
         </div>
-        <div className="text-sm absolute font-semibold z-10 bottom-5 right-5">
+        <div className={cn.carouselSequence()}>
           {activeFrameIndex.value + 1} / {activeSequence.length}
         </div>
         <div
-          className={`absolute z-10 top-1/2 left-4 cursor-${
-            isFirstFrame ? "auto" : "pointer"
-          } opacity-${isFirstFrame ? "25" : "100"}`}
-          style={{ transform: "translateY(-50%)" }}
+          className={cn.carouselLeftArrow(isFirstFrame)}
           onClick={() => handleNavigation("left")}
         >
           <div>
@@ -133,29 +131,22 @@ const Carousel: React.FC<Props> = ({
           </div>
         </div>
         <div
-          className={`absolute z-10 top-1/2 right-4 ${
-            isLastFrame
-              ? "cursor-auto opacity-25"
-              : "cursor-pointer opacity-100"
-          }`}
-          style={{ transform: "translateY(-50%)" }}
+          className={cn.carouseRightArrow(isLastFrame)}
           onClick={() => handleNavigation("right")}
         >
           <div>
             <ArrowRightCircle />
           </div>
         </div>
-        <div className="w-full rounded-md overflow-hidden">
+        <div className={cn.carouselSection()}>
           {activeSequence.map((frame: Frame, index: number) => {
             return (
               <div
-                className={`aspect-w-2 aspect-h-1 flex ${
-                  activeFrameIndex.value === index ? "" : "hidden"
-                }`}
+                className={cn.carouselFrame(activeFrameIndex.value === index)}
                 key={frame.url}
               >
                 <img
-                  className="object-cover w-full h-full"
+                  className={cn.carouselImg()}
                   src={frame.url}
                   alt={`Active frame}`}
                 />

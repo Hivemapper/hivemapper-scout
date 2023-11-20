@@ -3,8 +3,9 @@ import RcPagination from "rc-pagination";
 import ArrowLeftCircle from "@components/icons/ArrowLeftCircle";
 import ArrowRightCircle from "@components/icons/ArrowRightCircle";
 import Ellipsis from "@components/icons/Ellipsis";
-import { useStyles } from "@hooks/useStyles";
 import palette from "@styles/palette";
+import { useConfig } from "@hooks/useConfig";
+import * as cn from "./classNames";
 import "./pagination.css";
 
 export interface PaginationProps {
@@ -14,7 +15,7 @@ export interface PaginationProps {
 
 const Pagination: React.FC<PaginationProps> = ({ total, onChange }) => {
   const [page, setPage] = useState<null | number>(null);
-  const { darkMode } = useStyles();
+  const { darkMode } = useConfig();
 
   useEffect(() => {
     const element = document.getElementsByClassName(
@@ -30,7 +31,7 @@ const Pagination: React.FC<PaginationProps> = ({ total, onChange }) => {
   }, [darkMode, page]);
 
   return (
-    <div className="flex justify-center p-4">
+    <div className={cn.paginationWrapper()}>
       <RcPagination
         className={`${darkMode ? "hm-pagination-dark" : "hm-pagination"}`}
         locale={{

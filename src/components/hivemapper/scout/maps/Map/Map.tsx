@@ -10,7 +10,6 @@ import maplibre, {
   AddLayerObject,
   LngLatLike,
   Map as MlMap,
-  Source,
 } from "maplibre-gl";
 import {
   setMapAccessToken,
@@ -22,6 +21,7 @@ import {
 import palette from "@styles/palette";
 import { ScoutLocation } from "types/location";
 import { SourceOptions } from "types/map";
+import * as cn from "./classNames";
 
 const MAP_GEOJSON_LAYER = "map-geojson-hm-layer";
 const MAP_GEOJSON_STROKE = "map-geojson-hm-stroke";
@@ -130,7 +130,7 @@ const Map: React.FC<MapProps> = ({
   return (
     <div
       ref={mapContainer}
-      className={`relative w-full overflow-hidden`}
+      className={cn.mapWrapper()}
       style={{ height: `calc(95vh - ${distanceFromTop}px)` }}
     />
   );

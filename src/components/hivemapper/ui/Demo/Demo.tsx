@@ -1,28 +1,39 @@
-import React, { useEffect, useState } from "react";
-import classNames from "classnames";
+import React, { useState } from "react";
+import { LngLatLike } from "maplibre-gl";
 import Filters from "@components/hivemapper/ui/Filters";
 import List from "@components/hivemapper/ui/List";
 import ViewSelector from "@components/hivemapper/ui/ViewSelector";
 import View from "@components/hivemapper/ui/View";
 import Map from "@components/hivemapper/scout/maps/Map";
-import { useStyles } from "@hooks/useStyles";
-import { useConfig } from "@hooks/useConfig";
 import { ListType } from "types/list";
 import { FiltersState } from "types/filter";
 import { filterLocations } from "@utils/filter";
 import { ScoutLocation } from "types/location";
 import { Views } from "types/view";
 import Location from "@components/hivemapper/scout/locations/Location";
+import Config from "@components/hivemapper/hoc/Config";
+import Container from "@components/hivemapper/ui/Container";
 
-export interface AppProps {
+export interface DemoProps {
   locations: ScoutLocation[];
-  children?: React.ReactNode;
+  mapAccessToken: string;
+  apiKey: string;
+  username: string;
+  mapDefaultCoords?: LngLatLike;
+  mapStyle?: string;
+  darkMode?: boolean;
+  stripTailwindClasses?: boolean;
 }
 
-const App: React.FC<AppProps> = ({ locations }) => {
-  const { stripTailwindClasses } = useStyles();
-  const { mapAccessToken, mapDefaultCoords } = useConfig();
-
+const Demo: React.FC<DemoProps> = ({
+  locations,
+  darkMode,
+  stripTailwindClasses,
+  mapAccessToken,
+  mapDefaultCoords,
+  apiKey,
+  username,
+}) => {
   const [activeView, setActiveView] = useState(Views.Thumbnail);
   const [filters, setFilters] = useState<FiltersState>({
     tags: [],
@@ -43,14 +54,6 @@ const App: React.FC<AppProps> = ({ locations }) => {
     setActiveLocationId(locationId);
     setActiveView(Views.Location);
   };
-
-  const containerClasses = classNames(
-    {
-      "w-full max-w-7xl mx-auto relative font-sans pt-8": !stripTailwindClasses,
-      "pb-8": !stripTailwindClasses && activeView !== Views.Map,
-    },
-    "hm-container"
-  );
 
   const renderView = (view: Views) => {
     switch (view) {
@@ -83,14 +86,23 @@ const App: React.FC<AppProps> = ({ locations }) => {
   };
 
   return (
-    <div className={containerClasses}>
-      <Filters locations={locations} setFilters={setFilters} />
-      <View>
-        <ViewSelector activeView={activeView} setActiveView={setActiveView} />
-        {renderView(activeView)}
-      </View>
-    </div>
+    <Config
+      mapAccessToken={mapAccessToken}
+      mapDefaultCoords={mapDefaultCoords}
+      apiKey={apiKey}
+      username={username}
+      darkMode={!!darkMode}
+      stripTailwindClasses={!!stripTailwindClasses}
+    >
+      <Container activeView={activeView}>
+        <Filters locations={locations} setFilters={setFilters} />
+        <View>
+          <ViewSelector activeView={activeView} setActiveView={setActiveView} />
+          {renderView(activeView)}
+        </View>
+      </Container>
+    </Config>
   );
 };
 
-export default App;
+export default Demo;

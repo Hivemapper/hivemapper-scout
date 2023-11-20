@@ -1,4 +1,4 @@
-// Views
-export { default as HmView } from './hivemapper/views/Main';
+// Demo
+export { default as Demo } from './hivemapper/ui/Demo';
 
 // Components
