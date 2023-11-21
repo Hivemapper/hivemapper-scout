@@ -21,7 +21,7 @@ const Location: React.FC<LocationProps> = ({
   location,
   mapAccessToken,
   mapStyle,
-  username, 
+  username,
   apiKey,
 }) => {
   const [sortedSequences, setSortedSequences] = useState<Frame[][] | null>([]);
@@ -124,7 +124,7 @@ const Location: React.FC<LocationProps> = ({
           <div className={cn.locationImagery()}>
             <Imagery
               location={location}
-              username={username} 
+              username={username}
               apiKey={apiKey}
               sortedSequences={sortedSequences}
               setSortedSequences={setSortedSequences}

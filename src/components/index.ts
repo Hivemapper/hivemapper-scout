@@ -22,7 +22,7 @@ import ViewSelector from "./hivemapper/ui/ViewSelector";
 export { Imagery, Location, Map, MiniMap };
 
 // UI components
-export { 
+export {
   Carousel,
   Container,
   Demo,
@@ -36,5 +36,5 @@ export {
   Tags,
   Thumbnail,
   View,
-  ViewSelector, 
-}
+  ViewSelector,
+};

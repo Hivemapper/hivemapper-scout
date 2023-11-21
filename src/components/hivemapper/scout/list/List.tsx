@@ -26,7 +26,7 @@ const List: React.FC<ListProps> = ({
 
   const currentLocations = locations.slice(
     (page - 1) * itemsPerPage,
-    page * itemsPerPage
+    page * itemsPerPage,
   );
 
   const scrollToTarget = () => {
