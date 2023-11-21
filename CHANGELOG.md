@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.14
+
+### Patch Changes
+
+- a2c8327: Hit production endpoint
+
 ## 0.0.13
 
 ### Patch Changes
