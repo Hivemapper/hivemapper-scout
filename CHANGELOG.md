@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.13
+
+### Patch Changes
+
+- 9429c29: Export components
+
 ## 0.0.12
 
 ### Patch Changes
