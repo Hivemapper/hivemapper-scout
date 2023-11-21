@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import turf from "@turf/centroid";
 import MiniMap from "@components/hivemapper/scout/maps/MiniMap";
 import Imagery from "@components/hivemapper/scout/imagery";
@@ -12,6 +12,8 @@ export interface LocationProps {
   location: ScoutLocation;
   mapAccessToken: string;
   mapStyle?: string;
+  username: string;
+  apiKey: string;
   isFirstResult?: boolean;
 }
 
@@ -19,6 +21,8 @@ const Location: React.FC<LocationProps> = ({
   location,
   mapAccessToken,
   mapStyle,
+  username, 
+  apiKey,
 }) => {
   const [sortedSequences, setSortedSequences] = useState<Frame[][] | null>([]);
   const [activeSequenceIndex, setActiveSequenceIndex] = useState(0);
@@ -26,6 +30,9 @@ const Location: React.FC<LocationProps> = ({
   const [apiCallsComplete, setApiCallsComplete] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [framesLength, setFramesLength] = useState(0);
+  const [height, setHeight] = useState(0);
+
+  const ref = useRef(null);
 
   const latestSequence = sortedSequences[0] || [];
   const lastFrame: Frame | undefined =
@@ -35,6 +42,13 @@ const Location: React.FC<LocationProps> = ({
   const activeSequence = sortedSequences?.[activeSequenceIndex] || null;
 
   const centroid = turf(location.geojson);
+
+  useEffect(() => {
+    if (ref.current) {
+      const height = ref.current.clientHeight;
+      setHeight(height);
+    }
+  }, []);
 
   return (
     <>
@@ -90,8 +104,8 @@ const Location: React.FC<LocationProps> = ({
             </div>
           </div>
         </div>
-        <div className={cn.locationSectionBottom()}>
-          <div className={cn.locationMiniMap()}>
+        <div ref={ref} className={cn.locationSectionBottom()}>
+          <div className={cn.locationMiniMap(height)}>
             <MiniMap
               mapStyle={mapStyle}
               mapAccessToken={mapAccessToken}
@@ -110,6 +124,8 @@ const Location: React.FC<LocationProps> = ({
           <div className={cn.locationImagery()}>
             <Imagery
               location={location}
+              username={username} 
+              apiKey={apiKey}
               sortedSequences={sortedSequences}
               setSortedSequences={setSortedSequences}
               activeSequence={activeSequence}

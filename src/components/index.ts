@@ -9,7 +9,7 @@ import Demo from "./hivemapper/ui/Demo";
 import Dropdown from "./hivemapper/ui/Dropdown";
 import Filters from "./hivemapper/ui/Filters";
 import Input from "./hivemapper/ui/Input";
-import List from "./hivemapper/ui/List";
+import List from "./hivemapper/scout/list";
 import Modal from "./hivemapper/ui/Modal";
 import Pagination from "./hivemapper/ui/Pagination";
 import Search from "./hivemapper/ui/Search";

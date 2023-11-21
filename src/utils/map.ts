@@ -53,7 +53,7 @@ const triggerEvent = (
   } & Object,
   eventKey: EventTypes,
   map: MlMap,
-  clickCallback: (id: string | number) => void,
+  clickCallback?: (id: string | number) => void,
 ) => {
   switch (eventKey) {
     case EventTypes.CLICK:

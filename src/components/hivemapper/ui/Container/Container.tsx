@@ -3,7 +3,7 @@ import { Views } from "types/view";
 import * as cn from "./classNames";
 
 export interface ContainerProps {
-  activeView: Views;
+  activeView?: Views;
   children?: React.ReactNode;
 }
 

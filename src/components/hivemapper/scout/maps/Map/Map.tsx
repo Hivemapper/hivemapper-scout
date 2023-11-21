@@ -40,7 +40,7 @@ const Map: React.FC<MapProps> = ({
   mapAccessToken,
   mapDefaultCoords,
   mapStyle,
-  selectionCallback,
+  selectionCallback = () => {},
 }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<MlMap | null>(null);
@@ -74,7 +74,7 @@ const Map: React.FC<MapProps> = ({
       clearStaticLayersAndSources(
         map,
         [MAP_GEOJSON_LAYER, MAP_GEOJSON_STROKE],
-        [MAP_GEOJSON_SOURCE],
+        [MAP_GEOJSON_SOURCE]
       );
 
       const featureCollection = {

@@ -16,13 +16,12 @@ import { sortSequencesByTimestamp } from "@utils/sort";
 import { stitch } from "@utils/imagery";
 import { Frame, ScoutLocation } from "types/location";
 import { preventScroll } from "@utils/keyboard";
-import { useConfig } from "@hooks/useConfig";
 import Loader from "@components/icons/Loader";
 import * as cn from "./classNames";
 
 interface Props {
-  apiKey?: string;
-  username?: string;
+  apiKey: string;
+  username: string;
   location: ScoutLocation;
   sortedSequences: Frame[][] | null;
   setSortedSequences: Dispatch<SetStateAction<Frame[][] | null>>;
@@ -58,8 +57,7 @@ const Imagery: React.FC<Props> = ({
   const divRef: RefObject<HTMLDivElement> = useRef(null);
   const thumbnailRefs = useRef<Array<RefObject<HTMLDivElement>>>([]);
 
-  const { credentials } = useConfig();
-  const encodedCredentials = credentials || btoa(`${username}:${apiKey}`);
+  const encodedCredentials = btoa(`${username}:${apiKey}`);
 
   useEffect(() => {
     const fetchImagery = async () => {

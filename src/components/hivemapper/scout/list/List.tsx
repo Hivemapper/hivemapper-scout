@@ -1,14 +1,11 @@
 import React, { useRef, useState } from "react";
 import Pagination from "@components/hivemapper/ui/Pagination";
 import Detailed from "./item/Detailed/Detailed";
-import { ListType } from "types/list";
 import { ScoutLocation } from "types/location";
-import { useConfig } from "@hooks/useConfig";
 
 export interface ListProps {
-  apiKey?: string;
-  username?: string;
-  type: ListType;
+  apiKey: string;
+  username: string;
   locations: ScoutLocation[];
   itemsPerPage?: number;
   selectionCallback?: (id: string | number) => void;
@@ -19,18 +16,17 @@ const List: React.FC<ListProps> = ({
   username,
   locations,
   itemsPerPage = 10,
-  selectionCallback,
+  selectionCallback = () => {},
 }) => {
   const [page, setPage] = useState(1);
 
   const scrollToRef = useRef<HTMLDivElement>(null);
 
-  const { credentials } = useConfig();
-  const encodedCredentials = credentials || btoa(`${username}:${apiKey}`);
+  const encodedCredentials = btoa(`${username}:${apiKey}`);
 
   const currentLocations = locations.slice(
     (page - 1) * itemsPerPage,
-    page * itemsPerPage,
+    page * itemsPerPage
   );
 
   const scrollToTarget = () => {

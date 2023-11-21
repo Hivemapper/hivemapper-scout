@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { LngLatLike } from "maplibre-gl";
 import Filters from "@components/hivemapper/ui/Filters";
-import List from "@components/hivemapper/ui/List";
+import List from "@components/hivemapper/scout/list";
 import ViewSelector from "@components/hivemapper/ui/ViewSelector";
 import View from "@components/hivemapper/ui/View";
 import Map from "@components/hivemapper/scout/maps/Map";
@@ -69,10 +69,11 @@ const Demo: React.FC<DemoProps> = ({
       case Views.Thumbnail:
         return (
           <List
-            type={ListType.Thumbnail}
             locations={filteredLocations}
             itemsPerPage={10}
             selectionCallback={selectionCallback}
+            username={username}
+            apiKey={apiKey}
           />
         );
       case Views.Location:
@@ -80,6 +81,8 @@ const Demo: React.FC<DemoProps> = ({
           <Location
             location={activeLocation || filteredLocations[0]}
             mapAccessToken={mapAccessToken}
+            username={username}
+            apiKey={apiKey}
           />
         );
     }
