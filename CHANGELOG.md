@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.16
+
+### Patch Changes
+
+- f2e6a0d: Release script
+
 ## 0.0.15
 
 ### Patch Changes
