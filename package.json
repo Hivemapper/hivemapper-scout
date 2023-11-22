@@ -25,7 +25,7 @@
     "build": "pnpm generate && tsup src/index.ts --format cjs,esm --dts",
     "lint": "tsc",
     "style": "prettier . --write",
-    "release": "pnpm lint && pnpm style && pnpm build && changeset publish",
+    "release": "pnpm lint && pnpm style && pnpm build && pnpm changeset",
     "watch": "nodemon --ignore src/global.css"
   },
   "nodemonConfig": {

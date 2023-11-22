@@ -5,14 +5,13 @@ export const getImagesForPolygon = async (
 ) => {
   try {
     const url = `https://hivemapper.com/api/developer/imagery/poly${
-      day ? `?week=${day}` : ''
+      day ? `?week=${day}` : ""
     }`;
 
     const response = await fetch(url, {
       method: "POST",
       mode: "cors",
       cache: "no-cache",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Basic ${encodedCredentials}`,
