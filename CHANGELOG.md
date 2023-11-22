@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.15
+
+### Patch Changes
+
+- 373b91b: Fix CORS
+
 ## 0.0.14
 
 ### Patch Changes
