@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.18
+
+### Patch Changes
+
+- 8370136: Fix cicd
+
 ## 0.0.17
 
 ### Patch Changes
