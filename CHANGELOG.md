@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.18
+
+### Patch Changes
+
+- eb0da59: Ship
+
 ## 0.0.17
 
 ### Patch Changes
