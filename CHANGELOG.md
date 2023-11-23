@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.17
+
+### Patch Changes
+
+- 5e88452: Maplibre-gl css
+
 ## 0.0.16
 
 ### Patch Changes
