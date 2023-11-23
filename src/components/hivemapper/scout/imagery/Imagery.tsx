@@ -115,6 +115,7 @@ const Imagery: React.FC<Props> = ({
   }, []);
 
   const scrollTo = (activeSequenceIndex: number) => {
+    if (thumbnailRefs.current.length < 1) return;
     if (thumbnailRefs.current[activeSequenceIndex].current) {
       thumbnailRefs.current[activeSequenceIndex].current.scrollIntoView({
         behavior: "smooth",
@@ -125,6 +126,8 @@ const Imagery: React.FC<Props> = ({
   };
 
   useEffect(() => {
+    console.log("activeSequenceIndex: ", activeSequenceIndex);
+    console.log("isFirstRender: ", isFirstRender.current);
     if (activeSequenceIndex === 0 && isFirstRender.current) {
       isFirstRender.current = false;
       return;

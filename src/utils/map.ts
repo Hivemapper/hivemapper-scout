@@ -16,7 +16,6 @@ import {
   EventTypes,
   InitializationParams,
   SourceOptions,
-  SourceTypes,
 } from "types/map";
 
 export const DEFAULT_MAP_COORDS = [-122.431297, 37.773972] as LngLatLike; // San Francisco
