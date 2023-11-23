@@ -73,9 +73,9 @@ export const locationCollectionsImages = () =>
 export const locationSectionBottom = () =>
   cn({ "flex w-full mt-2": !twStore.get() }, "hm-location-section-bottom");
 
-export const locationMiniMap = (height: number) =>
+export const locationMiniMap = () =>
   cn(
-    { [`relative flex flex-col w-2/5 h-[${height}px] pr-3`]: !twStore.get() },
+    { [`relative flex flex-col w-2/5 min-h-[545px] pr-3`]: !twStore.get() },
     "hm-location-mini-map",
   );
 

@@ -30,9 +30,6 @@ const Location: React.FC<LocationProps> = ({
   const [apiCallsComplete, setApiCallsComplete] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [framesLength, setFramesLength] = useState(0);
-  const [height, setHeight] = useState(0);
-
-  const ref = useRef(null);
 
   const latestSequence = sortedSequences[0] || [];
   const lastFrame: Frame | undefined =
@@ -42,13 +39,6 @@ const Location: React.FC<LocationProps> = ({
   const activeSequence = sortedSequences?.[activeSequenceIndex] || null;
 
   const centroid = turf(location.geojson);
-
-  useEffect(() => {
-    if (ref.current) {
-      const height = ref.current.clientHeight;
-      setHeight(height);
-    }
-  }, []);
 
   return (
     <>
@@ -104,8 +94,8 @@ const Location: React.FC<LocationProps> = ({
             </div>
           </div>
         </div>
-        <div ref={ref} className={cn.locationSectionBottom()}>
-          <div className={cn.locationMiniMap(height)}>
+        <div className={cn.locationSectionBottom()}>
+          <div className={cn.locationMiniMap()}>
             <MiniMap
               mapStyle={mapStyle}
               mapAccessToken={mapAccessToken}

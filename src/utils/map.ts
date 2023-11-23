@@ -159,6 +159,7 @@ export const initializeMap = ({
     zoom: zoom || 12,
     transformRequest,
     maxPitch: 0,
+    attributionControl: false,
   });
 
   const nav = new maplibre.NavigationControl({
