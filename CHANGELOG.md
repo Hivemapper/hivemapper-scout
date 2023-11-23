@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.19
+
+### Patch Changes
+
+- 8db4f15: Static height setting minimap
+
 ## 0.0.18
 
 ### Patch Changes
