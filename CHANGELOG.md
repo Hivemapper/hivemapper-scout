@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.17
+
+### Patch Changes
+
+- 6c920e6: Maplibre css, prettier, logs
+
 ## 0.0.16
 
 ### Patch Changes
