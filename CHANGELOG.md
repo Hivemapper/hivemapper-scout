@@ -1,5 +1,12 @@
 # @hivemapper/scout
 
+## 0.0.20
+
+### Patch Changes
+
+- d15f422: Simplify Config HOC
+- df15da6: Dynamic palette, Update route, Cleanup
+
 ## 0.0.19
 
 ### Patch Changes
