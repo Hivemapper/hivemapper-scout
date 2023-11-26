@@ -144,7 +144,7 @@ Usage:
   </Config>
   ```
 
-## `useConfig` Hook
+## useConfig Hook
 
 The `useConfig` hook provides a convenient way to access configuration settings within the scope of the `Config` Higher Order Component. This hook can be used throughout your application to retrieve and utilize the current configuration.
 
