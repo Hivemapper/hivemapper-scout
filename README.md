@@ -76,7 +76,7 @@ After importing, you can integrate the Demo component into your application to e
 
 ## Scout UI Components
 
-Scout provides various UI components, which can be individually integrated into your application as needed.
+Scout provides UI components which can be individually integrated into your application as needed.
 
 <details>
   <summary>Location</summary>
@@ -119,4 +119,37 @@ Scout provides various UI components, which can be individually integrated into 
   ```
 </details>
 
+## Styles
 
+The Scout UI library utilizes [Tailwind CSS](https://tailwindcss.com/) and [Shadcn](https://shadcn.com/) for styling. To use the default styles provided by Scout, import the CSS file from the package:
+
+```typescript
+import '@hivemapper/scout/index.css';
+```
+
+See the Config section for additional styling options.
+
+## Config
+
+The `Config` Higher Order Component in Scout allows for additional configuration options:
+
+- `darkMode` (boolean): Enables the dark theme palette.
+- `stripTailwindClasses` (boolean): Removes Tailwind CSS utility classes to avoid class name collisions.
+
+Usage:
+
+  ```typescript
+  <Config darkMode>
+    <Location {...props} />
+  </Config>
+  ```
+
+## `useConfig` Hook
+
+The `useConfig` hook provides a convenient way to access configuration settings within the scope of the `Config` Higher Order Component. This hook can be used throughout your application to retrieve and utilize the current configuration.
+
+Example usage:
+
+```typescript
+const { darkMode, stripTailwindClasses } = useConfig();
+```
