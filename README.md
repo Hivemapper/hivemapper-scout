@@ -1,4 +1,4 @@
-# Hivemapper Scout SDK
+# Hivemapper Scout
 Scout is a UI Library for Geospatial Imagery Visualization. It enables users to input a dataset of locations and seamlessly integrate with Hivemapper to display associated geospatial imagery. Whether for urban planning, environmental monitoring, geographic research and more, Scout provides fresh geospacial imagery.
 
 ## Installation
@@ -55,6 +55,68 @@ To use the Scout demo in your project, import it from the package:
 ```typescript
 import { Demo } from '@hivemapper/scout';
 ```
+<details>
+  <summary>Props</summary>
+
+  ```typescript
+  export interface DemoProps {
+    locations: ScoutLocation[];
+    mapAccessToken: string;
+    apiKey: string;
+    username: string;
+    mapDefaultCoords?: LngLatLike; // Default center point of Map View
+    mapStyle?: string; // Mapbox style for Map and Minimap components
+    darkMode?: boolean; // Dark themed components (See Styles section)
+    stripTailwindClasses?: boolean; // Option to strip out Tailwind CSS classes from DOM (See Styles section)
+  }
+  ```
+</details>
 
 After importing, you can integrate the Demo component into your application to explore its features and functionalities.
+
+## Scout UI Components
+
+Scout provides various UI components, which can be individually integrated into your application as needed.
+
+<details>
+  <summary>Location</summary>
+
+  ```typescript
+  export interface LocationProps {
+    location: ScoutLocation;
+    mapAccessToken: string;
+    mapStyle?: string;
+    username: string;
+    apiKey: string;
+    isFirstResult?: boolean;
+  }
+  ```
+</details>
+<details>
+  <summary>Map</summary>
+  
+  ```typescript
+  export interface MapProps {
+    locations: ScoutLocation[];
+    mapAccessToken: string;
+    mapDefaultCoords?: LngLatLike;
+    mapStyle?: string;
+    selectionCallback?: (id: string | number) => void;
+  }
+  ```
+</details>
+<details>
+  <summary>List</summary>
+  
+  ```typescript
+  export interface ListProps {
+    apiKey: string;
+    username: string;
+    locations: ScoutLocation[];
+    itemsPerPage?: number;
+    selectionCallback?: (id: string | number) => void;
+  }
+  ```
+</details>
+
 
