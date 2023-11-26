@@ -23,7 +23,7 @@ pnpm add @hivemapper/scout
 
 ## Before Getting Started
 
-Before using the Scout, ensure you have the following:
+Before using Scout, ensure you have the following:
 
 - **Mapbox Access Token:** Necessary for map rendering and geospatial functionalities. Obtain it from [Mapbox](https://www.mapbox.com/).
 - **Hivemapper Username:** Your unique username for logging into Hivemapper. Visit [Hivemapper Login](https://www.hivemapper.com/login).
