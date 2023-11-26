@@ -1,27 +1,17 @@
 import React, { useEffect } from "react";
 import { ConfigProvider } from "@hooks/useConfig";
-import { LngLatLike } from "maplibre-gl";
-import { DEFAULT_MAP_COORDS } from "@utils/map";
 import twStore from "@utils/helpers";
 
 export interface ConfigProps {
-  mapAccessToken: string;
-  mapDefaultCoords?: LngLatLike;
-  apiKey: string;
-  username: string;
   children: React.ReactNode;
-  stripTailwindClasses: boolean;
-  darkMode: boolean;
+  stripTailwindClasses?: boolean;
+  darkMode?: boolean;
 }
 
 const Config: React.FC<ConfigProps> = ({
   stripTailwindClasses,
-  darkMode,
-  mapAccessToken,
-  mapDefaultCoords,
-  apiKey,
-  username,
-  children,
+  darkMode = false,
+  children = false,
 }) => {
   twStore.set(stripTailwindClasses);
 
@@ -37,11 +27,8 @@ const Config: React.FC<ConfigProps> = ({
 
   return (
     <ConfigProvider
-      apiKey={apiKey}
-      username={username}
-      mapAccessToken={mapAccessToken}
-      mapDefaultCoords={mapDefaultCoords || DEFAULT_MAP_COORDS}
       darkMode={darkMode}
+      stripTailwindClasses={stripTailwindClasses}
     >
       {children}
     </ConfigProvider>

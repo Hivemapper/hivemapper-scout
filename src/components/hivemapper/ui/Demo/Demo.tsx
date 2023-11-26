@@ -90,14 +90,7 @@ const Demo: React.FC<DemoProps> = ({
   };
 
   return (
-    <Config
-      mapAccessToken={mapAccessToken}
-      mapDefaultCoords={mapDefaultCoords}
-      apiKey={apiKey}
-      username={username}
-      darkMode={!!darkMode}
-      stripTailwindClasses={!!stripTailwindClasses}
-    >
+    <Config darkMode={!!darkMode} stripTailwindClasses={!!stripTailwindClasses}>
       <Container activeView={activeView}>
         <Filters locations={locations} setFilters={setFilters} />
         <View>
