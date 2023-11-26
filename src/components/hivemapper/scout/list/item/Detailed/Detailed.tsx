@@ -52,7 +52,7 @@ const Detailed: React.FC<DetailedProps> = ({
         for (const week of weeks) {
           const data: { frames: Frame[] } | { error: Error } =
             await getImagesForPolygon(
-              location.searchShape.coordinates,
+              location.geojson.coordinates,
               week,
               encodedCredentials,
             );
@@ -79,7 +79,7 @@ const Detailed: React.FC<DetailedProps> = ({
 
       fetchImagery();
     }
-  }, [inView, location.searchShape.coordinates]);
+  }, [inView, location.geojson.coordinates]);
 
   return (
     <div ref={ref} className={cn.detailedItemWrapper()}>

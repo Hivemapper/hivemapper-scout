@@ -66,7 +66,7 @@ const Imagery: React.FC<Props> = ({
 
       for (const week of weeks) {
         const data = await getImagesForPolygon(
-          location.searchShape.coordinates,
+          location.geojson.coordinates,
           week,
           encodedCredentials,
         );
@@ -91,7 +91,7 @@ const Imagery: React.FC<Props> = ({
     };
 
     fetchImagery();
-  }, [setApiCallsComplete, location.searchShape.coordinates]);
+  }, [setApiCallsComplete, location.geojson.coordinates]);
 
   useEffect(() => {
     const divElement = divRef.current;
@@ -126,8 +126,6 @@ const Imagery: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    console.log("activeSequenceIndex: ", activeSequenceIndex);
-    console.log("isFirstRender: ", isFirstRender.current);
     if (activeSequenceIndex === 0 && isFirstRender.current) {
       isFirstRender.current = false;
       return;

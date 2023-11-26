@@ -2,14 +2,14 @@ import twStore, { cn } from "@utils/helpers";
 
 export const detailedItemWrapper = () =>
   cn(
-    { "flex p-4 border-b border-b-1 min-h-[222px]": !twStore.get() },
+    { "flex p-4 border-b border-b-1 min-h-[222px] text-left": !twStore.get() },
     "hm-detailed-item-wrapper",
   );
 export const detailedItemLeftSection = () =>
   cn({ "w-1/3": !twStore.get() }, "hm-detailed-item-left-section");
 export const detailedItemLocation = () =>
   cn(
-    { "text-2xl font-semibold tracking-tight text-left": !twStore.get() },
+    { "text-2xl font-semibold tracking-tight": !twStore.get() },
     "hm-detailed-item-location",
   );
 export const detailedItemDescription = () =>

@@ -5,7 +5,6 @@ import List from "@components/hivemapper/scout/list";
 import ViewSelector from "@components/hivemapper/ui/ViewSelector";
 import View from "@components/hivemapper/ui/View";
 import Map from "@components/hivemapper/scout/maps/Map";
-import { ListType } from "types/list";
 import { FiltersState } from "types/filter";
 import { filterLocations } from "@utils/filter";
 import { ScoutLocation } from "types/location";
@@ -31,6 +30,7 @@ const Demo: React.FC<DemoProps> = ({
   stripTailwindClasses,
   mapAccessToken,
   mapDefaultCoords,
+  mapStyle,
   apiKey,
   username,
 }) => {
@@ -64,6 +64,7 @@ const Demo: React.FC<DemoProps> = ({
             mapDefaultCoords={mapDefaultCoords}
             locations={filteredLocations}
             selectionCallback={selectionCallback}
+            mapStyle={mapStyle}
           />
         );
       case Views.Thumbnail:

@@ -27,7 +27,7 @@ const MAP_GEOJSON_LAYER = "map-geojson-hm-layer";
 const MAP_GEOJSON_STROKE = "map-geojson-hm-stroke";
 const MAP_GEOJSON_SOURCE = "map-geojson-hm-source";
 
-interface MapProps {
+export interface MapProps {
   locations: ScoutLocation[];
   mapAccessToken: string;
   mapDefaultCoords?: LngLatLike;

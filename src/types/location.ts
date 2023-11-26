@@ -1,18 +1,12 @@
 export interface ScoutLocation {
   _id: string;
-  disabledAt: null;
   geojson: {
     type: string;
     coordinates: number[][][];
   };
   name: string;
   description?: string;
-  tags: string[];
-  owner: string;
-  searchShape: {
-    type: string;
-    coordinates: number[][][];
-  };
+  tags?: string[];
 }
 
 export interface Frame {
