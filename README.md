@@ -23,13 +23,11 @@ pnpm add @hivemapper/scout
 
 ## Before Getting Started
 
-Before using the Scout SDK, ensure you have the following:
+Before using the Scout, ensure you have the following:
 
 - **Mapbox Access Token:** Necessary for map rendering and geospatial functionalities. Obtain it from [Mapbox](https://www.mapbox.com/).
 - **Hivemapper Username:** Your unique username for logging into Hivemapper. Visit [Hivemapper Login](https://www.hivemapper.com/login).
 - **Hivemapper API Key:** Essential for authenticating with the Hivemapper API. Generate this key on the [Hivemapper Developer Page](https://www.hivemapper.com/developer/map-image-api).
-
-Having these elements ready is crucial for integrating with the Scout SDK.
 
 ## Locations Dataset Format
 
@@ -151,5 +149,6 @@ The `useConfig` hook provides a convenient way to access configuration settings 
 Example usage:
 
 ```typescript
+// Component must be within the scope of the Config component
 const { darkMode, stripTailwindClasses } = useConfig();
 ```
