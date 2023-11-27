@@ -45,6 +45,63 @@ export interface ScoutLocation {
   tags?: string[];         // Optional array of tags
 }
 ```
+<details>
+  <summary>Example dataset</summary>
+
+  ```typescript
+  import { ScoutLocation } from '@hivemapper/scout';
+
+  const locations: ScoutLocation[] = [
+    {
+      _id: 'location_1',
+      geojson: {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [-97.74848379487175, 30.269797133209707],
+            [-97.74825643127735, 30.269797133209707],
+            [-97.74825643127735, 30.26940440211014],
+            [-97.7486149661761, 30.269464822381238],
+            [-97.74862371092993, 30.26963097793636], 
+            [-97.74848379487175, 30.269797133209707],
+          ],
+        ],
+      },
+      name: '6th Street',
+      description: 'Sewer excavation construction site',
+      tags: ['sidewalk', 'bike path'],
+    },
+    {
+      _id: 'location_2',
+      geojson: {
+        type: 'Polygon',
+        coordinates: [
+          [
+            [-97.76030405541717, 30.29320863703245],
+            [-97.75940735917186, 30.292273071825477],
+            [-97.76007988135585, 30.290853576539803],
+            [-97.76090185291376, 30.29182141646328],
+            [-97.76030405541717, 30.29320863703245],
+          ],
+        ],
+      },
+      name: 'North Mopac Expressway',
+      description: 'Overpass renovation site',
+      tags: ['right lane'],
+    },
+  ]
+  ```
+</details>
+
+## Styles
+
+The Scout UI library utilizes [Tailwind CSS](https://tailwindcss.com/) and [Shadcn](https://shadcn.com/) for styling. To use the default styles provided by Scout, import the CSS file from the package into your app:
+
+```typescript
+import '@hivemapper/scout/index.css';
+```
+
+See the Config section for additional styling options.
 
 ## Using the Demo
 
@@ -75,6 +132,10 @@ After importing, you can integrate the Demo component into your application to e
 ## Scout UI Components
 
 Scout provides UI components which can be individually integrated into your application as needed.
+
+```typescript
+import { Location, Map, List } from '@hivemapper/scout';
+```
 
 <details>
   <summary>Location</summary>
@@ -117,16 +178,6 @@ Scout provides UI components which can be individually integrated into your appl
   ```
 </details>
 
-## Styles
-
-The Scout UI library utilizes [Tailwind CSS](https://tailwindcss.com/) and [Shadcn](https://shadcn.com/) for styling. To use the default styles provided by Scout, import the CSS file from the package:
-
-```typescript
-import '@hivemapper/scout/index.css';
-```
-
-See the Config section for additional styling options.
-
 ## Config
 
 The `Config` Higher Order Component in Scout allows for additional configuration options:
@@ -146,7 +197,7 @@ Usage:
 
 The `useConfig` hook provides a convenient way to access configuration settings within the scope of the `Config` Higher Order Component. This hook can be used throughout your application to retrieve and utilize the current configuration.
 
-Example usage:
+Usage:
 
 ```typescript
 // Component must be within the scope of the Config component
