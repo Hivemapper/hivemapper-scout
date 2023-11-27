@@ -1,5 +1,5 @@
 # Hivemapper Scout
-Scout is a UI Library for Geospatial Imagery Visualization. It enables users to input a dataset of locations and seamlessly integrate with Hivemapper to display associated geospatial imagery. Whether for urban planning, environmental monitoring, geographic research and more, Scout provides fresh geospacial imagery.
+Scout is a UI Library for geospatial imagery visualization of Hivemapper's map data. It enables users to input a dataset of locations and seamlessly integrate with Hivemapper's Map Image API to display the associated imagery. Whether for urban planning, environmental monitoring, geographic research or other location tracking use cases, the Scout UI Library is the easiest way to plug into fresh geospatial imagery.
 
 ## Installation
 
