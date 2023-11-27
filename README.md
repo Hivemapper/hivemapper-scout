@@ -37,7 +37,7 @@ The locations dataset for Scout should be an array of `ScoutLocation` objects. E
 export interface ScoutLocation {
   _id: string;             // Unique identifier
   geojson: {               // Geospatial data in GeoJSON format
-    type: string;          // Type of GeoJSON object
+    type: 'Polygon';          // Type of GeoJSON object
     coordinates: number[][][]; // Coordinates array
   };
   name: string;            // Location name
