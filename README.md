@@ -28,6 +28,8 @@ Before using Scout, ensure you have the following:
 - **Mapbox Access Token:** Necessary for map rendering and geospatial functionalities. Obtain it from [Mapbox](https://www.mapbox.com/).
 - **Hivemapper Username:** Your unique username for logging into Hivemapper. Visit [Hivemapper Login](https://www.hivemapper.com/login).
 - **Hivemapper API Key:** Essential for authenticating with the Hivemapper API. Generate this key on the [Hivemapper Developer Page](https://www.hivemapper.com/developer/map-image-api).
+- **API Credits:** These are required to use Hivemapper APIs. Please [contact us](mailto:sales@hivemapper.com) and we will provide you some free credits to get started with Scout.
+
 
 ## Locations Dataset Format
 
