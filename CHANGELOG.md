@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.21
+
+### Patch Changes
+
+- b7c8521: Map color changes, Responsiveness
+
 ## 0.0.20
 
 ### Patch Changes
