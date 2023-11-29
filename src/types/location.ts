@@ -1,7 +1,7 @@
 export interface ScoutLocation {
   _id: string;
   geojson: {
-    type: string;
+    type: 'Polygon';
     coordinates: number[][][];
   };
   name: string;

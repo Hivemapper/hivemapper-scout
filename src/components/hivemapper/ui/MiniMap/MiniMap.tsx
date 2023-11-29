@@ -37,12 +37,12 @@ const MINIMAP_ACTIVE_FRAME_LAYER = "minimap-active-frame-hm-layer";
 const MINIMAP_ACTIVE_FRAME_OUTLINE = "minimap-active-frame-hm-outline";
 const MINIMAP_ACTIVE_FRAME_SOURCE = "minimap-active-frame-hm-source";
 
-interface Props {
+interface MiniMapProps {
   mapStyle?: string;
   mapAccessToken: string;
   center: number[];
   geometry: {
-    type: "Polygon" | "Feature";
+    type: "Feature";
     geometry: {
       type: string;
       coordinates: number[][][];
@@ -55,7 +55,7 @@ interface Props {
   apiCallsComplete: boolean;
 }
 
-const MiniMap: React.FC<Props> = ({
+const MiniMap: React.FC<MiniMapProps> = ({
   mapStyle,
   mapAccessToken,
   center,
@@ -201,8 +201,9 @@ const MiniMap: React.FC<Props> = ({
           source: source,
           layout: {},
           paint: {
-            "line-color": palette.map.frame.background,
+            "line-color": palette.map.frame.default.background,
             "line-width": 2,
+            "line-opacity": 0.5,
           },
         },
       ];
@@ -238,10 +239,10 @@ const MiniMap: React.FC<Props> = ({
         source: MINIMAP_DOTS_SOURCE,
         layout: {},
         paint: {
-          "circle-color": palette.map.frame.background,
+          "circle-color": palette.map.frame.default.foreground,
           "circle-radius": 3,
           "circle-stroke-width": 2,
-          "circle-stroke-color": palette.map.frame.foreground,
+          "circle-stroke-color": palette.map.frame.default.background,
         },
       },
     ];
@@ -322,7 +323,7 @@ const MiniMap: React.FC<Props> = ({
         source: MINIMAP_ACTIVE_LINE_SOURCE,
         layout: {},
         paint: {
-          "line-color": palette.map.frame.foreground,
+          "line-color": palette.map.frame.active.background,
           "line-width": 2,
         },
       },
@@ -332,10 +333,10 @@ const MiniMap: React.FC<Props> = ({
         source: MINIMAP_ACTIVE_DOTS_SOURCE,
         layout: {},
         paint: {
-          "circle-color": palette.map.frame.foreground,
+          "circle-color": palette.map.frame.active.foreground,
           "circle-radius": 3,
           "circle-stroke-width": 2,
-          "circle-stroke-color": palette.map.frame.accent,
+          "circle-stroke-color": palette.map.frame.active.background,
         },
       },
     ];
@@ -385,7 +386,7 @@ const MiniMap: React.FC<Props> = ({
         source: MINIMAP_ACTIVE_FRAME_SOURCE,
         layout: {},
         paint: {
-          "circle-color": palette.map.frame.accent,
+          "circle-color": palette.map.frame.active.background,
           "circle-radius": 8,
         },
       },
@@ -395,10 +396,10 @@ const MiniMap: React.FC<Props> = ({
         source: MINIMAP_ACTIVE_FRAME_SOURCE,
         layout: {},
         paint: {
-          "circle-color": palette.map.frame.accent,
+          "circle-color": palette.map.frame.active.background,
           "circle-radius": 4,
           "circle-stroke-width": 2,
-          "circle-stroke-color": palette.map.frame.foreground,
+          "circle-stroke-color": palette.map.frame.active.foreground,
         },
       },
     ];

@@ -4,7 +4,7 @@ export const filterWrapper = () =>
   cn({ "flex w-full justify-between": !twStore.get() }, "hm-filter-wrapper");
 
 export const filterSection = () =>
-  cn({ flex: !twStore.get() }, "hm-filter-section");
+  cn({ "flex flex-col md:flex-row": !twStore.get() }, "hm-filter-section");
 
 export const filterDropdown = () =>
-  cn({ "mr-2": !twStore.get() }, "hm-filter-dropdown");
+  cn({ "pb-3 mr-2 md:pb-0": !twStore.get() }, "hm-filter-dropdown");

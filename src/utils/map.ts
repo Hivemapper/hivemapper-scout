@@ -18,8 +18,6 @@ import {
   SourceOptions,
 } from "types/map";
 
-export const DEFAULT_MAP_COORDS = [-122.431297, 37.773972] as LngLatLike; // San Francisco
-
 export let mapAccessToken: string = "";
 
 export const setMapAccessToken = (accessToken: string) => {

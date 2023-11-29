@@ -1,7 +1,7 @@
 import twStore, { cn } from "@utils/helpers";
 
 export const searchWrapper = () =>
-  cn({ "relative min-w-[30%]": !twStore.get() }, "hm-search-wrapper");
+  cn({ "relative min-w-[30%] h-[35px]": !twStore.get() }, "hm-search-wrapper");
 export const searchClear = (value: string) =>
   cn(
     {

@@ -65,9 +65,14 @@ module.exports = {
       foreground: "#FF9B0F",
     },
     frame: {
-      background: "#91BCFD",
-      foreground: "#3D87F7",
-      accent: "#1E498A",
+      active: {
+        background: "#1E498A",
+        foreground: "#FFFFFF",
+      },
+      default: {
+        background: "#8F9296",
+        foreground: "#E6E6E6",
+      }
     },
   },
 };

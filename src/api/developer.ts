@@ -4,7 +4,7 @@ export const getImagesForPolygon = async (
   encodedCredentials: string,
 ) => {
   try {
-    const url = `https://hivemapper.com/api/scout/imagery/poly${
+    const url = `https://hivemapper.com/api/developer/imagery/poly${
       day ? `?week=${day}` : ""
     }`;
 

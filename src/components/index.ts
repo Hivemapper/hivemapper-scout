@@ -1,9 +1,7 @@
 import Config from "./hivemapper/hoc/Config";
 
-import Imagery from "./hivemapper/scout/imagery";
 import Location from "./hivemapper/scout/location";
 import Map from "./hivemapper/scout/maps/Map";
-import MiniMap from "./hivemapper/scout/maps/MiniMap";
 import List from "./hivemapper/scout/list";
 
 import Carousel from "./hivemapper/ui/Carousel";
@@ -11,7 +9,9 @@ import Container from "./hivemapper/ui/Container";
 import Demo from "./hivemapper/ui/Demo";
 import Dropdown from "./hivemapper/ui/Dropdown";
 import Filters from "./hivemapper/ui/Filters";
+import Imagery from "./hivemapper/ui/Imagery";
 import Input from "./hivemapper/ui/Input";
+import MiniMap from "./hivemapper/ui/MiniMap";
 import Modal from "./hivemapper/ui/Modal";
 import Pagination from "./hivemapper/ui/Pagination";
 import Search from "./hivemapper/ui/Search";
@@ -24,7 +24,7 @@ import ViewSelector from "./hivemapper/ui/ViewSelector";
 export { Config };
 
 // Scout components
-export { Imagery, Location, Map, MiniMap, List };
+export { Location, Map, List };
 
 // UI components
 export {
@@ -33,7 +33,9 @@ export {
   Demo,
   Dropdown,
   Filters,
+  Imagery,
   Input,
+  MiniMap,
   Modal,
   Pagination,
   Search,

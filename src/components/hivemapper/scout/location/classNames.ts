@@ -2,7 +2,7 @@ import twStore, { cn } from "@utils/helpers";
 
 export const locationWrapper = () =>
   cn(
-    { "bg-black-100 rounded-md mx-1 px-3 py-3 mt-0": !twStore.get() },
+    { "bg-background rounded-md mx-1 px-3 py-3 mt-0": !twStore.get() },
     "hm-location-wrapper",
   );
 
@@ -29,7 +29,8 @@ export const locationDescription = () =>
 export const locationCentroid = () =>
   cn(
     {
-      "text-md font-medium tracking-normal text-blue-400 mt-2": !twStore.get(),
+      "hidden md:flex text-md font-medium tracking-normal text-blue-400 mt-2":
+        !twStore.get(),
     },
     "hm-location-centroid",
   );
@@ -66,18 +67,30 @@ export const locationLastMappedDateText = () =>
 
 export const locationCollectionsImages = () =>
   cn(
-    { "text-base font-bold tracking-normal": !twStore.get() },
+    {
+      "text-right md:text-left text-base font-bold tracking-normal":
+        !twStore.get(),
+    },
     "hm-location-collections-images",
   );
 
 export const locationSectionBottom = () =>
-  cn({ "flex w-full mt-2": !twStore.get() }, "hm-location-section-bottom");
+  cn(
+    { "flex flex-col w-full md:flex-row mt-2": !twStore.get() },
+    "hm-location-section-bottom",
+  );
 
 export const locationMiniMap = () =>
   cn(
-    { [`relative flex flex-col w-2/5 min-h-[545px] pr-3`]: !twStore.get() },
+    {
+      [`relative h-[25vh] pb-3 w-full md:w-2/5 md:h-[60vh] md:pb-0 md:pr-3`]:
+        !twStore.get(),
+    },
     "hm-location-mini-map",
   );
 
 export const locationImagery = () =>
-  cn({ "flex flex-wrap w-3/5": !twStore.get() }, "hm-location-imagery");
+  cn(
+    { "flex h-[40vh] flex-wrap w-full md:h-[60vh] md:w-3/5": !twStore.get() },
+    "hm-location-imagery",
+  );

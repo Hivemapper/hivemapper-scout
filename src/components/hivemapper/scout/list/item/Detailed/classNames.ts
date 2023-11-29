@@ -2,7 +2,10 @@ import twStore, { cn } from "@utils/helpers";
 
 export const detailedItemWrapper = () =>
   cn(
-    { "flex p-4 border-b border-b-1 min-h-[222px] text-left": !twStore.get() },
+    {
+      "flex bg-background p-4 border-b border-b-1 min-h-[222px] text-left":
+        !twStore.get(),
+    },
     "hm-detailed-item-wrapper",
   );
 export const detailedItemLeftSection = () =>
@@ -21,6 +24,8 @@ export const detailedItemDescription = () =>
   );
 export const detailedItemTags = () =>
   cn({ "mt-2": !twStore.get() }, "hm-detailed-item-tags");
+export const detailedItemTag = () =>
+  cn({ "mr-1": !twStore.get() }, "hm-detailed-item-tag");
 export const detailedItemCentroid = () =>
   cn(
     {
@@ -57,7 +62,10 @@ export const detailedItemThumbnailSection = () =>
   );
 export const detailedItemThumbnail = (isLast: boolean) =>
   cn(
-    { [`min-w-[30%] ${isLast ? "mr-0" : "mr-2"}`]: !twStore.get() },
+    {
+      [`min-w-[60%] md:min-w-[30%] ${isLast ? "mr-0" : "mr-2"}`]:
+        !twStore.get(),
+    },
     "hm-detailed-item-thumbnail",
   );
 export const detailedItemNullState = () =>

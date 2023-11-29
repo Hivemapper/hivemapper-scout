@@ -27,7 +27,10 @@ interface Palette {
   dark: ColorSettings;
   map: {
     location: ColorSettings;
-    frame: ColorSettings;
+    frame: {
+      active: ColorSettings;
+      default: ColorSettings
+    }
   };
 }
 

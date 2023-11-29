@@ -1,12 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import turf from "@turf/centroid";
-import MiniMap from "@components/hivemapper/scout/maps/MiniMap";
-import Imagery from "@components/hivemapper/scout/imagery";
+import MiniMap from "@components/hivemapper/ui/MiniMap";
+import Imagery from "@components/hivemapper/ui/Imagery";
 import Modal from "@components/hivemapper/ui/Modal";
 import { ScoutLocation, Frame } from "types/location";
 import DotIcon from "@components/icons/Dot";
 import { monthDayTime, prettyDate } from "@utils/dates";
 import * as cn from "./classNames";
+import useDisableBackSwipe from "@hooks/useDisableBackSwipe";
 
 export interface LocationProps {
   location: ScoutLocation;
@@ -30,6 +31,8 @@ const Location: React.FC<LocationProps> = ({
   const [apiCallsComplete, setApiCallsComplete] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [framesLength, setFramesLength] = useState(0);
+
+  useDisableBackSwipe();
 
   const latestSequence = sortedSequences[0] || [];
   const lastFrame: Frame | undefined =

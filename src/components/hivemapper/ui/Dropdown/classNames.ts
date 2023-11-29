@@ -1,7 +1,7 @@
 import twStore, { cn } from "@utils/helpers";
 
 export const buttonWrapper = () =>
-  cn({ "w-[200px] justify-between": !twStore.get() }, "hm-button-wrapper");
+  cn({ "min-w-[200px] justify-between": !twStore.get() }, "hm-button-wrapper");
 
 export const buttonChevron = () =>
   cn(
@@ -19,4 +19,4 @@ export const buttonCheckmark = (isActive: boolean) =>
   );
 
 export const buttonPopover = () =>
-  cn({ "w-[200px] p-0": !twStore.get() }, "hm-button-popover");
+  cn({ "min-w-[200px] p-0": !twStore.get() }, "hm-button-popover");

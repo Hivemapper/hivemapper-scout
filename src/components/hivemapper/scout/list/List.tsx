@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import Pagination from "@components/hivemapper/ui/Pagination";
 import Detailed from "./item/Detailed/Detailed";
 import { ScoutLocation } from "types/location";
+import useDisableBackSwipe from "@hooks/useDisableBackSwipe";
+import * as cn from "./classNames";
 
 export interface ListProps {
   apiKey: string;
@@ -22,6 +24,8 @@ const List: React.FC<ListProps> = ({
 
   const scrollToRef = useRef<HTMLDivElement>(null);
 
+  useDisableBackSwipe();
+
   const encodedCredentials = btoa(`${username}:${apiKey}`);
 
   const currentLocations = locations.slice(
@@ -39,7 +43,7 @@ const List: React.FC<ListProps> = ({
   };
 
   return (
-    <div ref={scrollToRef}>
+    <div ref={scrollToRef} className={cn.listWrapper()}>
       {currentLocations.map((location) => {
         return (
           <Detailed

@@ -90,7 +90,12 @@ const Detailed: React.FC<DetailedProps> = ({
         </div>
         <div className={cn.detailedItemTags()}>
           {location.tags.map((tag, index) => (
-            <Badge key={`${tag}_${index.toString()}`}>{tag}</Badge>
+            <Badge
+              key={`${tag}_${index.toString()}`}
+              className={cn.detailedItemTag()}
+            >
+              {tag}
+            </Badge>
           ))}
         </div>
         {centroid && (
