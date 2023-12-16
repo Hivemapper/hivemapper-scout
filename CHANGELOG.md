@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.22
+
+### Patch Changes
+
+- a623c29: Zoomed out view, default location, bug fixes
+
 ## 0.0.21
 
 ### Patch Changes
