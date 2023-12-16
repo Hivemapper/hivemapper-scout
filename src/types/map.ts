@@ -1,4 +1,3 @@
-import { id } from "date-fns/locale";
 import {
   GeoJSONSourceSpecification,
   LngLatLike,
@@ -11,25 +10,11 @@ export enum EventTypes {
   MOUSE_LEAVE = "mouseleave",
 }
 
-export interface BoundEvents {
-  [EventTypes.CLICK]: {
-    [key: string]: boolean;
-  };
-  [EventTypes.MOUSE_ENTER]: {
-    [key: string]: boolean;
-  };
-  [EventTypes.MOUSE_LEAVE]: {
-    [key: string]: boolean;
-  };
-}
-
-export type EventKeys = keyof BoundEvents;
-
 export interface InitializationParams {
   mapContainer: HTMLDivElement;
   mapDefaultCoords?: LngLatLike;
   onLoadCallback: (newMap: MlMap) => void;
-  zoom?: number;
+  zoom: number;
   mapStyle?: string;
 }
 

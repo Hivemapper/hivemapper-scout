@@ -81,6 +81,7 @@ const MiniMap: React.FC<MiniMapProps> = ({
         mapContainer: mapContainer.current,
         mapDefaultCoords: center as LngLatLike,
         onLoadCallback: (newMap) => setMap(newMap),
+        zoom: 13,
         mapStyle,
       });
     }

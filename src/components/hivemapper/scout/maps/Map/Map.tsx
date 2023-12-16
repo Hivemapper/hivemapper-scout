@@ -1,11 +1,5 @@
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import turf from "@turf/centroid";
 import maplibre, {
   AddLayerObject,
   LngLatLike,
@@ -23,6 +17,8 @@ import { ScoutLocation } from "types/location";
 import { SourceOptions } from "types/map";
 import * as cn from "./classNames";
 
+const MAP_CENTROID_LAYER = "map-centroid-hm-layer";
+const MAP_CENTROID_SOURCE = "map-centroid-hm-source";
 const MAP_GEOJSON_LAYER = "map-geojson-hm-layer";
 const MAP_GEOJSON_STROKE = "map-geojson-hm-stroke";
 const MAP_GEOJSON_SOURCE = "map-geojson-hm-source";
@@ -64,6 +60,7 @@ const Map: React.FC<MapProps> = ({
         mapContainer: mapContainer.current,
         mapDefaultCoords,
         onLoadCallback: (newMap) => setMap(newMap),
+        zoom: 3,
         mapStyle,
       });
     }
@@ -73,8 +70,8 @@ const Map: React.FC<MapProps> = ({
     if (map) {
       clearStaticLayersAndSources(
         map,
-        [MAP_GEOJSON_LAYER, MAP_GEOJSON_STROKE],
-        [MAP_GEOJSON_SOURCE],
+        [MAP_GEOJSON_LAYER, MAP_GEOJSON_STROKE, MAP_CENTROID_LAYER],
+        [MAP_GEOJSON_SOURCE, MAP_CENTROID_SOURCE],
       );
 
       const featureCollection = {
@@ -88,12 +85,40 @@ const Map: React.FC<MapProps> = ({
         })),
       };
 
+      const centroidCollection = {
+        type: "FeatureCollection",
+        features: locations.map((location) => {
+          const centroid = turf(location.geojson);
+          return {
+            type: "Feature",
+            properties: {
+              id: location._id,
+            },
+            geometry: {
+              type: "Point",
+              coordinates: [
+                centroid.geometry.coordinates[0],
+                centroid.geometry.coordinates[1],
+              ],
+            },
+          };
+        }),
+      };
+
       const sourceOptions: SourceOptions[] = [
         {
           id: MAP_GEOJSON_SOURCE,
           options: {
             type: "geojson",
             data: featureCollection,
+            promoteId: "id",
+          },
+        },
+        {
+          id: MAP_CENTROID_SOURCE,
+          options: {
+            type: "geojson",
+            data: centroidCollection,
             promoteId: "id",
           },
         },
@@ -104,6 +129,7 @@ const Map: React.FC<MapProps> = ({
           id: MAP_GEOJSON_LAYER,
           type: "fill",
           source: MAP_GEOJSON_SOURCE,
+          minzoom: 13,
           layout: {},
           paint: {
             "fill-color": palette.map.location.foreground,
@@ -114,16 +140,35 @@ const Map: React.FC<MapProps> = ({
           id: MAP_GEOJSON_STROKE,
           type: "line",
           source: MAP_GEOJSON_SOURCE,
+          minzoom: 13,
           layout: {},
           paint: {
             "line-color": palette.map.location.foreground,
             "line-width": 2,
           },
         },
+        {
+          id: MAP_CENTROID_LAYER,
+          type: "circle",
+          source: MAP_CENTROID_SOURCE,
+          minzoom: 0,
+          maxzoom: 13,
+          layout: {},
+          paint: {
+            "circle-color": palette.map.location.foreground,
+            "circle-radius": 4,
+            "circle-opacity": 0.75,
+            "circle-pitch-scale": "viewport",
+          },
+        },
       ];
 
       createLayersAndSources(map, mapLayersOptions, sourceOptions);
-      handleBoundEvents(map, MAP_GEOJSON_LAYER, selectionCallback);
+      handleBoundEvents(
+        map,
+        [MAP_GEOJSON_LAYER, MAP_CENTROID_LAYER],
+        selectionCallback,
+      );
     }
   }, [map, locations]);
 

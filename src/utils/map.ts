@@ -10,13 +10,7 @@ import {
   isMapboxURL,
   transformMapboxUrl,
 } from "maplibregl-mapbox-request-transformer";
-import {
-  BoundEvents,
-  EventKeys,
-  EventTypes,
-  InitializationParams,
-  SourceOptions,
-} from "types/map";
+import { EventTypes, InitializationParams, SourceOptions } from "types/map";
 
 export let mapAccessToken: string = "";
 
@@ -36,12 +30,6 @@ export const transformRequest = (url: string, resourceType?: ResourceType) => {
   }
 
   return { url };
-};
-
-const boundEvents: BoundEvents = {
-  click: {},
-  mouseenter: {},
-  mouseleave: {},
 };
 
 const triggerEvent = (
@@ -70,19 +58,15 @@ const triggerEvent = (
 
 export const handleBoundEvents = (
   map: MlMap,
-  layer: string,
+  layers: string[],
   clickCallback?: (id: string | number) => void,
 ) => {
-  Object.keys(boundEvents).forEach((eventType) => {
-    const eventKey = eventType as EventKeys;
-
-    if (!boundEvents[eventKey][layer]) {
-      boundEvents[eventKey][layer] = true;
-
-      map.on(eventKey, layer, (e) => {
-        triggerEvent(e, eventKey, map, clickCallback);
+  Object.values(EventTypes).forEach((eventType) => {
+    layers.forEach((layer) => {
+      map.on(eventType, layer, (e) => {
+        triggerEvent(e, eventType, map, clickCallback);
       });
-    }
+    });
   });
 };
 
@@ -153,8 +137,8 @@ export const initializeMap = ({
   const newMap = new maplibre.Map({
     container: mapContainer,
     style: mapStyle || "mapbox://styles/arielseidman/cln9moj49001l01ps0ptk99mp",
-    center: mapDefaultCoords as LngLatLike,
-    zoom: zoom || 12,
+    center: (mapDefaultCoords as LngLatLike) || [-95.3436058, 39.7916545],
+    zoom,
     transformRequest,
     maxPitch: 0,
     attributionControl: false,
