@@ -12,6 +12,8 @@ import {
 } from "maplibregl-mapbox-request-transformer";
 import { EventTypes, InitializationParams, SourceOptions } from "types/map";
 
+const DEFAULT_COORDS: LngLatLike = [-95.27, 34.43];
+
 export let mapAccessToken: string = "";
 
 export const setMapAccessToken = (accessToken: string) => {
@@ -136,8 +138,8 @@ export const initializeMap = ({
 }: InitializationParams) => {
   const newMap = new maplibre.Map({
     container: mapContainer,
-    style: mapStyle || "mapbox://styles/arielseidman/cln9moj49001l01ps0ptk99mp",
-    center: (mapDefaultCoords as LngLatLike) || [-95.3436058, 39.7916545],
+    style: mapStyle || "mapbox://styles/arielseidman/clq1gyyxm00kv01r7e2hb9q3l",
+    center: (mapDefaultCoords as LngLatLike) || DEFAULT_COORDS,
     zoom,
     transformRequest,
     maxPitch: 0,

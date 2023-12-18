@@ -23,6 +23,8 @@ const MAP_GEOJSON_LAYER = "map-geojson-hm-layer";
 const MAP_GEOJSON_STROKE = "map-geojson-hm-stroke";
 const MAP_GEOJSON_SOURCE = "map-geojson-hm-source";
 
+const DEFAULT_ZOOM = 3.84;
+
 export interface MapProps {
   locations: ScoutLocation[];
   mapAccessToken: string;
@@ -60,7 +62,7 @@ const Map: React.FC<MapProps> = ({
         mapContainer: mapContainer.current,
         mapDefaultCoords,
         onLoadCallback: (newMap) => setMap(newMap),
-        zoom: 3,
+        zoom: DEFAULT_ZOOM,
         mapStyle,
       });
     }
