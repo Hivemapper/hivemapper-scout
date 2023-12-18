@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.23
+
+### Patch Changes
+
+- c646512: Cosmetic changes to map
+
 ## 0.0.22
 
 ### Patch Changes
