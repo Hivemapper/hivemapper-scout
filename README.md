@@ -1,6 +1,30 @@
 # Hivemapper Scout
 Scout is a React UI Library for geospatial imagery visualization of Hivemapper's map data. It enables users to input a dataset of locations and seamlessly integrate with Hivemapper's Map Image API to display the associated imagery. Whether for navigation and logistics, urban planning, geographic research or other location monitoring use cases, the Scout UI Library is the easiest way to plug into the world's freshest street-level imagery.
 
+The Scout UI library is made of up different components that enable you to quickly interact with fresh geo-located imagery.  Examples of these UI components are shown below:
+
+#### `Location`	
+Everytime a locations is mapped, a new collection appears enabling you to travel in time across that location.
+
+![component UI](https://github.com/Hivemapper/hivemapper-scout/assets/3408732/3126f007-10a3-49c4-9bf1-c30a538bb29f)
+
+#### `Location - Expanded List`	
+Quickly glance at many locations at once.
+
+![hivemapper scout list expanded](https://github.com/Hivemapper/hivemapper-scout/assets/3408732/49128c3e-b5fb-48a0-8fcf-764f91a2833a)
+
+#### `Location - List`	
+Manage and upload locations.
+
+![location-scout-list](https://github.com/Hivemapper/hivemapper-scout/assets/3408732/93b43131-fa10-4342-b7af-91fded2f54ef)
+
+
+#### `Locations - Map`	
+Monitor locations from a map interace and review key metrics.
+
+![location-map](https://github.com/Hivemapper/hivemapper-scout/assets/3408732/f380a51c-058c-4e57-b645-a03961d86855)
+
+
 ## Installation
 
 npm:
@@ -26,9 +50,9 @@ pnpm add @hivemapper/scout
 Before using Scout, ensure you have the following:
 
 - **Mapbox Access Token:** Necessary for map rendering and geospatial functionalities. Obtain it from [Mapbox](https://www.mapbox.com/).
-- **Hivemapper Username:** Your unique username for logging into Hivemapper. Visit [Hivemapper Login](https://www.hivemapper.com/login).
+- **Hivemapper Username:** Your unique username for logging into Hivemapper. Visit [Hivemapper Login](https://hivemapper.com/map-data-console).
 - **Hivemapper API Key:** Essential for authenticating with the Hivemapper API. Generate this key on the [Hivemapper Developer Page](https://www.hivemapper.com/developer/map-image-api).
-- **API Credits:** These are required to use Hivemapper APIs. Please [contact us](mailto:sales@hivemapper.com) and we will provide you some free credits to get started with Scout.
+- **API Credits:** These are required to use Hivemapper APIs. To purchase credits, visit the [Hivemapper Console](https://hivemapper.com/map-data-console).
 
 
 ## Locations Dataset Format
