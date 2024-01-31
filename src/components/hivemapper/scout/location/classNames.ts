@@ -83,7 +83,7 @@ export const locationSectionBottom = () =>
 export const locationMiniMap = () =>
   cn(
     {
-      [`relative h-[25vh] pb-3 w-full md:w-2/5 md:h-[60vh] md:pb-0 md:pr-3`]:
+      [`relative h-[25vh] pb-3 w-full md:w-2/5 md:h-[62vh] md:pb-0 md:pr-3`]:
         !twStore.get(),
     },
     "hm-location-mini-map",
@@ -91,6 +91,8 @@ export const locationMiniMap = () =>
 
 export const locationImagery = () =>
   cn(
-    { "flex h-[40vh] flex-wrap w-full md:h-[60vh] md:w-3/5": !twStore.get() },
+    {
+      "flex h-[100%] md:h-[62vh] flex-wrap w-full md:w-3/5": !twStore.get(),
+    },
     "hm-location-imagery",
   );

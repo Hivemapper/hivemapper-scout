@@ -29,4 +29,5 @@ export enum Views {
   Map = "map",
   Location = "location",
   Thumbnail = "thumbnail",
+  Upload = "upload",
 }

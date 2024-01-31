@@ -7,14 +7,17 @@ import { Views } from "types/view";
 import palette from "@styles/palette";
 import { useConfig } from "@hooks/useConfig";
 import * as cn from "./classNames";
+import { Button } from "@components/shadcn/Button";
 export interface ViewSelectorProps {
   activeView: Views;
   setActiveView: Dispatch<SetStateAction<Views>>;
+  omitBottomBorder: boolean;
 }
 
 const ViewSelector: React.FC<ViewSelectorProps> = ({
   activeView,
   setActiveView,
+  omitBottomBorder,
 }) => {
   const { darkMode } = useConfig();
 
@@ -24,7 +27,7 @@ const ViewSelector: React.FC<ViewSelectorProps> = ({
       : palette[darkMode ? "dark" : "default"].accent;
 
   return (
-    <div className={cn.viewSelectorWrapper()}>
+    <div className={cn.viewSelectorWrapper(omitBottomBorder)}>
       <div className={cn.viewSelectorIconSection()}>
         <div
           className={cn.viewSelectorIcon()}
@@ -45,6 +48,7 @@ const ViewSelector: React.FC<ViewSelectorProps> = ({
           <SquareIcon color={isActive(Views.Location)} width={18} height={18} />
         </div>
       </div>
+      <Button onClick={() => setActiveView(Views.Upload)}>Upload</Button>
     </div>
   );
 };

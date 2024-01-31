@@ -1,5 +1,8 @@
+import { Coordinates } from "dist";
+
 export const getImagesForPolygon = async (
-  data: number[][][],
+  type: "Polygon" | "MultiPolygon",
+  data: Coordinates[] | Coordinates[][],
   day: string | null,
   encodedCredentials: string,
 ) => {
@@ -19,7 +22,7 @@ export const getImagesForPolygon = async (
       redirect: "follow",
       body: JSON.stringify({
         coordinates: data,
-        type: "Polygon",
+        type,
       }),
     });
     return response.json();
