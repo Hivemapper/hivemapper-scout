@@ -1,4 +1,4 @@
-import { Coordinates } from "dist";
+import { Coordinates } from "types/geojson";
 
 export const getImagesForPolygon = async (
   type: "Polygon" | "MultiPolygon",
