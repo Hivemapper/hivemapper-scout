@@ -56,6 +56,8 @@ export const processFile = (
         console.error("Error parsing GeoJSON:", error);
         onFailure(error.message);
       }
+    } else {
+      onFailure("Unsupported file type");
     }
   };
 
