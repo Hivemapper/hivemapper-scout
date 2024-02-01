@@ -18,7 +18,7 @@ import * as cn from "./classNames";
 
 export interface DetailedProps {
   location: ScoutLocation;
-  encodedCredentials: string;
+  encodedCredentials: string | null;
   selectionCallback?: (id: string | number) => void;
 }
 

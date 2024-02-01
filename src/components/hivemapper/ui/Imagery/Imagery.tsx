@@ -20,8 +20,8 @@ import Loader from "@components/icons/Loader";
 import * as cn from "./classNames";
 
 interface Props {
-  apiKey: string;
-  username: string;
+  apiKey?: string;
+  username?: string;
   location: ScoutLocation;
   sortedSequences: Frame[][] | null;
   setSortedSequences: Dispatch<SetStateAction<Frame[][] | null>>;
@@ -57,7 +57,10 @@ const Imagery: React.FC<Props> = ({
   const divRef: RefObject<HTMLDivElement> = useRef(null);
   const thumbnailRefs = useRef<Array<RefObject<HTMLDivElement>>>([]);
 
-  const encodedCredentials = btoa(`${username}:${apiKey}`);
+  let encodedCredentials: string | null = null;
+  if (apiKey && username) {
+    encodedCredentials = btoa(`${username}:${apiKey}`);
+  }
 
   useEffect(() => {
     const fetchImagery = async () => {

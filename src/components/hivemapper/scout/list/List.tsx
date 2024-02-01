@@ -6,8 +6,8 @@ import useDisableBackSwipe from "@hooks/useDisableBackSwipe";
 import * as cn from "./classNames";
 
 export interface ListProps {
-  apiKey: string;
-  username: string;
+  apiKey?: string;
+  username?: string;
   locations: ScoutLocation[];
   itemsPerPage?: number;
   selectionCallback?: (id: string | number) => void;
@@ -26,7 +26,10 @@ const List: React.FC<ListProps> = ({
 
   useDisableBackSwipe();
 
-  const encodedCredentials = btoa(`${username}:${apiKey}`);
+  let encodedCredentials: string | null = null;
+  if (apiKey && username) {
+    encodedCredentials = btoa(`${username}:${apiKey}`);
+  }
 
   const currentLocations = locations.slice(
     (page - 1) * itemsPerPage,
