@@ -17,6 +17,7 @@ import Reset from "@components/icons/Reset";
 import { SourceOptions } from "types/map";
 import palette from "@styles/palette";
 import * as cn from "./classNames";
+import { Coordinates } from "types/geojson";
 
 const MINIMAP_GEOJSON_LAYER = "minimap-geojson-hm-layer";
 const MINIMAP_GEOJSON_STROKE = "minimap-geojson-hm-stroke";
@@ -44,8 +45,8 @@ interface MiniMapProps {
   geometry: {
     type: "Feature";
     geometry: {
-      type: string;
-      coordinates: number[][][];
+      type: "Polygon" | "MultiPolygon";
+      coordinates: Coordinates[] | Coordinates[][];
     };
   };
   sortedSequences: Frame[][] | null;

@@ -1,8 +1,12 @@
 import twStore, { cn } from "@utils/helpers";
 
-export const viewSelectorWrapper = () =>
+export const viewSelectorWrapper = (omitBottomBorder: boolean) =>
   cn(
-    { "flex w-full border-b border-solid p-3 bg-background": !twStore.get() },
+    {
+      [`flex justify-between w-full p-3 bg-background ${
+        !omitBottomBorder ? "border-b border-solid" : ""
+      }`]: !twStore.get(),
+    },
     "hm-view-selector-wrapper",
   );
 export const viewSelectorIconSection = () =>

@@ -23,7 +23,7 @@ const MAP_GEOJSON_LAYER = "map-geojson-hm-layer";
 const MAP_GEOJSON_STROKE = "map-geojson-hm-stroke";
 const MAP_GEOJSON_SOURCE = "map-geojson-hm-source";
 
-const DEFAULT_ZOOM = 3.84;
+const DEFAULT_ZOOM = 3.74;
 
 export interface MapProps {
   locations: ScoutLocation[];
@@ -83,14 +83,14 @@ const Map: React.FC<MapProps> = ({
           properties: {
             id: location._id,
           },
-          geometry: location.geojson,
+          geometry: location.geometry,
         })),
       };
 
       const centroidCollection = {
         type: "FeatureCollection",
         features: locations.map((location) => {
-          const centroid = turf(location.geojson);
+          const centroid = turf(location.geometry);
           return {
             type: "Feature",
             properties: {

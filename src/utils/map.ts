@@ -12,7 +12,7 @@ import {
 } from "maplibregl-mapbox-request-transformer";
 import { EventTypes, InitializationParams, SourceOptions } from "types/map";
 
-const DEFAULT_COORDS: LngLatLike = [-95.27, 34.43];
+const DEFAULT_COORDS: LngLatLike = [-95.77, 34.43];
 
 export let mapAccessToken: string = "";
 

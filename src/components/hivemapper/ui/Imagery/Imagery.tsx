@@ -57,7 +57,10 @@ const Imagery: React.FC<Props> = ({
   const divRef: RefObject<HTMLDivElement> = useRef(null);
   const thumbnailRefs = useRef<Array<RefObject<HTMLDivElement>>>([]);
 
-  const encodedCredentials = btoa(`${username}:${apiKey}`);
+  let encodedCredentials: string | null = null;
+  if (apiKey && username) {
+    encodedCredentials = btoa(`${username}:${apiKey}`);
+  }
 
   useEffect(() => {
     const fetchImagery = async () => {
@@ -66,7 +69,8 @@ const Imagery: React.FC<Props> = ({
 
       for (const week of weeks) {
         const data = await getImagesForPolygon(
-          location.geojson.coordinates,
+          location.geometry.type,
+          location.geometry.coordinates,
           week,
           encodedCredentials,
         );
@@ -91,7 +95,7 @@ const Imagery: React.FC<Props> = ({
     };
 
     fetchImagery();
-  }, [setApiCallsComplete, location.geojson.coordinates]);
+  }, [setApiCallsComplete, location.geometry.coordinates]);
 
   useEffect(() => {
     const divElement = divRef.current;

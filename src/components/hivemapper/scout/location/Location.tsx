@@ -25,6 +25,8 @@ const Location: React.FC<LocationProps> = ({
   username,
   apiKey,
 }) => {
+  if (!location) return null;
+
   const [sortedSequences, setSortedSequences] = useState<Frame[][] | null>([]);
   const [activeSequenceIndex, setActiveSequenceIndex] = useState(0);
   const [activeFrameIndex, setActiveFrameIndex] = useState({ value: 0 });
@@ -41,7 +43,7 @@ const Location: React.FC<LocationProps> = ({
 
   const activeSequence = sortedSequences?.[activeSequenceIndex] || null;
 
-  const centroid = turf(location.geojson);
+  const centroid = turf(location.geometry);
 
   return (
     <>
@@ -105,7 +107,7 @@ const Location: React.FC<LocationProps> = ({
               center={centroid.geometry.coordinates}
               geometry={{
                 type: "Feature",
-                geometry: location.geojson,
+                geometry: location.geometry,
               }}
               sortedSequences={sortedSequences}
               activeSequence={activeSequence}

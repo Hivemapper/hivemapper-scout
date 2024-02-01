@@ -1,12 +1,31 @@
+import { Coordinates } from "./geojson";
+
 export interface ScoutLocation {
   _id: string;
-  geojson: {
-    type: 'Polygon';
-    coordinates: number[][][];
+  geometry: {
+    type: "Polygon" | "MultiPolygon";
+    coordinates: Coordinates[] | Coordinates[][];
   };
   name: string;
   description?: string;
   tags?: string[];
+  fileUniqueIdentifier?: string;
+}
+
+export interface FilesWithLocations {
+  [key: string]: {
+    file: File;
+    locations: ScoutLocation[];
+  };
+}
+
+export interface CSVLocation {
+  _id: string;
+  type: "Polygon" | "MultiPolygon";
+  coordinates: string;
+  name: string;
+  description?: string;
+  tags?: string;
 }
 
 export interface Frame {

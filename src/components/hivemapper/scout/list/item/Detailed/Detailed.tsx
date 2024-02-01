@@ -18,7 +18,7 @@ import * as cn from "./classNames";
 
 export interface DetailedProps {
   location: ScoutLocation;
-  encodedCredentials: string;
+  encodedCredentials: string | null;
   selectionCallback?: (id: string | number) => void;
 }
 
@@ -41,7 +41,7 @@ const Detailed: React.FC<DetailedProps> = ({
     threshold: 0.01,
   });
 
-  const centroid = turf(location.geojson);
+  const centroid = turf(location.geometry);
 
   useEffect(() => {
     if (inView) {
@@ -52,7 +52,8 @@ const Detailed: React.FC<DetailedProps> = ({
         for (const week of weeks) {
           const data: { frames: Frame[] } | { error: Error } =
             await getImagesForPolygon(
-              location.geojson.coordinates,
+              location.geometry.type,
+              location.geometry.coordinates,
               week,
               encodedCredentials,
             );
@@ -79,7 +80,7 @@ const Detailed: React.FC<DetailedProps> = ({
 
       fetchImagery();
     }
-  }, [inView, location.geojson.coordinates]);
+  }, [inView, location.geometry.type, location.geometry.coordinates]);
 
   return (
     <div ref={ref} className={cn.detailedItemWrapper()}>

@@ -5,16 +5,20 @@ import List from "@components/hivemapper/scout/list";
 import ViewSelector from "@components/hivemapper/ui/ViewSelector";
 import View from "@components/hivemapper/ui/View";
 import Map from "@components/hivemapper/scout/maps/Map";
-import { FiltersState } from "types/filter";
-import { filterLocations } from "@utils/filter";
-import { ScoutLocation } from "types/location";
-import { Views } from "types/view";
 import Location from "@components/hivemapper/scout/location/Location";
 import Config from "@components/hivemapper/hoc/Config";
 import Container from "@components/hivemapper/ui/Container";
+import Upload from "@components/hivemapper/ui/Upload";
+import { filterLocations } from "@utils/filter";
+import { FiltersState } from "types/filter";
+import { FilesWithLocations, ScoutLocation } from "types/location";
+import { Views } from "types/view";
+import { GeoJSONFeatureCollection } from "types/geojson";
+import { parseGeojsonToLocations } from "@utils/files";
 
 export interface DemoProps {
-  locations: ScoutLocation[];
+  locations?: ScoutLocation[];
+  geojson?: GeoJSONFeatureCollection;
   mapAccessToken: string;
   apiKey: string;
   username: string;
@@ -25,7 +29,8 @@ export interface DemoProps {
 }
 
 const Demo: React.FC<DemoProps> = ({
-  locations,
+  locations: initialLocations = [],
+  geojson,
   darkMode,
   stripTailwindClasses,
   mapAccessToken,
@@ -34,6 +39,17 @@ const Demo: React.FC<DemoProps> = ({
   apiKey,
   username,
 }) => {
+  const parsedGeojsonToLocations = geojson
+    ? parseGeojsonToLocations(geojson)
+    : [];
+  const [locations, setLocations] = useState<ScoutLocation[]>([
+    ...initialLocations,
+    ...parsedGeojsonToLocations,
+  ]);
+
+  const [filesWithLocations, setFilesWithLocations] =
+    useState<FilesWithLocations>({});
+
   const [activeView, setActiveView] = useState(Views.Thumbnail);
   const [filters, setFilters] = useState<FiltersState>({
     tags: [],
@@ -48,6 +64,7 @@ const Demo: React.FC<DemoProps> = ({
     (location) => location._id === activeLocationId,
   );
 
+  const isEmpty = locations.length < 1;
   const filteredLocations = filterLocations(locations, filters);
 
   const selectionCallback = (locationId: string | number) => {
@@ -86,6 +103,14 @@ const Demo: React.FC<DemoProps> = ({
             apiKey={apiKey}
           />
         );
+      case Views.Upload:
+        return (
+          <Upload
+            setLocations={setLocations}
+            filesWithLocations={filesWithLocations}
+            setFilesWithLocations={setFilesWithLocations}
+          />
+        );
     }
   };
 
@@ -94,7 +119,14 @@ const Demo: React.FC<DemoProps> = ({
       <Container activeView={activeView}>
         <Filters locations={locations} setFilters={setFilters} />
         <View>
-          <ViewSelector activeView={activeView} setActiveView={setActiveView} />
+          <ViewSelector
+            activeView={activeView}
+            setActiveView={setActiveView}
+            omitBottomBorder={
+              isEmpty &&
+              (activeView === Views.Thumbnail || activeView === Views.Location)
+            }
+          />
           {renderView(activeView)}
         </View>
       </Container>

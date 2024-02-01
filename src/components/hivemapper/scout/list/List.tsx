@@ -26,7 +26,10 @@ const List: React.FC<ListProps> = ({
 
   useDisableBackSwipe();
 
-  const encodedCredentials = btoa(`${username}:${apiKey}`);
+  let encodedCredentials: string | null = null;
+  if (apiKey && username) {
+    encodedCredentials = btoa(`${username}:${apiKey}`);
+  }
 
   const currentLocations = locations.slice(
     (page - 1) * itemsPerPage,
@@ -35,10 +38,7 @@ const List: React.FC<ListProps> = ({
 
   const scrollToTarget = () => {
     if (scrollToRef?.current) {
-      const topPosition =
-        scrollToRef.current.getBoundingClientRect().top + window.scrollY;
-      const desiredPosition = topPosition - 100;
-      window.scrollTo({ top: desiredPosition, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -54,13 +54,15 @@ const List: React.FC<ListProps> = ({
           />
         );
       })}
-      <Pagination
-        total={locations.length}
-        onChange={(page) => {
-          setPage(page);
-          scrollToTarget();
-        }}
-      />
+      {locations.length > 0 && (
+        <Pagination
+          total={locations.length}
+          onChange={(page) => {
+            setPage(page);
+            scrollToTarget();
+          }}
+        />
+      )}
     </div>
   );
 };
