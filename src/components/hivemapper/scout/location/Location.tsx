@@ -13,8 +13,8 @@ export interface LocationProps {
   location: ScoutLocation;
   mapAccessToken: string;
   mapStyle?: string;
-  username?: string;
-  apiKey?: string;
+  username: string;
+  apiKey: string;
   isFirstResult?: boolean;
 }
 

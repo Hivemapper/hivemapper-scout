@@ -20,8 +20,8 @@ import Loader from "@components/icons/Loader";
 import * as cn from "./classNames";
 
 interface Props {
-  apiKey?: string;
-  username?: string;
+  apiKey: string;
+  username: string;
   location: ScoutLocation;
   sortedSequences: Frame[][] | null;
   setSortedSequences: Dispatch<SetStateAction<Frame[][] | null>>;

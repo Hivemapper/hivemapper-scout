@@ -6,8 +6,8 @@ import useDisableBackSwipe from "@hooks/useDisableBackSwipe";
 import * as cn from "./classNames";
 
 export interface ListProps {
-  apiKey?: string;
-  username?: string;
+  apiKey: string;
+  username: string;
   locations: ScoutLocation[];
   itemsPerPage?: number;
   selectionCallback?: (id: string | number) => void;

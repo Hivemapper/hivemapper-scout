@@ -20,8 +20,8 @@ export interface DemoProps {
   locations?: ScoutLocation[];
   geojson?: GeoJSONFeatureCollection;
   mapAccessToken: string;
-  apiKey?: string;
-  username?: string;
+  apiKey: string;
+  username: string;
   mapDefaultCoords?: LngLatLike;
   mapStyle?: string;
   darkMode?: boolean;
