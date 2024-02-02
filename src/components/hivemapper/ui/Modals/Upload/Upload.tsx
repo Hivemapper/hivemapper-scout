@@ -1,7 +1,14 @@
-import React, { Dispatch, SetStateAction, useCallback, useEffect } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  MouseEvent,
+} from "react";
 import Dropzone from "@components/hivemapper/ui/Dropzone";
 import { FilesWithLocations, ScoutLocation } from "types/location";
 import * as cn from "./classNames";
+import { downloadJson } from "@utils/files";
 
 interface Props {
   setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -26,9 +33,7 @@ const Upload: React.FC<Props> = ({
       setLocations((prevState) => {
         const copy = [...prevState];
         locations.forEach((location) => {
-          const index = copy.findIndex(
-            (loc) => loc.fileUniqueIdentifier === location.fileUniqueIdentifier,
-          );
+          const index = copy.findIndex((loc) => loc._id === location._id);
           copy.splice(index, 1);
         });
         return copy;
@@ -58,7 +63,40 @@ const Upload: React.FC<Props> = ({
     <div className={cn.uploadModalWrapper()}>
       <div className={cn.uploadModalHeader()}>
         <div className={cn.uploadModalBold()}>Add Locations</div>
-        {/* <div>Try our sample files: GeoJSON JSON CSV</div> */}
+        <div>
+          Try our sample files:{" "}
+          <a
+            className={cn.uploadModalLink()}
+            onClick={(e: MouseEvent) => {
+              e.preventDefault();
+              downloadJson(
+                "https://hivemapper-static.s3.us-west-2.amazonaws.com/geodata/scout-example.geojson",
+                "scout-example.geojson",
+              );
+            }}
+          >
+            GeoJSON
+          </a>{" "}
+          <a
+            className={cn.uploadModalLink()}
+            onClick={(e: MouseEvent) => {
+              e.preventDefault();
+              downloadJson(
+                "https://hivemapper-static.s3.us-west-2.amazonaws.com/geodata/scout-example.json",
+                "scout-example.json",
+              );
+            }}
+          >
+            JSON
+          </a>{" "}
+          <a
+            className={cn.uploadModalLink()}
+            href="https://hivemapper-static.s3.us-west-2.amazonaws.com/geodata/scout-example.csv"
+            download={"scout-example.csv"}
+          >
+            CSV
+          </a>
+        </div>
       </div>
       <Dropzone
         callback={handleParsedLocations}

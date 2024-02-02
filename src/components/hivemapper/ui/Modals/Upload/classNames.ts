@@ -22,3 +22,5 @@ export const uploadModalBold = () =>
     },
     "hm-upload-modal-bold",
   );
+export const uploadModalLink = () =>
+  cn({ "underline cursor-pointer": !twStore.get() }, "hm-upload-modal-link");

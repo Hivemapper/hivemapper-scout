@@ -25,5 +25,5 @@ export const dropzoneFileBadge = () =>
 export const dropzoneFileBadgeCloseButton = () =>
   cn(
     { "ml-2 w-2 h-5 flex items-center justify-center": !twStore.get() },
-    "hm-dropzone-file-badge",
+    "hm-dropzone-file-badge-close-button",
   );

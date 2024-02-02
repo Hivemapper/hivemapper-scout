@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { LngLatLike } from "maplibre-gl";
 import Filters from "@components/hivemapper/ui/Filters";
 import List from "@components/hivemapper/scout/list";
@@ -11,14 +12,18 @@ import Container from "@components/hivemapper/ui/Container";
 import Upload from "@components/hivemapper/ui/Modals/Upload";
 import { filterLocations } from "@utils/filter";
 import { FiltersState } from "types/filter";
-import { FilesWithLocations, ScoutLocation } from "types/location";
+import {
+  FilesWithLocations,
+  InputLocation,
+  ScoutLocation,
+} from "types/location";
 import { Views } from "types/view";
 import { GeoJSONFeatureCollection } from "types/geojson";
 import { parseGeojsonToLocations } from "@utils/files";
 import Modal from "../Modals/Modal";
 
 export interface DemoProps {
-  locations?: ScoutLocation[];
+  inputLocations?: InputLocation[];
   geojson?: GeoJSONFeatureCollection;
   mapAccessToken: string;
   apiKey: string;
@@ -30,7 +35,7 @@ export interface DemoProps {
 }
 
 const Demo: React.FC<DemoProps> = ({
-  locations: initialLocations = [],
+  inputLocations = [],
   geojson,
   darkMode,
   stripTailwindClasses,
@@ -40,11 +45,16 @@ const Demo: React.FC<DemoProps> = ({
   apiKey,
   username,
 }) => {
+  const locationsWithIds = inputLocations.map((location, index) => ({
+    ...location,
+    _id: uuidv4(),
+  }));
+
   const parsedGeojsonToLocations = geojson
     ? parseGeojsonToLocations(geojson)
     : [];
   const [locations, setLocations] = useState<ScoutLocation[]>([
-    ...initialLocations,
+    ...locationsWithIds,
     ...parsedGeojsonToLocations,
   ]);
 

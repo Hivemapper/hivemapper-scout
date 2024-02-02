@@ -21,7 +21,7 @@ export const processFile = (
         });
 
         const parsedCsv = locations.map((location: CSVLocation) => ({
-          _id: location._id,
+          _id: uuidv4(),
           name: location.name,
           description: location.description,
           tags: location.tags.split(",").map((tag: string) => tag.trim()),
@@ -31,7 +31,6 @@ export const processFile = (
               "[[" + location.coordinates.replace(/, /g, ",") + "]]",
             ),
           },
-          fileUniqueIdentifier: uuidv4(),
         }));
 
         onSuccess(parsedCsv, file);
@@ -71,12 +70,11 @@ export const parseGeojsonToLocations = (
   const locations = [];
   for (const feature of geojson.features) {
     const location = {
-      _id: feature.properties._id,
+      _id: uuidv4(),
       geometry: feature.geometry,
       name: feature.properties.name,
       description: feature.properties.description,
       tags: feature.properties.tags,
-      fileUniqueIdentifier: uuidv4(),
     };
     locations.push(location);
   }
@@ -88,8 +86,27 @@ export const parseJsonToLocations = (
 ): ScoutLocation[] => {
   const locations = json.map((location) => ({
     ...location,
-    fileUniqueIdentifier: uuidv4(),
+    _id: uuidv4(),
   }));
 
   return locations;
 };
+
+export function downloadJson(url, filename) {
+  fetch(url)
+    .then((response) => response.json())
+    .then((json) => {
+      const blob = new Blob([JSON.stringify(json)], {
+        type: "application/json",
+      });
+      const href = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = href;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(href);
+    })
+    .catch(console.error);
+}

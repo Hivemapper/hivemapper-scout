@@ -1,7 +1,10 @@
 import { Coordinates } from "./geojson";
 
-export interface ScoutLocation {
+export interface ScoutLocation extends InputLocation {
   _id: string;
+}
+
+export interface InputLocation {
   geometry: {
     type: "Polygon" | "MultiPolygon";
     coordinates: Coordinates[] | Coordinates[][];
@@ -9,7 +12,6 @@ export interface ScoutLocation {
   name: string;
   description?: string;
   tags?: string[];
-  fileUniqueIdentifier?: string;
 }
 
 export interface FilesWithLocations {

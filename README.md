@@ -2,29 +2,31 @@
 
 Scout is a React UI Library for geospatial imagery visualization of Hivemapper's map data. It enables users to input a dataset of locations and seamlessly integrate with Hivemapper's Map Image API to display the associated imagery. Whether for navigation and logistics, urban planning, geographic research or other location monitoring use cases, the Scout UI Library is the easiest way to plug into the world's freshest street-level imagery.
 
-The Scout UI library is made of up different components that enable you to quickly interact with fresh geo-located imagery.  Examples of these UI components are shown below:
+The Scout UI library is made of up different components that enable you to quickly interact with fresh geo-located imagery. Examples of these UI components are shown below:
 
-#### `Location`	
+#### `Location`
+
 Everytime a locations is mapped, a new collection appears enabling you to travel in time across that location.
 
 ![component UI](https://github.com/Hivemapper/hivemapper-scout/assets/3408732/3126f007-10a3-49c4-9bf1-c30a538bb29f)
 
-#### `Location - Expanded List`	
+#### `Location - Expanded List`
+
 Quickly glance at many locations at once.
 
 ![hivemapper scout list expanded](https://github.com/Hivemapper/hivemapper-scout/assets/3408732/49128c3e-b5fb-48a0-8fcf-764f91a2833a)
 
-#### `Location - List`	
+#### `Location - List`
+
 Manage and upload locations.
 
 ![location-scout-list](https://github.com/Hivemapper/hivemapper-scout/assets/3408732/93b43131-fa10-4342-b7af-91fded2f54ef)
 
+#### `Locations - Map`
 
-#### `Locations - Map`	
 Monitor locations from a map interace and review key metrics.
 
 ![location-map](https://github.com/Hivemapper/hivemapper-scout/assets/3408732/f380a51c-058c-4e57-b645-a03961d86855)
-
 
 ## Installation
 
@@ -60,8 +62,7 @@ Before using Scout, ensure you have the following:
 The locations dataset for Scout should be an array of `ScoutLocation` objects. Each `ScoutLocation` object has the following structure:
 
 ```typescript
-export interface ScoutLocation {
-  _id: string; // Unique identifier
+export interface InputLocation {
   geometry: {
     // Geospatial data in GeoJSON format
     type: "Polygon" | "MultiPolygon"; // Type of GeoJSON object
@@ -77,11 +78,10 @@ export interface ScoutLocation {
   <summary>Example dataset</summary>
 
 ```typescript
-import { ScoutLocation } from "@hivemapper/scout";
+import { InputLocation } from "@hivemapper/scout";
 
-const locations: ScoutLocation[] = [
+const locations: InputLocation[] = [
   {
-    _id: "location_1",
     geometry: {
       type: "Polygon",
       coordinates: [
@@ -100,7 +100,6 @@ const locations: ScoutLocation[] = [
     tags: ["sidewalk", "bike path"],
   },
   {
-    _id: "location_2",
     geometry: {
       type: "Polygon",
       coordinates: [
@@ -145,7 +144,7 @@ import { Demo } from "@hivemapper/scout";
 
 ```typescript
 export interface DemoProps {
-  locations?: ScoutLocation[];
+  locations?: InputLocation[];
   geojson?: GeoJSONFeatureCollection;
   mapAccessToken: string;
   apiKey: string;
