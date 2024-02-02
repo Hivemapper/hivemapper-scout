@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import turf from "@turf/centroid";
 import MiniMap from "@components/hivemapper/ui/MiniMap";
 import Imagery from "@components/hivemapper/ui/Imagery";
-import Modal from "@components/hivemapper/ui/Modal";
+import Frames from "@components/hivemapper/ui/Modals/Frames";
 import { ScoutLocation, Frame } from "types/location";
 import DotIcon from "@components/icons/Dot";
 import { monthDayTime, prettyDate } from "@utils/dates";
 import * as cn from "./classNames";
 import useDisableBackSwipe from "@hooks/useDisableBackSwipe";
+import Modal from "@components/hivemapper/ui/Modals/Modal";
 
 export interface LocationProps {
   location: ScoutLocation;
@@ -48,16 +49,17 @@ const Location: React.FC<LocationProps> = ({
   return (
     <>
       {sortedSequences && activeSequence && (
-        <Modal
-          sortedSequences={sortedSequences}
-          activeSequence={activeSequence}
-          activeSequenceIndex={activeSequenceIndex}
-          setActiveSequenceIndex={setActiveSequenceIndex}
-          activeFrameIndex={activeFrameIndex}
-          setActiveFrameIndex={setActiveFrameIndex}
-          showModal={showModal}
-          setShowModal={setShowModal}
-        />
+        <Modal showModal={showModal} setShowModal={setShowModal}>
+          <Frames
+            sortedSequences={sortedSequences}
+            activeSequence={activeSequence}
+            activeSequenceIndex={activeSequenceIndex}
+            setActiveSequenceIndex={setActiveSequenceIndex}
+            activeFrameIndex={activeFrameIndex}
+            setActiveFrameIndex={setActiveFrameIndex}
+            setShowModal={setShowModal}
+          />
+        </Modal>
       )}
       <div key={location._id} className={cn.locationWrapper()}>
         <div className={cn.locationSectionTop()}>

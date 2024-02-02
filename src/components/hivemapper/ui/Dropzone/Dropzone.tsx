@@ -11,6 +11,9 @@ import { useConfig } from "@hooks/useConfig";
 import palette from "@styles/palette";
 import * as cn from "./classNames";
 import { processFile } from "@utils/files";
+import { Button } from "@components/shadcn/Button";
+import Upload from "@components/icons/Upload";
+import { Badge } from "@components/shadcn/Badge";
 
 interface Props {
   callback: (locations: ScoutLocation[], mode: "add" | "delete") => void;
@@ -30,11 +33,11 @@ const Dropzone: React.FC<Props> = ({
 
   const baseStyle = {
     display: "flex",
-    width: "50%",
-    minWidth: "356px",
+    width: "100%",
     flexDirection: "column" as const,
     alignItems: "center",
     padding: "64px 24px",
+    paddingBottom: "40px",
     borderWidth: 2,
     borderRadius: 8,
     borderColor: pal.accent,
@@ -43,10 +46,12 @@ const Dropzone: React.FC<Props> = ({
     outline: "none",
     transition: "border .24s ease-in-out",
     cursor: "pointer",
+    backgroundColor: pal.ring,
+    fontWeight: 600,
   };
 
   const focusedStyle = {
-    borderColor: pal.accentForeground,
+    borderColor: pal.accent,
   };
 
   const acceptStyle = {
@@ -54,7 +59,7 @@ const Dropzone: React.FC<Props> = ({
   };
 
   const rejectStyle = {
-    borderColor: "#ff1744",
+    borderColor: pal.destructive,
   };
 
   const removeFileAndLocations = (fileName: string) => {
@@ -131,52 +136,49 @@ const Dropzone: React.FC<Props> = ({
     },
   });
 
-  const style = useMemo(
-    () => ({
+  const style = useMemo(() => {
+    setError("");
+    return {
       ...baseStyle,
       ...(isFocused ? focusedStyle : {}),
       ...(isDragAccept ? acceptStyle : {}),
       ...(isDragReject ? rejectStyle : {}),
-    }),
-    [isFocused, isDragAccept, isDragReject],
-  );
+    };
+  }, [isFocused, isDragAccept, isDragReject]);
 
   return (
     <div className={cn.dropzoneWrapper()}>
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop the files here ...</p>
-        ) : (
-          <>
-            <p>Drag 'n' drop your files here, or click to select files</p>
-            <em>Supports .csv, .json and .geojson formats</em>
-          </>
-        )}
+        <>
+          <Upload width={60} />
+          {isDragActive ? (
+            <p className={cn.dropzoneMarginTop()}>Drop your files here!</p>
+          ) : (
+            <p className={cn.dropzoneMarginTop()}>
+              Drag and drop a GeoJSON, JSON or CSV file
+            </p>
+          )}
+          <Button className={cn.dropzoneMarginTop()}>Select a File</Button>
+          <p className={cn.dropzoneError(!!error)}>{error}</p>
+        </>
       </div>
-      {Object.keys(filesWithLocations).length > 0 && (
-        <aside>
-          <h4>Files</h4>
-          <ul>
-            {Object.values(filesWithLocations).map(
-              (fileWithLocation, index) => (
-                <li key={`${fileWithLocation.file.lastModified}_${index}`}>
-                  {fileWithLocation.file.name} - {fileWithLocation.file.size}{" "}
-                  bytes
-                  <span
-                    onClick={(e) =>
-                      removeFileAndLocations(fileWithLocation.file.name)
-                    }
-                  >
-                    ❌
-                  </span>
-                </li>
-              ),
-            )}
-          </ul>
-        </aside>
-      )}
-      {error && <p>{error}</p>}
+      <div className={cn.dropzoneFileBadgeWrapper()}>
+        {Object.values(filesWithLocations).map((fileWithLocation, index) => (
+          <Badge
+            key={`${fileWithLocation.file.lastModified}_${index}`}
+            className={cn.dropzoneFileBadge()}
+          >
+            {fileWithLocation.file.name}
+            <button
+              className={cn.dropzoneFileBadgeCloseButton()}
+              onClick={() => removeFileAndLocations(fileWithLocation.file.name)}
+            >
+              &times;
+            </button>
+          </Badge>
+        ))}
+      </div>
     </div>
   );
 };

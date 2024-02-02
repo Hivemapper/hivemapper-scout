@@ -1,8 +1,6 @@
 import React, { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import { monthDayTime, prettyDate } from "@utils/dates";
 import { Frame } from "types/location";
-import { Dialog, DialogContent } from "@components/shadcn/Dialog";
-import Close from "@components/icons/Close";
 import * as cn from "./classNames";
 
 interface Props {
@@ -12,18 +10,16 @@ interface Props {
   setActiveSequenceIndex: Dispatch<SetStateAction<number>>;
   activeFrameIndex: { value: number };
   setActiveFrameIndex: Dispatch<SetStateAction<{ value: number }>>;
-  showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const Modal: React.FC<Props> = ({
+const Frames: React.FC<Props> = ({
   sortedSequences,
   activeSequence,
   activeSequenceIndex,
   setActiveSequenceIndex,
   activeFrameIndex,
   setActiveFrameIndex,
-  showModal,
   setShowModal,
 }) => {
   const isLastFrame =
@@ -105,45 +101,28 @@ const Modal: React.FC<Props> = ({
   }, [eventKeyCallback]);
 
   return (
-    <Dialog open={showModal}>
-      <DialogContent>
-        <div className={cn.modalWrapper()}>
-          <div className={cn.modalSection()}>
-            <div
-              onClick={() => {
-                setShowModal(false);
-              }}
-              className={cn.modalCloseButton()}
-            >
-              <Close />
-            </div>
-            {activeSequence[activeFrameIndex.value] && (
-              <>
-                <div className={cn.modalSequence()}>
-                  {activeFrameIndex.value + 1} / {activeSequence.length}
-                </div>
-                <div className={cn.modalDate()}>
-                  {prettyDate(
-                    activeSequence[activeFrameIndex.value].timestamp,
-                    true,
-                  )}
-                  {", "}
-                  {monthDayTime(
-                    new Date(activeSequence[activeFrameIndex.value].timestamp),
-                  )}
-                </div>
-              </>
-            )}
-            <img
-              className={cn.modalFrame()}
-              src={activeSequence[activeFrameIndex.value].url}
-              alt="Active frame"
-            />
+    <>
+      {activeSequence[activeFrameIndex.value] && (
+        <>
+          <div className={cn.frameModalSequence()}>
+            {activeFrameIndex.value + 1} / {activeSequence.length}
           </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+          <div className={cn.frameModalDate()}>
+            {prettyDate(activeSequence[activeFrameIndex.value].timestamp, true)}
+            {", "}
+            {monthDayTime(
+              new Date(activeSequence[activeFrameIndex.value].timestamp),
+            )}
+          </div>
+        </>
+      )}
+      <img
+        className={cn.frameModalFrame()}
+        src={activeSequence[activeFrameIndex.value].url}
+        alt="Active frame"
+      />
+    </>
   );
 };
 
-export default Modal;
+export default Frames;

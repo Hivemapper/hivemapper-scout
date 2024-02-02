@@ -8,13 +8,14 @@ import Map from "@components/hivemapper/scout/maps/Map";
 import Location from "@components/hivemapper/scout/location/Location";
 import Config from "@components/hivemapper/hoc/Config";
 import Container from "@components/hivemapper/ui/Container";
-import Upload from "@components/hivemapper/ui/Upload";
+import Upload from "@components/hivemapper/ui/Modals/Upload";
 import { filterLocations } from "@utils/filter";
 import { FiltersState } from "types/filter";
 import { FilesWithLocations, ScoutLocation } from "types/location";
 import { Views } from "types/view";
 import { GeoJSONFeatureCollection } from "types/geojson";
 import { parseGeojsonToLocations } from "@utils/files";
+import Modal from "../Modals/Modal";
 
 export interface DemoProps {
   locations?: ScoutLocation[];
@@ -64,6 +65,8 @@ const Demo: React.FC<DemoProps> = ({
     (location) => location._id === activeLocationId,
   );
 
+  const [isUploadModalVisible, setIsUploadModalVisible] = useState(false);
+
   const isEmpty = locations.length < 1;
   const filteredLocations = filterLocations(locations, filters);
 
@@ -103,25 +106,29 @@ const Demo: React.FC<DemoProps> = ({
             apiKey={apiKey}
           />
         );
-      case Views.Upload:
-        return (
-          <Upload
-            setLocations={setLocations}
-            filesWithLocations={filesWithLocations}
-            setFilesWithLocations={setFilesWithLocations}
-          />
-        );
     }
   };
 
   return (
     <Config darkMode={!!darkMode} stripTailwindClasses={!!stripTailwindClasses}>
+      <Modal
+        showModal={isUploadModalVisible}
+        setShowModal={setIsUploadModalVisible}
+      >
+        <Upload
+          setLocations={setLocations}
+          filesWithLocations={filesWithLocations}
+          setFilesWithLocations={setFilesWithLocations}
+          setShowModal={setIsUploadModalVisible}
+        />
+      </Modal>
       <Container activeView={activeView}>
         <Filters locations={locations} setFilters={setFilters} />
         <View>
           <ViewSelector
             activeView={activeView}
             setActiveView={setActiveView}
+            setIsUploadModalVisible={setIsUploadModalVisible}
             omitBottomBorder={
               isEmpty &&
               (activeView === Views.Thumbnail || activeView === Views.Location)

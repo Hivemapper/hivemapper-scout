@@ -10,12 +10,15 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .rc-pagination-prev {
   margin-right: 8px;
+  cursor: pointer;
 }
 
 .rc-pagination-next {
   margin-left: 8px;
+  cursor: pointer;
 }
