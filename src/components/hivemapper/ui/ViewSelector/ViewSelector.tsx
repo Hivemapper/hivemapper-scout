@@ -1,5 +1,4 @@
 import React, { Dispatch, SetStateAction } from "react";
-import classNames from "classnames";
 import MapIcon from "@components/icons/Map";
 import ListIcon from "@components/icons/List";
 import SquareIcon from "@components/icons/Square";
@@ -12,12 +11,14 @@ export interface ViewSelectorProps {
   activeView: Views;
   setActiveView: Dispatch<SetStateAction<Views>>;
   omitBottomBorder: boolean;
+  setIsUploadModalVisible: Dispatch<SetStateAction<boolean>>;
 }
 
 const ViewSelector: React.FC<ViewSelectorProps> = ({
   activeView,
   setActiveView,
   omitBottomBorder,
+  setIsUploadModalVisible,
 }) => {
   const { darkMode } = useConfig();
 
@@ -48,7 +49,7 @@ const ViewSelector: React.FC<ViewSelectorProps> = ({
           <SquareIcon color={isActive(Views.Location)} width={18} height={18} />
         </div>
       </div>
-      <Button onClick={() => setActiveView(Views.Upload)}>Upload</Button>
+      <Button onClick={() => setIsUploadModalVisible(true)}>Upload</Button>
     </div>
   );
 };

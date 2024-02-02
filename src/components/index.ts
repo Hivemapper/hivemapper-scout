@@ -12,7 +12,7 @@ import Filters from "./hivemapper/ui/Filters";
 import Imagery from "./hivemapper/ui/Imagery";
 import Input from "./hivemapper/ui/Input";
 import MiniMap from "./hivemapper/ui/MiniMap";
-import Modal from "./hivemapper/ui/Modal";
+import Frames from "./hivemapper/ui/Modals/Frames";
 import Pagination from "./hivemapper/ui/Pagination";
 import Search from "./hivemapper/ui/Search";
 import Tags from "./hivemapper/ui/Tags";
@@ -36,7 +36,6 @@ export {
   Imagery,
   Input,
   MiniMap,
-  Modal,
   Pagination,
   Search,
   Tags,
@@ -44,4 +43,3 @@ export {
   View,
   ViewSelector,
 };
-

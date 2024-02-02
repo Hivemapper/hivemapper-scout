@@ -41,7 +41,8 @@ export const processFile = (
       }
     } else if (type === "json") {
       try {
-        const parsedJson = JSON.parse(content);
+        const json = JSON.parse(content);
+        const parsedJson = parseJsonToLocations(json);
         onSuccess(parsedJson, file);
       } catch (error) {
         console.error("Error parsing JSON:", error);
@@ -75,8 +76,20 @@ export const parseGeojsonToLocations = (
       name: feature.properties.name,
       description: feature.properties.description,
       tags: feature.properties.tags,
+      fileUniqueIdentifier: uuidv4(),
     };
     locations.push(location);
   }
+  return locations;
+};
+
+export const parseJsonToLocations = (
+  json: ScoutLocation[],
+): ScoutLocation[] => {
+  const locations = json.map((location) => ({
+    ...location,
+    fileUniqueIdentifier: uuidv4(),
+  }));
+
   return locations;
 };

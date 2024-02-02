@@ -54,10 +54,10 @@ module.exports = {
     secondary: "#171B21",
     secondaryForeground: "#C7CCD1",
 
-    destructive: "#811D1D",
+    destructive: "#ff1744",
     destructiveForeground: "#C7CCD1",
 
-    ring: "#30353B",
+    ring: "#23282F",
   },
   map: {
     location: {
@@ -72,7 +72,7 @@ module.exports = {
       default: {
         background: "#8F9296",
         foreground: "#E6E6E6",
-      }
+      },
     },
   },
 };
