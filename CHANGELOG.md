@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.25
+
+### Patch Changes
+
+- 758e261: Provide example datasets
+
 ## 0.0.24
 
 ### Patch Changes
