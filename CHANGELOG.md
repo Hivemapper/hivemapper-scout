@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.24
+
+### Patch Changes
+
+- 9ae7e6b: Dropzone
+
 ## 0.0.23
 
 ### Patch Changes
