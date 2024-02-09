@@ -6,10 +6,12 @@ export interface ConfigProps {
   children: React.ReactNode;
   stripTailwindClasses?: boolean;
   darkMode?: boolean;
+  mapAccessToken: string;
 }
 
 const Config: React.FC<ConfigProps> = ({
   stripTailwindClasses,
+  mapAccessToken,
   darkMode = false,
   children = false,
 }) => {
@@ -29,6 +31,7 @@ const Config: React.FC<ConfigProps> = ({
     <ConfigProvider
       darkMode={darkMode}
       stripTailwindClasses={stripTailwindClasses}
+      mapAccessToken={mapAccessToken}
     >
       {children}
     </ConfigProvider>

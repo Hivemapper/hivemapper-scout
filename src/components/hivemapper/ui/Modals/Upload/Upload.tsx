@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useEffect,
   MouseEvent,
+  useRef,
 } from "react";
 import Dropzone from "@components/hivemapper/ui/Dropzone";
 import { FilesWithLocations, ScoutLocation } from "types/location";
@@ -23,10 +24,13 @@ const Upload: React.FC<Props> = ({
   filesWithLocations,
   setFilesWithLocations,
 }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
   const handleParsedLocations = (
     locations: ScoutLocation[],
     mode: "add" | "delete",
   ) => {
+
     if (mode === "add") {
       setLocations((prevState) => [...locations, ...prevState]);
     } else {
@@ -52,15 +56,23 @@ const Upload: React.FC<Props> = ({
     [setShowModal],
   );
 
+  const handleClickOutside = useCallback((event: any) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      setShowModal(false);
+    }
+  }, [setShowModal])
+
   useEffect(() => {
     document.addEventListener("keydown", eventKeyCallback, false);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener("keydown", eventKeyCallback, false);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [eventKeyCallback]);
 
   return (
-    <div className={cn.uploadModalWrapper()}>
+    <div ref={modalRef} className={cn.uploadModalWrapper()}>
       <div className={cn.uploadModalHeader()}>
         <div className={cn.uploadModalBold()}>Add Locations</div>
         <div>

@@ -3,11 +3,13 @@ import React, { createContext, useContext } from "react";
 export interface ContextState {
   stripTailwindClasses: boolean;
   darkMode: boolean;
+  mapAccessToken: string;
 }
 
 interface CredentialsProps {
   stripTailwindClasses: boolean;
   darkMode: boolean;
+  mapAccessToken: string;
   children: React.ReactNode;
 }
 
@@ -18,6 +20,7 @@ export const ConfigContext = createContext<
 const ConfigProvider: React.FC<CredentialsProps> = ({
   stripTailwindClasses,
   darkMode,
+  mapAccessToken,
   children,
 }) => {
   return (
@@ -25,6 +28,7 @@ const ConfigProvider: React.FC<CredentialsProps> = ({
       value={{
         stripTailwindClasses,
         darkMode,
+        mapAccessToken,
       }}
     >
       {children}
@@ -41,6 +45,7 @@ const useConfig = () => {
   return {
     stripTailwindClasses: context.stripTailwindClasses,
     darkMode: context.darkMode,
+    mapAccessToken: context.mapAccessToken,
   };
 };
 

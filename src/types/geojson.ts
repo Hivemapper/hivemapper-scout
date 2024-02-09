@@ -19,3 +19,13 @@ export interface GeoJSONFeatureCollection {
   type: "FeatureCollection";
   features: GeoJSONFeature[];
 }
+
+export interface GeoJSONPolygon {
+  type: 'Polygon';
+  coordinates: Coordinates[];
+}
+
+export interface GeoJSONMultiPolygon {
+  type: 'MultiPolygon';
+  coordinates: Coordinates[][];
+}

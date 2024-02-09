@@ -1,8 +1,8 @@
 import { Coordinates } from "types/geojson";
+import { ScoutLocation } from "types/location";
 
 export const getImagesForPolygon = async (
-  type: "Polygon" | "MultiPolygon",
-  data: Coordinates[] | Coordinates[][],
+  location: ScoutLocation,
   day: string | null,
   encodedCredentials: string | null,
 ) => {
@@ -14,16 +14,16 @@ export const getImagesForPolygon = async (
     const url = encodedCredentials ? `${api}/${route}` : `${api}/${forwarder}`;
 
     const payload = {
-      coordinates: data,
-      type,
+      coordinates: location.searchShape ? location.searchShape.coordinates : location.geojson.coordinates,
+      type: location.searchShape ? location.searchShape.type : location.geojson.type,
     };
 
     const forwarderPayload = {
       route,
       method: "POST",
       data: {
-        coordinates: data,
-        type,
+        coordinates: payload.coordinates,
+        type: payload.type,
       },
     };
 
@@ -41,6 +41,11 @@ export const getImagesForPolygon = async (
       body: JSON.stringify(encodedCredentials ? payload : forwarderPayload),
       credentials: !encodedCredentials ? "include" : undefined,
     });
+
+    if (!response.ok) {
+      throw new Error(`${response.status} while fetching ${url}`);
+    }
+
     return response.json();
   } catch (error) {
     return { error };

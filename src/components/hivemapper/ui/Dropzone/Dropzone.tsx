@@ -14,6 +14,8 @@ import { processFile } from "@utils/files";
 import { Button } from "@components/shadcn/Button";
 import Upload from "@components/icons/Upload";
 import { Badge } from "@components/shadcn/Badge";
+import { registerLocations } from "@api/locations";
+import { setMapAccessToken } from "@utils/map";
 
 interface Props {
   callback: (locations: ScoutLocation[], mode: "add" | "delete") => void;
@@ -26,7 +28,7 @@ const Dropzone: React.FC<Props> = ({
   filesWithLocations,
   setFilesWithLocations,
 }) => {
-  const { darkMode } = useConfig();
+  const { darkMode, mapAccessToken } = useConfig();
   const pal = palette[darkMode ? "dark" : "default"];
 
   const [error, setError] = useState("");
@@ -55,7 +57,7 @@ const Dropzone: React.FC<Props> = ({
   };
 
   const acceptStyle = {
-    borderColor: "#00e676",
+    borderColor: pal.success,
   };
 
   const rejectStyle = {
@@ -72,7 +74,21 @@ const Dropzone: React.FC<Props> = ({
     });
   };
 
-  const addFilesAndLocations = (locations: ScoutLocation[], file: File) => {
+  const addFilesAndLocations = async (newLocations: ScoutLocation[], file: File) => {
+    let locations = newLocations;
+    if(window.location.host === "hivemapper.com") {
+      const response = await registerLocations(locations);
+
+      if ("error" in response || !response.locations) {
+        setError('There was an error registering the locations');
+        return;
+      }
+
+      if(response.locations) {
+        locations = response.locations;
+      }
+    }
+
     setFilesWithLocations((prevState) => {
       const copy = { ...prevState };
       copy[file.name] = { file, locations };
@@ -96,6 +112,8 @@ const Dropzone: React.FC<Props> = ({
         const fileExtension = fileName.split(".").pop().toLowerCase();
 
         try {
+          setMapAccessToken(mapAccessToken);
+
           if (fileType === "text/csv" || fileExtension === "csv") {
             processFile(file, "csv", addFilesAndLocations, setError);
           } else if (

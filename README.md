@@ -63,7 +63,7 @@ The locations dataset for Scout should be an array of `ScoutLocation` objects. E
 
 ```typescript
 export interface InputLocation {
-  geometry: {
+  geojson: {
     // Geospatial data in GeoJSON format
     type: "Polygon" | "MultiPolygon"; // Type of GeoJSON object
     coordinates: Coordinates[] | Coordinates[][]; // Coordinates array
@@ -82,7 +82,7 @@ import { InputLocation } from "@hivemapper/scout";
 
 const locations: InputLocation[] = [
   {
-    geometry: {
+    geojson: {
       type: "Polygon",
       coordinates: [
         [
@@ -100,7 +100,7 @@ const locations: InputLocation[] = [
     tags: ["sidewalk", "bike path"],
   },
   {
-    geometry: {
+    geojson: {
       type: "Polygon",
       coordinates: [
         [
@@ -216,6 +216,7 @@ The `Config` Higher Order Component in Scout allows for additional configuration
 
 - `darkMode` (boolean): Enables the dark theme palette.
 - `stripTailwindClasses` (boolean): Removes Tailwind CSS utility classes to avoid class name collisions.
+- `mapAccessToken` (string): For easy access.
 
 Usage:
 
@@ -233,5 +234,5 @@ Usage:
 
 ```typescript
 // Component must be within the scope of the Config component
-const { darkMode, stripTailwindClasses } = useConfig();
+const { darkMode, stripTailwindClasses, mapAccessToken } = useConfig();
 ```

@@ -69,8 +69,7 @@ const Imagery: React.FC<Props> = ({
 
       for (const week of weeks) {
         const data = await getImagesForPolygon(
-          location.geometry.type,
-          location.geometry.coordinates,
+          location,
           week,
           encodedCredentials,
         );
@@ -95,7 +94,7 @@ const Imagery: React.FC<Props> = ({
     };
 
     fetchImagery();
-  }, [setApiCallsComplete, location.geometry.coordinates]);
+  }, [setApiCallsComplete, location]);
 
   useEffect(() => {
     const divElement = divRef.current;

@@ -45,9 +45,9 @@ const Demo: React.FC<DemoProps> = ({
   apiKey,
   username,
 }) => {
-  const locationsWithIds = inputLocations.map((location, index) => ({
+  const locationsWithIds = inputLocations.map((location) => ({
     ...location,
-    _id: uuidv4(),
+    _id: location._id || uuidv4(),
   }));
 
   const parsedGeojsonToLocations = geojson
@@ -120,7 +120,7 @@ const Demo: React.FC<DemoProps> = ({
   };
 
   return (
-    <Config darkMode={!!darkMode} stripTailwindClasses={!!stripTailwindClasses}>
+    <Config darkMode={!!darkMode} stripTailwindClasses={!!stripTailwindClasses} mapAccessToken={mapAccessToken}>
       <Modal
         showModal={isUploadModalVisible}
         setShowModal={setIsUploadModalVisible}

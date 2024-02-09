@@ -27,6 +27,8 @@ module.exports = {
     destructive: "#FF0000",
     destructiveForeground: "#C7CCD1",
 
+    success: "#00e676",
+
     ring: "#94A3B8",
   },
   dark: {
@@ -56,6 +58,8 @@ module.exports = {
 
     destructive: "#ff1744",
     destructiveForeground: "#C7CCD1",
+
+    success: "#00e676",
 
     ring: "#23282F",
   },

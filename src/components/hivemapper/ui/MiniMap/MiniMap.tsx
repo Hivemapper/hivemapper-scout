@@ -42,7 +42,7 @@ interface MiniMapProps {
   mapStyle?: string;
   mapAccessToken: string;
   center: number[];
-  geometry: {
+  geojson: {
     type: "Feature";
     geometry: {
       type: "Polygon" | "MultiPolygon";
@@ -60,7 +60,7 @@ const MiniMap: React.FC<MiniMapProps> = ({
   mapStyle,
   mapAccessToken,
   center,
-  geometry,
+  geojson,
   sortedSequences,
   activeSequence,
   activeSequenceIndex,
@@ -101,7 +101,7 @@ const MiniMap: React.FC<MiniMapProps> = ({
           id: MINIMAP_GEOJSON_SOURCE,
           options: {
             type: "geojson",
-            data: geometry,
+            data: geojson,
           },
         },
       ];

@@ -1,5 +1,4 @@
-import distance from "@turf/distance";
-import { point } from "@turf/helpers";
+import * as turf from "@turf/turf";
 import geographiclib from "geographiclib-geodesic";
 import { Frame } from "types/location";
 
@@ -110,9 +109,9 @@ export const stitch = (
     const { lat: lat_b0, lon: lon_b0 } = seq[0].position;
     const { lat: lat_b1, lon: lon_b1 } = seq[1].position;
 
-    const from = point([lon_a1, lat_a1]);
-    const to = point([lon_b0, lat_b0]);
-    const meters = distance(from, to, { units: "meters" });
+    const from = turf.point([lon_a1, lat_a1]);
+    const to = turf.point([lon_b0, lat_b0]);
+    const meters = turf.distance(from, to, { units: "meters" });
 
     if (meters > maxDistance) {
       remaining.push(seq);

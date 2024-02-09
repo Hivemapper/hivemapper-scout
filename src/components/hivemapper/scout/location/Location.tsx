@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import turf from "@turf/centroid";
+import React, { useState } from "react";
+import * as turf from "@turf/turf";
 import MiniMap from "@components/hivemapper/ui/MiniMap";
 import Imagery from "@components/hivemapper/ui/Imagery";
 import Frames from "@components/hivemapper/ui/Modals/Frames";
@@ -44,7 +44,7 @@ const Location: React.FC<LocationProps> = ({
 
   const activeSequence = sortedSequences?.[activeSequenceIndex] || null;
 
-  const centroid = turf(location.geometry);
+  const centroid = turf.centroid(location.geojson);
 
   return (
     <>
@@ -107,9 +107,9 @@ const Location: React.FC<LocationProps> = ({
               mapStyle={mapStyle}
               mapAccessToken={mapAccessToken}
               center={centroid.geometry.coordinates}
-              geometry={{
+              geojson={{
                 type: "Feature",
-                geometry: location.geometry,
+                geometry: location.geojson,
               }}
               sortedSequences={sortedSequences}
               activeSequence={activeSequence}

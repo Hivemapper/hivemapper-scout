@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import turf from "@turf/centroid";
+import * as turf from "@turf/turf";
 import maplibre, {
   AddLayerObject,
   LngLatLike,
@@ -83,14 +83,14 @@ const Map: React.FC<MapProps> = ({
           properties: {
             id: location._id,
           },
-          geometry: location.geometry,
+          geometry: location.geojson,
         })),
       };
 
       const centroidCollection = {
         type: "FeatureCollection",
         features: locations.map((location) => {
-          const centroid = turf(location.geometry);
+          const centroid = turf.centroid(location.geojson);
           return {
             type: "Feature",
             properties: {

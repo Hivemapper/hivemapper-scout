@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import turf from "@turf/centroid";
+import * as turf from "@turf/turf";
 import { Frame, ScoutLocation } from "types/location";
 import Thumbnail from "@components/hivemapper/ui/Thumbnail";
 import { useInView } from "react-intersection-observer";
@@ -41,7 +41,8 @@ const Detailed: React.FC<DetailedProps> = ({
     threshold: 0.01,
   });
 
-  const centroid = turf(location.geometry);
+
+  const centroid = turf.centroid(location.geojson);
 
   useEffect(() => {
     if (inView) {
@@ -52,8 +53,7 @@ const Detailed: React.FC<DetailedProps> = ({
         for (const week of weeks) {
           const data: { frames: Frame[] } | { error: Error } =
             await getImagesForPolygon(
-              location.geometry.type,
-              location.geometry.coordinates,
+              location,
               week,
               encodedCredentials,
             );
@@ -80,7 +80,7 @@ const Detailed: React.FC<DetailedProps> = ({
 
       fetchImagery();
     }
-  }, [inView, location.geometry.type, location.geometry.coordinates]);
+  }, [inView, location]);
 
   return (
     <div ref={ref} className={cn.detailedItemWrapper()}>
@@ -90,7 +90,7 @@ const Detailed: React.FC<DetailedProps> = ({
           {location.description}
         </div>
         <div className={cn.detailedItemTags()}>
-          {location.tags.map((tag, index) => (
+          {location.tags?.map((tag, index) => (
             <Badge
               key={`${tag}_${index.toString()}`}
               className={cn.detailedItemTag()}

@@ -1,11 +1,16 @@
-import { Coordinates } from "./geojson";
+import { Coordinates, GeoJSONMultiPolygon, GeoJSONPolygon } from "./geojson";
 
 export interface ScoutLocation extends InputLocation {
   _id: string;
+  searchShape?: {
+    type: "Polygon" | "MultiPolygon";
+    coordinates: Coordinates[] | Coordinates[][];
+  };
 }
 
 export interface InputLocation {
-  geometry: {
+  _id?: string;
+  geojson: {
     type: "Polygon" | "MultiPolygon";
     coordinates: Coordinates[] | Coordinates[][];
   };
@@ -21,9 +26,16 @@ export interface FilesWithLocations {
   };
 }
 
+export interface ScoutPayload {
+  name: string;
+  geojson: GeoJSONPolygon | GeoJSONMultiPolygon;
+  tags?: string[];
+  description?: string;
+}
+
 export interface CSVLocation {
   _id: string;
-  type: "Polygon" | "MultiPolygon";
+  type: "Polygon" | "MultiPolygon" | "Point" | "Address";
   coordinates: string;
   name: string;
   description?: string;

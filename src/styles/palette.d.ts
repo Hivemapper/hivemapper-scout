@@ -17,6 +17,7 @@ interface ColorSettings {
   accentForeground?: string;
   destructive?: string;
   destructiveForeground?: string;
+  success?: string;
   ring?: string;
   radius?: string;
   fontSans?: string;
