@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.27
+
+### Patch Changes
+
+- f33746b: Update h3 lib causing failure
+
 ## 0.0.26
 
 ### Patch Changes
