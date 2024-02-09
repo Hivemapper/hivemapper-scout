@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.30
+
+### Patch Changes
+
+- 5a3f420: Hail Mary
+
 ## 0.0.29
 
 ### Patch Changes
