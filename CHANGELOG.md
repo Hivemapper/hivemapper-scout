@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.26
+
+### Patch Changes
+
+- b54dd56: Address and Point as coordinates, register locations to platform
+
 ## 0.0.25
 
 ### Patch Changes
