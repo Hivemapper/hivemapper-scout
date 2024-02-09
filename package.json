@@ -65,7 +65,7 @@
     "csv-parse": "^5.5.3",
     "date-fns": "^2.30.0",
     "geographiclib-geodesic": "^2.0.0",
-    "h3-js": "^3.7.2",
+    "h3-js": "^4.1.0",
     "lucide-react": "^0.292.0",
     "maplibre-gl": "^3.5.2",
     "maplibregl-mapbox-request-transformer": "^0.0.2",
