@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.29
+
+### Patch Changes
+
+- ed00ca9: Tsconfig target to ESNext
+
 ## 0.0.28
 
 ### Patch Changes
