@@ -1,15 +1,15 @@
 import * as turf from '@turf/turf';
-import * as h3 from 'h3-js';
+import { latLngToCell, gridDisk, cellToBoundary} from 'h3-js';
 import { GeoJSONPolygon } from 'types/geojson';
 
 function findTouchedH3Hexagons(lon: number, lat: number, radius: number): string[] {
     const resolution = 11;
-    const h3Index = h3.latLngToCell(lat, lon, resolution);
-    return h3.gridDisk(h3Index, radius);
+    const h3Index = latLngToCell(lat, lon, resolution);
+    return gridDisk(h3Index, radius);
 }
 
 export function h3Poly(cell: string) {
-    const coordinates = h3.cellToBoundary(cell).map(coord => coord.reverse());
+    const coordinates = cellToBoundary(cell).map(coord => coord.reverse());
     coordinates.push(coordinates[0]);
     const geom = {
         type: 'Polygon',
