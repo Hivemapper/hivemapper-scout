@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.34
+
+### Patch Changes
+
+- f989ab0: Cleanup
+
 ## 0.0.33
 
 ### Patch Changes
