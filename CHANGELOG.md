@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.35
+
+### Patch Changes
+
+- c9db204: Extract h3 library to project
+
 ## 0.0.34
 
 ### Patch Changes
