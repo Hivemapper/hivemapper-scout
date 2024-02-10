@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.37
+
+### Patch Changes
+
+- 853e329: Change moduleResolution
+
 ## 0.0.36
 
 ### Patch Changes
