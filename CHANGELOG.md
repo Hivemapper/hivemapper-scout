@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.32
+
+### Patch Changes
+
+- 5e07758: Patch package
+
 ## 0.0.31
 
 ### Patch Changes
