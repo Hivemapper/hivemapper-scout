@@ -1,3 +1,6 @@
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
 // @ts-nocheck
 var libh3 = function (libh3) {
     libh3 = libh3 || {};
@@ -37,6 +40,9 @@ var libh3 = function (libh3) {
     var read_, readAsync, readBinary;
   
     if (ENVIRONMENT_IS_NODE) {
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = dirname(__filename);
+      
       scriptDirectory = __dirname + "/";
       var nodeFS;
       var nodePath;

@@ -22,7 +22,7 @@
   },
   "scripts": {
     "generate": "node ./src/scripts/generateGlobalCSS.ts",
-    "build": "pnpm generate && tsup src/index.ts --target esnext --format esm,cjs --dts",
+    "build": "pnpm generate && tsup src/index.ts --target esnext --format esm --dts",
     "lint": "tsc",
     "style": "prettier . --write",
     "release": "pnpm lint && pnpm build && pnpm publish",
