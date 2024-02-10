@@ -86,10 +86,5 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "h3-js@4.1.0": "patches/h3-js@4.1.0.patch"
-    }
   }
 }
