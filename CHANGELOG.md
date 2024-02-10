@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.36
+
+### Patch Changes
+
+- 6cd94ed: Patch library
+
 ## 0.0.35
 
 ### Patch Changes
