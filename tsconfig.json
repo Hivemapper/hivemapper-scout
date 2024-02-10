@@ -17,6 +17,7 @@
       "@utils/*": ["src/utils/*"],
       "@hooks/*": ["src/hooks/*"],
       "@styles/*": ["src/styles/*"],
+      "@lib/*": ["src/lib/*"],
       "types/*": ["src/types/*"]
     }
   }
