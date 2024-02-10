@@ -1,5 +1,12 @@
 # @hivemapper/scout
 
+## 0.0.31
+
+### Patch Changes
+
+- 1ff7717: CICD build command
+- 69afe9f: Update tsup
+
 ## 0.0.30
 
 ### Patch Changes
