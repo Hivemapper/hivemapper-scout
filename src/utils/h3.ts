@@ -1,6 +1,6 @@
 import * as turf from '@turf/turf';
 import { GeoJSONPolygon } from 'types/geojson';
-import { latLngToCell, gridDisk, cellToBoundary} from '@lib/h3';
+import { latLngToCell, gridDisk, cellToBoundary} from 'h3-js';
 
 function findTouchedH3Hexagons(lon: number, lat: number, radius: number): string[] {
     const resolution = 11;
