@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.37
+
+### Patch Changes
+
+- c18b19e: esm entry points only
+
 ## 0.0.36
 
 ### Patch Changes
