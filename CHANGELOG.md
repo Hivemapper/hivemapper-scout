@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.33
+
+### Patch Changes
+
+- ddef11f: ESM only
+
 ## 0.0.32
 
 ### Patch Changes
