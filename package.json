@@ -26,7 +26,9 @@
     "lint": "tsc",
     "style": "prettier . --write",
     "release": "pnpm lint && pnpm build && pnpm publish",
-    "watch": "nodemon --ignore src/global.css"
+    "watch": "nodemon --ignore src/global.css",
+    "postinstall": "patch-package --use-pnpm",
+    "patch": "patch-package"
   },
   "nodemonConfig": {
     "watch": [
@@ -70,6 +72,8 @@
     "maplibre-gl": "^3.5.2",
     "maplibregl-mapbox-request-transformer": "^0.0.2",
     "nodemon": "^3.0.1",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "^3.1.0",
     "rc-pagination": "^3.7.0",
     "react": "^18.2.0",
@@ -86,5 +90,10 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "h3-js@4.1.0": "patches/h3-js@4.1.0.patch"
+    }
   }
 }
