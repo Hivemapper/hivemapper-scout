@@ -5,6 +5,7 @@
   "private": false,
   "repository": "https://github.com/Hivemapper/hivemapper-scout",
   "homepage": "https://hivemapper.com",
+  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
