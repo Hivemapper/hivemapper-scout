@@ -13,7 +13,6 @@ import * as cn from "./classNames";
 import { processFile } from "@utils/files";
 import { Button } from "@components/shadcn/Button";
 import Upload from "@components/icons/Upload";
-import { Badge } from "@components/shadcn/Badge";
 import { registerLocations } from "@api/locations";
 import { setMapAccessToken } from "@utils/map";
 
@@ -100,12 +99,12 @@ const Dropzone: React.FC<Props> = ({
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       for (const file of acceptedFiles) {
-        const exists = filesWithLocations && filesWithLocations[file.name];
-        if (exists) {
-          console.error("File already exists:", file.name);
-          setError(`File ${file.name} already exists`);
-          return;
-        }
+        // const exists = filesWithLocations && filesWithLocations[file.name];
+        // if (exists) {
+        //   console.error("File already exists:", file.name);
+        //   setError(`File ${file.name} already exists`);
+        //   return;
+        // }
 
         const fileType = file.type;
         const fileName = file.name;
@@ -181,7 +180,7 @@ const Dropzone: React.FC<Props> = ({
           <p className={cn.dropzoneError(!!error)}>{error}</p>
         </>
       </div>
-      <div className={cn.dropzoneFileBadgeWrapper()}>
+      {/* <div className={cn.dropzoneFileBadgeWrapper()}>
         {Object.values(filesWithLocations).map((fileWithLocation, index) => (
           <Badge
             key={`${fileWithLocation.file.lastModified}_${index}`}
@@ -196,7 +195,7 @@ const Dropzone: React.FC<Props> = ({
             </button>
           </Badge>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -33,15 +33,6 @@ export interface ScoutPayload {
   description?: string;
 }
 
-export interface CSVLocation {
-  _id: string;
-  type: "Polygon" | "MultiPolygon" | "Point" | "Address";
-  coordinates: string;
-  name: string;
-  description?: string;
-  tags?: string;
-}
-
 export interface Frame {
   url: string;
   timestamp: string;
@@ -59,3 +50,12 @@ export interface Frame {
     eph: number;
   };
 }
+
+export interface CSVLocation {
+  type: "Polygon" | "MultiPolygon" | "Point" | "Address";
+  coordinates: string;
+  name?: string;
+  description?: string;
+  tags?: string;
+}
+

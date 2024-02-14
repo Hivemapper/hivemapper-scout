@@ -8,7 +8,6 @@ export interface GeoJSONFeature {
     coordinates: Coordinates[] | Coordinates[][];
   };
   properties?: {
-    _id: string;
     name: string;
     description?: string;
     tags?: string[];

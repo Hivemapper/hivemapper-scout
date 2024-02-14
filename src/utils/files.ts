@@ -4,6 +4,18 @@ import { CSVLocation, ScoutLocation } from "types/location";
 import { GeoJSONFeatureCollection } from "types/geojson";
 import { convertPointToPolygon } from "@utils/h3";
 import { getPointFromAddress } from "@api/locations";
+import { getLocationName } from "@utils/locations";
+import { validate } from "@utils/validation";
+
+export const getPopulatedProperties = (location: CSVLocation) => {
+  const populatedProperties = [];
+  for (const [key, value] of Object.entries(location)) {
+    if (key.trim() !== "" && value.trim() !== "") {
+      populatedProperties.push({ key, value });
+    }
+  }
+  return populatedProperties;
+}
 
 export const processFile = (
   file: File,
@@ -24,26 +36,35 @@ export const processFile = (
 
         const parsedCsv = [];
         for(const location of locations) {
+          const properties = getPopulatedProperties(location);
+
+          if (properties.length === 1) {
+            location.type = "Address";
+            location.coordinates = properties[0].value;
+            location.name = properties[0].key;
+          }
+
           const geojson = await geojsonBasedOnType(location);
 
           parsedCsv.push({
             _id: uuidv4(),
-            name: location.name,
+            name: getLocationName(location),
+            geojson,
             description: location.description,
             tags: location.tags?.split(",").map((tag: string) => tag.trim()),
-            geojson,
           })
         }
 
-        onSuccess(parsedCsv, file);
+        const validCsv = validate(parsedCsv, 'csv') as ScoutLocation[];
+        onSuccess(validCsv, file);
       } catch (error) {
         console.error("Error parsing CSV:", error);
         onFailure(error.message);
       }
     } else if (type === "json") {
       try {
-        const json = JSON.parse(content);
-        const parsedJson = parseJsonToLocations(json);
+        const validJson = validate(content, 'json');
+        const parsedJson = parseJsonToLocations(validJson as ScoutLocation[]);
         onSuccess(parsedJson, file);
       } catch (error) {
         console.error("Error parsing JSON:", error);
@@ -51,8 +72,8 @@ export const processFile = (
       }
     } else if (type === "geojson") {
       try {
-        const geojson = JSON.parse(content);
-        const parsedGeojson = parseGeojsonToLocations(geojson);
+        const validGeoJson = validate(content, 'geojson');
+        const parsedGeojson = parseGeojsonToLocations(validGeoJson as GeoJSONFeatureCollection);
         onSuccess(parsedGeojson, file);
       } catch (error) {
         console.error("Error parsing GeoJSON:", error);

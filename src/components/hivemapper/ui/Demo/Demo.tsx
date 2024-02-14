@@ -124,6 +124,7 @@ const Demo: React.FC<DemoProps> = ({
       <Modal
         showModal={isUploadModalVisible}
         setShowModal={setIsUploadModalVisible}
+        hideCloseButton
       >
         <Upload
           setLocations={setLocations}

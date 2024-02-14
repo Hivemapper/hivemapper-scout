@@ -8,6 +8,11 @@ export const uploadModalWrapper = () =>
     },
     "hm-upload-modal-wrapper",
   );
+export const uploadModalCloseButton = () =>
+  cn(
+    { "absolute top-[8px] right-[8px] cursor-pointer": !twStore.get() },
+    "hm-upload-modal-close-button",
+  );
 export const uploadModalHeader = () =>
   cn(
     {

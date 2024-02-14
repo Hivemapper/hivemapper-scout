@@ -10,6 +10,7 @@ import Dropzone from "@components/hivemapper/ui/Dropzone";
 import { FilesWithLocations, ScoutLocation } from "types/location";
 import * as cn from "./classNames";
 import { downloadJson } from "@utils/files";
+import Close from "@components/icons/Close";
 
 interface Props {
   setShowModal: Dispatch<SetStateAction<boolean>>;
@@ -43,6 +44,8 @@ const Upload: React.FC<Props> = ({
         return copy;
       });
     }
+
+    setShowModal(false);
   };
 
   const eventKeyCallback = useCallback(
@@ -73,6 +76,14 @@ const Upload: React.FC<Props> = ({
 
   return (
     <div ref={modalRef} className={cn.uploadModalWrapper()}>
+      <div
+        onClick={() => {
+          setShowModal(false);
+        }}
+        className={cn.uploadModalCloseButton()}
+      >
+        <Close />
+      </div>
       <div className={cn.uploadModalHeader()}>
         <div className={cn.uploadModalBold()}>Add Locations</div>
         <div>

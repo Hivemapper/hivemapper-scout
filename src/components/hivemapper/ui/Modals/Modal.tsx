@@ -6,22 +6,25 @@ import * as cn from "./classNames";
 interface Props {
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  hideCloseButton?: boolean;
   children: React.ReactNode;
 }
 
-const Modal: React.FC<Props> = ({ showModal, setShowModal, children }) => {
+const Modal: React.FC<Props> = ({ showModal, setShowModal, hideCloseButton = false, children }) => {
   return (
     <Dialog open={showModal}>
       <DialogContent>
         <div className={cn.modalWrapper()}>
-          <div
-            onClick={() => {
-              setShowModal(false);
-            }}
-            className={cn.modalCloseButton()}
-          >
-            <Close />
-          </div>
+          {!hideCloseButton && (
+            <div
+              onClick={() => {
+                setShowModal(false);
+              }}
+              className={cn.modalCloseButton()}
+            >
+              <Close />
+            </div>
+          )}
           <div className={cn.modalSection()}>{children}</div>
         </div>
       </DialogContent>

@@ -35,7 +35,7 @@ export function h3PolyFromCells(cells: string[]) {
 
 export const convertPointToPolygon = (coordinates: string) => {
     const [lon, lat] = coordinates.split(',').map(Number);
-    const radius = 1.25;
+    const radius = 1;
 
     const touchedHexes = findTouchedH3Hexagons(lon, lat, radius);
     const h3Polygon = h3PolyFromCells(touchedHexes); 

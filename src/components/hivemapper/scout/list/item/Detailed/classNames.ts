@@ -12,7 +12,7 @@ export const detailedItemLeftSection = () =>
   cn({ "w-1/3": !twStore.get() }, "hm-detailed-item-left-section");
 export const detailedItemLocation = () =>
   cn(
-    { "text-2xl font-semibold tracking-tight": !twStore.get() },
+    { "text-2xl font-semibold tracking-tight cursor-pointer": !twStore.get() },
     "hm-detailed-item-location",
   );
 export const detailedItemDescription = () =>

@@ -85,7 +85,7 @@ const Detailed: React.FC<DetailedProps> = ({
   return (
     <div ref={ref} className={cn.detailedItemWrapper()}>
       <div className={cn.detailedItemLeftSection()}>
-        <div className={cn.detailedItemLocation()}>{location.name}</div>
+        <div className={cn.detailedItemLocation()} onClick={() => selectionCallback(location._id)}>{location.name}</div>
         <div className={cn.detailedItemDescription()}>
           {location.description}
         </div>
