@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.38
+
+### Patch Changes
+
+- 62d4518: File validation, lots of UI fixes
+
 ## 0.0.37
 
 ### Patch Changes
