@@ -1,11 +1,22 @@
 import { v4 as uuidv4 } from "uuid";
 import { parse } from "csv-parse/sync";
 import { CSVLocation, ScoutLocation } from "types/location";
-import { GeoJSONFeatureCollection } from "types/geojson";
+import { GeoJSONFeatureCollection, GeoJSONType } from "types/geojson";
 import { convertPointToPolygon } from "@utils/h3";
 import { getPointFromAddress } from "@api/locations";
-import { getLocationName } from "@utils/locations";
 import { validate } from "@utils/validation";
+
+export const getLocationName = (location: CSVLocation) => {
+  if (location.name) {
+      return location.name;
+  }
+
+  if (location.type.toLowerCase() === GeoJSONType.Address.toLowerCase()) {
+      return location.coordinates;
+  }
+
+  return location.type || "Location Name Missing";
+}
 
 export const getPopulatedProperties = (location: CSVLocation) => {
   const populatedProperties = [];
@@ -16,6 +27,16 @@ export const getPopulatedProperties = (location: CSVLocation) => {
   }
   return populatedProperties;
 }
+
+export const inferType = (value: string) => {
+  const regex = /^-?\d+\.\d+,\s*-?\d+\.\d+$/;
+
+  if (regex.test(value)) {
+    return GeoJSONType.Point;
+  }
+
+  return GeoJSONType.Address;
+};
 
 export const processFile = (
   file: File,
@@ -34,14 +55,21 @@ export const processFile = (
           skip_empty_lines: true,
         });
 
+        if(locations.length < 1) {
+          throw new Error("No locations found in CSV");
+        }
+
         const parsedCsv = [];
         for(const location of locations) {
           const properties = getPopulatedProperties(location);
 
+          if (properties.length < 1) {
+            throw new Error("No valid properties found in CSV");
+          }
+
           if (properties.length === 1) {
-            location.type = "Address";
+            location.type = inferType(properties[0].value);
             location.coordinates = properties[0].value;
-            location.name = properties[0].key;
           }
 
           const geojson = await geojsonBasedOnType(location);
@@ -135,7 +163,7 @@ export function downloadJson(url, filename) {
 }
 
 export const geojsonBasedOnType = async (location: CSVLocation) => {
-  if (location.type === "Address") {
+  if (location.type.toLowerCase() === GeoJSONType.Address.toLowerCase()) {
     const response = await getPointFromAddress(location.coordinates);
     if("error" in response || !response.features) {
       throw new Error("Error getting point from address: " + location.coordinates);
@@ -148,13 +176,13 @@ export const geojsonBasedOnType = async (location: CSVLocation) => {
 
     const coords = center.join(", ");
     return convertPointToPolygon(coords);
-  } else if (location.type === "Point") {
+  } else if (location.type.toLowerCase() === GeoJSONType.Point.toLowerCase()) {
     return convertPointToPolygon(location.coordinates);
-  } else if (location.type === "Polygon" || location.type === "MultiPolygon") {
+  } else if (location.type.toLowerCase() === GeoJSONType.Polygon.toLowerCase() || location.type.toLowerCase() === GeoJSONType.MultiPolygon.toLowerCase()) {
     return {
       type: location.type,
       coordinates: JSON.parse(
-        "[[" + location.coordinates.replace(/, /g, ",") + "]]",
+        "[" + location.coordinates.replace(/, /g, ",") + "]",
       ),
     }
   } else {

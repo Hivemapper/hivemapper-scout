@@ -1,9 +1,9 @@
-import { Coordinates, GeoJSONMultiPolygon, GeoJSONPolygon } from "./geojson";
+import { Coordinates, GeoJSONMultiPolygon, GeoJSONPolygon, GeoJSONType } from "./geojson";
 
 export interface ScoutLocation extends InputLocation {
   _id: string;
   searchShape?: {
-    type: "Polygon" | "MultiPolygon";
+    type: GeoJSONType.Polygon | GeoJSONType.MultiPolygon;
     coordinates: Coordinates[] | Coordinates[][];
   };
 }
@@ -11,7 +11,7 @@ export interface ScoutLocation extends InputLocation {
 export interface InputLocation {
   _id?: string;
   geojson: {
-    type: "Polygon" | "MultiPolygon";
+    type: GeoJSONType.Polygon | GeoJSONType.MultiPolygon;
     coordinates: Coordinates[] | Coordinates[][];
   };
   name: string;
@@ -52,7 +52,7 @@ export interface Frame {
 }
 
 export interface CSVLocation {
-  type: "Polygon" | "MultiPolygon" | "Point" | "Address";
+  type: GeoJSONType;
   coordinates: string;
   name?: string;
   description?: string;

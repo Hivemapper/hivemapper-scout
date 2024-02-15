@@ -4,6 +4,7 @@ import React, {
   SetStateAction,
   useEffect,
   useRef,
+  useState,
 } from "react";
 import Carousel from "@components/hivemapper/ui/Carousel";
 import Thumbnail from "@components/hivemapper/ui/Thumbnail";
@@ -52,6 +53,8 @@ const Imagery: React.FC<Props> = ({
   setShowModal,
   setFramesLength,
 }) => {
+  const [error, setError] = useState<string>('');
+
   const isFirstRender = useRef(true);
 
   const divRef: RefObject<HTMLDivElement> = useRef(null);
@@ -66,6 +69,7 @@ const Imagery: React.FC<Props> = ({
     const fetchImagery = async () => {
       const allFrames = [];
       const weeks = getLastThreeMondays();
+      let apiError = '';
 
       for (const week of weeks) {
         const data = await getImagesForPolygon(
@@ -74,12 +78,19 @@ const Imagery: React.FC<Props> = ({
           encodedCredentials,
         );
 
-        if (!data || "error" in data) {
-          return;
+        if ("error" in data) {
+          apiError = data.error;
+          continue;
         }
 
         const { frames }: { frames: Frame[] } = data;
         allFrames.push(...frames);
+      }
+
+      if(allFrames.length === 0 && apiError) {
+        setError(apiError);
+        setApiCallsComplete(true);
+        return;
       }
 
       const framesFresherThan14Days = filterFramesFresherThan14Days(allFrames);
@@ -186,9 +197,12 @@ const Imagery: React.FC<Props> = ({
               })}
             </div>
           ) : (
-            <div className={cn.imageryNullState()}>
-              No imagery available in the last 14 days.
-            </div>
+            error ? <div className={cn.imageryNullState()}>
+            {error}
+          </div> : 
+          <div className={cn.imageryNullState()}>
+            No imagery available in the last 14 days.
+          </div>
           )}
         </>
       )}

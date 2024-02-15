@@ -61,7 +61,7 @@ const Demo: React.FC<DemoProps> = ({
   const [filesWithLocations, setFilesWithLocations] =
     useState<FilesWithLocations>({});
 
-  const [activeView, setActiveView] = useState(Views.Thumbnail);
+  const [activeView, setActiveView] = useState(Views.Map);
   const [filters, setFilters] = useState<FiltersState>({
     tags: [],
     description: "",
@@ -140,10 +140,6 @@ const Demo: React.FC<DemoProps> = ({
             activeView={activeView}
             setActiveView={setActiveView}
             setIsUploadModalVisible={setIsUploadModalVisible}
-            omitBottomBorder={
-              isEmpty &&
-              (activeView === Views.Thumbnail || activeView === Views.Location)
-            }
           />
           {renderView(activeView)}
         </View>

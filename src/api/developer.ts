@@ -1,11 +1,10 @@
-import { Coordinates } from "types/geojson";
-import { ScoutLocation } from "types/location";
+import { Frame, ScoutLocation } from "types/location";
 
 export const getImagesForPolygon = async (
   location: ScoutLocation,
   day: string | null,
   encodedCredentials: string | null,
-) => {
+): Promise<{ frames: Frame[] } | { error: string }> => {
   try {
     const api = `https://hivemapper.com/api`;
     const forwarder = `forwarder`;

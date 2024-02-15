@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import * as turf from "@turf/turf";
 import MiniMap from "@components/hivemapper/ui/MiniMap";
 import Imagery from "@components/hivemapper/ui/Imagery";
@@ -26,7 +26,18 @@ const Location: React.FC<LocationProps> = ({
   username,
   apiKey,
 }) => {
-  if (!location) return null;
+  const [distanceFromTop, setDistanceFromTop] = useState(0);
+
+  const nullStateRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (nullStateRef.current) {
+      const rect = nullStateRef.current.getBoundingClientRect();
+      setDistanceFromTop(Math.floor(rect.top));
+    }
+  }, []);
+
+  if (!location) return <div ref={nullStateRef} className={cn.locationNullState()} style={{ minHeight: `calc(95vh - ${distanceFromTop}px)` }}>Press "Upload" to start monitoring locations with Scout.</div>;
 
   const [sortedSequences, setSortedSequences] = useState<Frame[][] | null>([]);
   const [activeSequenceIndex, setActiveSequenceIndex] = useState(0);

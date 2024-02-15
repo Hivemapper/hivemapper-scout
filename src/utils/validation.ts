@@ -1,9 +1,8 @@
 import Ajv from "ajv";
+import { GeoJSONType } from "types/geojson";
 const ajv = new Ajv();
 
-export const validateCsv = (content: any) => {
-
-}
+const geoJsonTypeEnum = [GeoJSONType.Polygon, GeoJSONType.MultiPolygon, GeoJSONType.Polygon.toLowerCase(), GeoJSONType.MultiPolygon.toLowerCase()]
 
 export const validate = (content: string | object, type: 'csv' | 'json' | 'geojson') => {
     if (typeof content === 'string') {
@@ -29,6 +28,38 @@ export const validate = (content: string | object, type: 'csv' | 'json' | 'geojs
     return content;
 }
 
+const polygonSchema = {
+  type: "array",
+  items: {
+    type: "array",
+    items: {
+      type: "array",
+      minItems: 2,
+      maxItems: 2,
+      items: [
+        {
+          type: "number",
+          minimum: -180,
+          maximum: 180
+        },
+        {
+          type: "number",
+          minimum: -90,
+          maximum: 90
+        }
+      ]
+    },
+    minItems: 4
+  },
+  minItems: 1
+};
+
+const multiPolygonSchema = {
+  type: "array",
+  items: polygonSchema,
+  minItems: 1
+}
+
 const csvSchema = {
     type: "array",
     items: {
@@ -38,30 +69,11 @@ const csvSchema = {
         geojson: {
         type: "object",
         properties: {
-            type: { type: "string", enum: ["Polygon", "MultiPolygon"] },
+            type: { type: "string", enum: geoJsonTypeEnum },
             coordinates: {
                 oneOf: [
-                    // For Polygon
-                    {
-                    type: "array",
-                    items: {
-                        type: "array",
-                        items: { type: "array", items: { type: "number" }, minItems: 2, maxItems: 2 }
-                    },
-                    minItems: 1
-                    },
-                    // For MultiPolygon
-                    {
-                    type: "array",
-                    items: {
-                        type: "array",
-                        items: {
-                        type: "array",
-                        items: { type: "array", items: { type: "number" }, minItems: 2, maxItems: 2 }
-                        },
-                        minItems: 1
-                    }
-                    }
+                  polygonSchema,
+                  multiPolygonSchema
                 ]
             }
         },
@@ -85,30 +97,11 @@ const jsonSchema = {
         geojson: {
           type: "object",
           properties: {
-            type: { type: "string", enum: ["Polygon", "MultiPolygon"] },
+            type: { type: "string", enum: geoJsonTypeEnum },
             coordinates: {
               oneOf: [
-                // For Polygon
-                {
-                  type: "array",
-                  items: {
-                    type: "array",
-                    items: { type: "array", items: { type: "number" }, minItems: 2, maxItems: 2 }
-                  },
-                  minItems: 1
-                },
-                // For MultiPolygon
-                {
-                  type: "array",
-                  items: {
-                    type: "array",
-                    items: {
-                      type: "array",
-                      items: { type: "array", items: { type: "number" }, minItems: 2, maxItems: 2 }
-                    },
-                    minItems: 1
-                  }
-                }
+                polygonSchema,
+                multiPolygonSchema
               ]
             }
           },
@@ -131,24 +124,11 @@ const jsonSchema = {
       geometry: {
         type: "object",
         properties: {
-          type: { type: "string", enum: ["Polygon", "MultiPolygon"] },
+          type: { type: "string", enum: geoJsonTypeEnum },
           coordinates: {
             oneOf: [
-              // For Polygon
-              {
-                type: "array",
-                items: { type: "array", items: { type: "array", items: { type: "number" }, minItems: 2, maxItems: 2 } },
-                minItems: 1
-              },
-              // For MultiPolygon
-              {
-                type: "array",
-                items: {
-                  type: "array",
-                  items: { type: "array", items: { type: "array", items: { type: "number" }, minItems: 2, maxItems: 2 } },
-                  minItems: 1
-                }
-              }
+              polygonSchema,
+              multiPolygonSchema
             ]
           }
         },

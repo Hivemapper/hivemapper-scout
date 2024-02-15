@@ -10,14 +10,14 @@ import { Button } from "@components/shadcn/Button";
 export interface ViewSelectorProps {
   activeView: Views;
   setActiveView: Dispatch<SetStateAction<Views>>;
-  omitBottomBorder: boolean;
+  omitBottomBorder?: boolean;
   setIsUploadModalVisible: Dispatch<SetStateAction<boolean>>;
 }
 
 const ViewSelector: React.FC<ViewSelectorProps> = ({
   activeView,
   setActiveView,
-  omitBottomBorder,
+  omitBottomBorder = false,
   setIsUploadModalVisible,
 }) => {
   const { darkMode } = useConfig();

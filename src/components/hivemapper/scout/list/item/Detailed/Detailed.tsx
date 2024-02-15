@@ -30,6 +30,7 @@ const Detailed: React.FC<DetailedProps> = ({
   const [sortedSequences, setSortedSequences] = useState<Frame[][] | null>([]);
   const [apiCallsComplete, setApiCallsComplete] = useState(false);
   const [framesLength, setFramesLength] = useState(0);
+  const [error, setError] = useState<string>('');
 
   const latestSequence = sortedSequences[0] || [];
   const lastFrame: Frame | undefined =
@@ -47,23 +48,30 @@ const Detailed: React.FC<DetailedProps> = ({
   useEffect(() => {
     if (inView) {
       const fetchImagery = async () => {
-        const allFrames = [];
+        const allFrames = []; 
         const weeks = getLastThreeMondays();
+        let apiError = '';
 
         for (const week of weeks) {
-          const data: { frames: Frame[] } | { error: Error } =
-            await getImagesForPolygon(
+          const data = await getImagesForPolygon(
               location,
               week,
               encodedCredentials,
             );
 
-          if (!data || "error" in data) {
-            return;
+          if ("error" in data) {
+            apiError = data.error;
+            continue;
           }
 
           const { frames }: { frames: Frame[] } = data;
           allFrames.push(...frames);
+        }
+
+        if(allFrames.length === 0 && apiError) {
+          setError(apiError);
+          setApiCallsComplete(true);
+          return;
         }
 
         const framesFresherThan14Days =
@@ -143,6 +151,9 @@ const Detailed: React.FC<DetailedProps> = ({
             })}
           </div>
         ) : (
+          error ? <div className={cn.detailedItemNullState()}>
+            {error}
+          </div> : 
           <div className={cn.detailedItemNullState()}>
             No imagery available in the last 14 days.
           </div>

@@ -4,7 +4,7 @@ export type Coordinates = Coordinate[];
 export interface GeoJSONFeature {
   type: "Feature";
   geometry: {
-    type: "Polygon" | "MultiPolygon";
+    type: GeoJSONType.Polygon | GeoJSONType.MultiPolygon;
     coordinates: Coordinates[] | Coordinates[][];
   };
   properties?: {
@@ -20,11 +20,18 @@ export interface GeoJSONFeatureCollection {
 }
 
 export interface GeoJSONPolygon {
-  type: 'Polygon';
+  type: GeoJSONType.Polygon;
   coordinates: Coordinates[];
 }
 
 export interface GeoJSONMultiPolygon {
-  type: 'MultiPolygon';
+  type: GeoJSONType.MultiPolygon;
   coordinates: Coordinates[][];
+}
+
+export enum GeoJSONType {
+  Polygon = 'Polygon',
+  MultiPolygon = 'MultiPolygon',
+  Point = 'Point',
+  Address = 'Address',
 }

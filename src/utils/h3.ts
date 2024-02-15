@@ -1,5 +1,5 @@
 import * as turf from '@turf/turf';
-import { GeoJSONPolygon } from 'types/geojson';
+import { GeoJSONPolygon, GeoJSONType } from 'types/geojson';
 import { latLngToCell, gridDisk, cellToBoundary} from '@lib/h3';
 
 function findTouchedH3Hexagons(lon: number, lat: number, radius: number): string[] {
@@ -12,7 +12,7 @@ export function h3Poly(cell: string) {
     const coordinates = cellToBoundary(cell).map(coord => coord.reverse());
     coordinates.push(coordinates[0]);
     const geom = {
-        type: 'Polygon',
+        type: GeoJSONType.Polygon,
         coordinates: [coordinates],
     } as GeoJSONPolygon;
 

@@ -96,3 +96,11 @@ export const locationImagery = () =>
     },
     "hm-location-imagery",
   );
+
+  export const locationNullState = () =>
+  cn(
+    {
+      "flex h-[100%] justify-center items-center text-primary": !twStore.get(),
+    },
+    "hm-location-null-state",
+  );

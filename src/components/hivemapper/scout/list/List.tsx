@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import Pagination from "@components/hivemapper/ui/Pagination";
 import Detailed from "./item/Detailed/Detailed";
 import { ScoutLocation } from "types/location";
@@ -21,6 +21,7 @@ const List: React.FC<ListProps> = ({
   selectionCallback = () => {},
 }) => {
   const [page, setPage] = useState(1);
+  const [distanceFromTop, setDistanceFromTop] = useState(0);
 
   const scrollToRef = useRef<HTMLDivElement>(null);
 
@@ -42,6 +43,13 @@ const List: React.FC<ListProps> = ({
     }
   };
 
+  useLayoutEffect(() => {
+    if (scrollToRef.current) {
+      const rect = scrollToRef.current.getBoundingClientRect();
+      setDistanceFromTop(Math.floor(rect.top));
+    }
+  }, []);
+
   return (
     <div ref={scrollToRef} className={cn.listWrapper()}>
       {currentLocations.map((location) => {
@@ -54,7 +62,7 @@ const List: React.FC<ListProps> = ({
           />
         );
       })}
-      {locations.length > 0 && (
+      {locations.length > 0 ? (
         <Pagination
           total={locations.length}
           onChange={(page) => {
@@ -62,7 +70,7 @@ const List: React.FC<ListProps> = ({
             scrollToTarget();
           }}
         />
-      )}
+      ): <div className={cn.listNullState()} style={{ minHeight: `calc(95vh - ${distanceFromTop}px)` }}>Press "Upload" to start monitoring locations with Scout.</div>}
     </div>
   );
 };
