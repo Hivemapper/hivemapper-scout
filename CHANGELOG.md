@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.39
+
+### Patch Changes
+
+- 0a39c71: Better file validation, accept more formats
+
 ## 0.0.38
 
 ### Patch Changes
