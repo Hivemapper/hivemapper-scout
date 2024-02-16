@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as turf from "@turf/turf";
 import maplibre, {
   AddLayerObject,
@@ -16,6 +16,8 @@ import palette from "@styles/palette";
 import { ScoutLocation } from "types/location";
 import { SourceOptions } from "types/map";
 import * as cn from "./classNames";
+import { useIsomorphicLayoutEffect } from "@utils/helpers";
+
 
 const MAP_CENTROID_LAYER = "map-centroid-hm-layer";
 const MAP_CENTROID_SOURCE = "map-centroid-hm-source";
@@ -46,7 +48,7 @@ const Map: React.FC<MapProps> = ({
 
   setMapAccessToken(mapAccessToken);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (mapContainer.current) {
       const rect = mapContainer.current.getBoundingClientRect();
       setDistanceFromTop(Math.floor(rect.top));

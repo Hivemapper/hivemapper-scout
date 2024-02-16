@@ -76,8 +76,6 @@ const Demo: React.FC<DemoProps> = ({
   );
 
   const [isUploadModalVisible, setIsUploadModalVisible] = useState(false);
-
-  const isEmpty = locations.length < 1;
   const filteredLocations = filterLocations(locations, filters);
 
   const selectionCallback = (locationId: string | number) => {
@@ -131,6 +129,7 @@ const Demo: React.FC<DemoProps> = ({
           filesWithLocations={filesWithLocations}
           setFilesWithLocations={setFilesWithLocations}
           setShowModal={setIsUploadModalVisible}
+          setActiveView={setActiveView}
         />
       </Modal>
       <Container activeView={activeView}>

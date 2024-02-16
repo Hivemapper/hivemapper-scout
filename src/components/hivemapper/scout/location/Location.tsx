@@ -1,14 +1,14 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import * as turf from "@turf/turf";
 import MiniMap from "@components/hivemapper/ui/MiniMap";
 import Imagery from "@components/hivemapper/ui/Imagery";
 import Frames from "@components/hivemapper/ui/Modals/Frames";
 import { ScoutLocation, Frame } from "types/location";
-import DotIcon from "@components/icons/Dot";
 import { monthDayTime, prettyDate } from "@utils/dates";
 import * as cn from "./classNames";
 import useDisableBackSwipe from "@hooks/useDisableBackSwipe";
 import Modal from "@components/hivemapper/ui/Modals/Modal";
+import { useIsomorphicLayoutEffect } from "@utils/helpers";
 
 export interface LocationProps {
   location: ScoutLocation;
@@ -30,7 +30,7 @@ const Location: React.FC<LocationProps> = ({
 
   const nullStateRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (nullStateRef.current) {
       const rect = nullStateRef.current.getBoundingClientRect();
       setDistanceFromTop(Math.floor(rect.top));
@@ -90,7 +90,6 @@ const Location: React.FC<LocationProps> = ({
               {lastMapped && (
                 <>
                   <div className={cn.locationLastMapped()}>
-                    <DotIcon />
                     <span className={cn.locationLastMappedText()}>
                       Mapped {prettyDate(lastMapped, true)}
                     </span>

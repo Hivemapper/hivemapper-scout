@@ -6,25 +6,37 @@ import { convertPointToPolygon } from "@utils/h3";
 import { getPointFromAddress } from "@api/locations";
 import { validate } from "@utils/validation";
 
-export const getLocationName = (location: CSVLocation) => {
-  if (location.name) {
-      return location.name;
+export const getLocationName = (location: Record<string, string>) => {
+  try {
+    if (location.name) {
+        return location.name;
+    }
+  
+    if (location.type.toLowerCase() === GeoJSONType.Address.toLowerCase()) {
+        return location.coordinates;
+    }
+  
+    return location.type || "Location Name Missing";
+  } catch (error) {
+    return "Location Name Missing";
   }
-
-  if (location.type.toLowerCase() === GeoJSONType.Address.toLowerCase()) {
-      return location.coordinates;
-  }
-
-  return location.type || "Location Name Missing";
 }
 
-export const getPopulatedProperties = (location: CSVLocation) => {
+export const getPopulatedProperties = (location: Record<string, string>) => {
   const populatedProperties = [];
-  for (const [key, value] of Object.entries(location)) {
-    if (key.trim() !== "" && value.trim() !== "") {
-      populatedProperties.push({ key, value });
+  for (let [key, value] of Object.entries(location)) {
+    if (key.trim() === "" && value.trim() === "") {
+      continue;
     }
+
+    if(key.trim() === "" || value.trim() === "") {
+      key = key || value;
+      value = value || key;
+    }
+
+    populatedProperties.push({ key, value });
   }
+
   return populatedProperties;
 }
 
@@ -87,15 +99,6 @@ export const processFile = (
         onSuccess(validCsv, file);
       } catch (error) {
         console.error("Error parsing CSV:", error);
-        onFailure(error.message);
-      }
-    } else if (type === "json") {
-      try {
-        const validJson = validate(content, 'json');
-        const parsedJson = parseJsonToLocations(validJson as ScoutLocation[]);
-        onSuccess(parsedJson, file);
-      } catch (error) {
-        console.error("Error parsing JSON:", error);
         onFailure(error.message);
       }
     } else if (type === "geojson") {
@@ -162,30 +165,34 @@ export function downloadJson(url, filename) {
     .catch(console.error);
 }
 
-export const geojsonBasedOnType = async (location: CSVLocation) => {
-  if (location.type.toLowerCase() === GeoJSONType.Address.toLowerCase()) {
-    const response = await getPointFromAddress(location.coordinates);
-    if("error" in response || !response.features) {
-      throw new Error("Error getting point from address: " + location.coordinates);
-    }
+export const geojsonBasedOnType = async (location: Record<string, string>) => {
+  try {
+    if (location.type.toLowerCase() === GeoJSONType.Address.toLowerCase()) {
+      const response = await getPointFromAddress(location.coordinates);
+      if("error" in response || !response.features) {
+        throw new Error("Error getting point from address: " + location.coordinates);
+      }
 
-    const { center } = response.features[0];
-    if(!center) {
-      throw new Error("Error getting center from address: " + location.coordinates);
-    }
+      const { center } = response.features[0];
+      if(!center) {
+        throw new Error("Error getting center from address: " + location.coordinates);
+      }
 
-    const coords = center.join(", ");
-    return convertPointToPolygon(coords);
-  } else if (location.type.toLowerCase() === GeoJSONType.Point.toLowerCase()) {
-    return convertPointToPolygon(location.coordinates);
-  } else if (location.type.toLowerCase() === GeoJSONType.Polygon.toLowerCase() || location.type.toLowerCase() === GeoJSONType.MultiPolygon.toLowerCase()) {
-    return {
-      type: location.type,
-      coordinates: JSON.parse(
-        "[" + location.coordinates.replace(/, /g, ",") + "]",
-      ),
+      const coords = center.join(", ");
+      return convertPointToPolygon(coords);
+    } else if (location.type.toLowerCase() === GeoJSONType.Point.toLowerCase()) {
+      return convertPointToPolygon(location.coordinates);
+    } else if (location.type.toLowerCase() === GeoJSONType.Polygon.toLowerCase() || location.type.toLowerCase() === GeoJSONType.MultiPolygon.toLowerCase()) {
+      return {
+        type: location.type,
+        coordinates: JSON.parse(
+          "[" + location.coordinates.replace(/, /g, ",") + "]",
+        ),
+      }
+    } else {
+      return null;
     }
-  } else {
+  } catch (error) {
     return null;
   }
 };

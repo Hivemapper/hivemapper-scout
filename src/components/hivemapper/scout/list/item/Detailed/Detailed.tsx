@@ -13,7 +13,6 @@ import { stitch } from "@utils/imagery";
 import { sortSequencesByTimestamp } from "@utils/sort";
 import Loader from "@components/icons/Loader";
 import { Badge } from "@components/shadcn/Badge";
-import DotIcon from "@components/icons/Dot";
 import * as cn from "./classNames";
 
 export interface DetailedProps {
@@ -121,7 +120,6 @@ const Detailed: React.FC<DetailedProps> = ({
         )}
         {lastMapped && (
           <div className={cn.detailedItemDateSection()}>
-            <DotIcon />
             <span className={cn.detailedItemDate()}>
               Mapped {prettyDate(lastMapped, true)}
             </span>

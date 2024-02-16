@@ -27,7 +27,7 @@ export const monthDayTime = (time: string | Date) => {
   const { value: dayPeriod } =
     formattedDateParts.find((part) => part.type === "dayPeriod") || {};
 
-  const humanReadableDate = `${month} ${day}, ${year} at ${hour}:${minute} ${dayPeriod}.`;
+  const humanReadableDate = `${month} ${day}, ${year} at ${hour}:${minute} ${dayPeriod}`;
   return humanReadableDate;
 };
 

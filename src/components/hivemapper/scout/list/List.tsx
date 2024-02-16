@@ -1,8 +1,9 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Pagination from "@components/hivemapper/ui/Pagination";
 import Detailed from "./item/Detailed/Detailed";
 import { ScoutLocation } from "types/location";
 import useDisableBackSwipe from "@hooks/useDisableBackSwipe";
+import { useIsomorphicLayoutEffect } from "@utils/helpers";
 import * as cn from "./classNames";
 
 export interface ListProps {
@@ -43,7 +44,7 @@ const List: React.FC<ListProps> = ({
     }
   };
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (scrollToRef.current) {
       const rect = scrollToRef.current.getBoundingClientRect();
       setDistanceFromTop(Math.floor(rect.top));

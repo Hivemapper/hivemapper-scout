@@ -49,7 +49,7 @@ export const locationLastMapped = () =>
 
 export const locationLastMappedText = () =>
   cn(
-    { "text-md font-bold ml-2": !twStore.get() },
+    { "text-md font-bold": !twStore.get() },
     "hm-location-last-mapped-text",
   );
 

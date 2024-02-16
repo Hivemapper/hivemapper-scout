@@ -44,7 +44,7 @@ export const detailedItemDateSection = () =>
     "hm-detailed-item-date-section",
   );
 export const detailedItemDate = () =>
-  cn({ "text-md font-bold ml-2": !twStore.get() }, "hm-detailed-item-date");
+  cn({ "text-md font-bold": !twStore.get() }, "hm-detailed-item-date");
 export const detailedItemImagery = () =>
   cn({ "flex flex-row w-2/3": !twStore.get() }, "hm-detailed-item-imagery");
 export const detailedItemLoader = () =>

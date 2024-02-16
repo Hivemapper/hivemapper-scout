@@ -41,12 +41,24 @@ export const getImagesForPolygon = async (
       credentials: !encodedCredentials ? "include" : undefined,
     });
 
+    let json: any;
+
     if (!response.ok) {
-      throw new Error(`${response.status} while fetching ${url}`);
+      const contentType = response.headers.get('content-type');
+      if (contentType.includes('application/json')) {
+        json = await response.json();
+      }
+  
+      throw new Error(json?.error || `${response.status} while fetching ${url}`);
     }
 
-    return response.json();
+    json = await response.json()
+    return json;
   } catch (error) {
+    if(error instanceof Error) {
+      return { error: error.message };
+    }
+
     return { error };
   }
 };

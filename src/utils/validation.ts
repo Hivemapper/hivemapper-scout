@@ -22,7 +22,7 @@ export const validate = (content: string | object, type: 'csv' | 'json' | 'geojs
     const valid = validation(content);
     if (!valid) {
         console.error(`Invalid ${type}: `, validation.errors);
-        throw Error(validation.errors[0].message);
+        throw Error(`Upload error: please refer to our documentation for proper upload formatting.`);
     }
 
     return content;

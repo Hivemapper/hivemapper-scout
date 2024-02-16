@@ -17,7 +17,7 @@ import { registerLocations } from "@api/locations";
 import { setMapAccessToken } from "@utils/map";
 
 interface Props {
-  callback: (locations: ScoutLocation[], mode: "add" | "delete") => void;
+  callback: (locations: ScoutLocation[], mode: "add" | "delete", hasFailures: boolean) => void;
   filesWithLocations: FilesWithLocations;
   setFilesWithLocations: Dispatch<SetStateAction<FilesWithLocations>>;
 }
@@ -68,19 +68,26 @@ const Dropzone: React.FC<Props> = ({
       const copy = { ...prevState };
       const locations = copy[fileName].locations;
       delete copy[fileName];
-      callback(locations, "delete");
+      callback(locations, "delete", false);
       return copy;
     });
   };
 
   const addFilesAndLocations = async (newLocations: ScoutLocation[], file: File) => {
     let locations = newLocations;
+    let hasFailures = false;
+
     if(window.location.host === "hivemapper.com") {
       const response = await registerLocations(locations);
 
       if ("error" in response || !response.locations) {
-        setError('There was an error registering the locations');
+        setError(`There was an error registering the locations: ${response.error}`);
         return;
+      }
+
+      if(response.maxAreaFailures > 0 || response.verticesFailures > 0 || response.polygonFailures > 0) {
+        hasFailures = true;
+        setError(`There were ${response.maxAreaFailures} max area failures, ${response.verticesFailures} vertices failures, and ${response.polygonFailures} polygon failures`);
       }
 
       if(response.locations) {
@@ -91,7 +98,7 @@ const Dropzone: React.FC<Props> = ({
     setFilesWithLocations((prevState) => {
       const copy = { ...prevState };
       copy[file.name] = { file, locations };
-      callback(locations, "add");
+      callback(locations, "add", hasFailures);
       return copy;
     });
   };
@@ -173,7 +180,7 @@ const Dropzone: React.FC<Props> = ({
             <p className={cn.dropzoneMarginTop()}>Drop your files here!</p>
           ) : (
             <p className={cn.dropzoneMarginTop()}>
-              Drag and drop a GeoJSON, JSON or CSV file
+              Drag and drop a CSV or GeoJSON file
             </p>
           )}
           <Button className={cn.dropzoneMarginTop()}>Select a File</Button>

@@ -29,5 +29,3 @@ export const thumbnailPrettyDate = () =>
     { "flex items-center text-md font-bold tracking-normal": !twStore.get() },
     "hm-thumbnail-pretty-date",
   );
-export const thumbnailPrettyDateSpan = () =>
-  cn({ "ml-2": !twStore.get() }, "hm-thumbnail-pretty-date-span");
