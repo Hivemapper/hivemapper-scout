@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.42
+
+### Patch Changes
+
+- 70377e0: Friendlier naming for CSV, error handling
+
 ## 0.0.41
 
 ### Patch Changes
