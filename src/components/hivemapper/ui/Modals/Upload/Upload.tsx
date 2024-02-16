@@ -100,7 +100,7 @@ const Upload: React.FC<Props> = ({
       <div className={cn.uploadModalHeader()}>
         <div className={cn.uploadModalBold()}>Add Locations</div>
         <div>
-          <a href="#">
+          <a href="https://docs.hivemapper.com/use-the-map/scout/scout-hosted-service" target="_blank">
             View supported upload formats
           </a>
         </div>

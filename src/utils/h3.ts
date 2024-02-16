@@ -33,11 +33,15 @@ export function h3PolyFromCells(cells: string[]) {
     return p!.geometry as GeoJSONPolygon;
 }
 
-export const convertPointToPolygon = (coordinates: string) => {
-    const [lon, lat] = coordinates.split(',').map(Number);
-    const radius = 1;
+export const convertPointToPolygon = (coordinates: string, reverse: boolean = false) => {
+    const coordsArray = coordinates.split(',').map(Number);
+    
+    if(reverse) {
+      coordsArray.reverse();
+    }
 
-    const touchedHexes = findTouchedH3Hexagons(lon, lat, radius);
+    const radius = 1;
+    const touchedHexes = findTouchedH3Hexagons(coordsArray[0], coordsArray[1], radius);
     const h3Polygon = h3PolyFromCells(touchedHexes); 
     
     return h3Polygon;

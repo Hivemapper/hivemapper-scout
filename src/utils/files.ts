@@ -91,7 +91,7 @@ export const processFile = (
             name: getLocationName(location),
             geojson,
             description: location.description,
-            tags: location.tags?.split(",").map((tag: string) => tag.trim()),
+            tags: location.tags?.split(",").map((tag: string) => tag.trim()).filter(Boolean),
           })
         }
 
@@ -181,7 +181,7 @@ export const geojsonBasedOnType = async (location: Record<string, string>) => {
       const coords = center.join(", ");
       return convertPointToPolygon(coords);
     } else if (location.type.toLowerCase() === GeoJSONType.Point.toLowerCase()) {
-      return convertPointToPolygon(location.coordinates);
+      return convertPointToPolygon(location.coordinates, true);
     } else if (location.type.toLowerCase() === GeoJSONType.Polygon.toLowerCase() || location.type.toLowerCase() === GeoJSONType.MultiPolygon.toLowerCase()) {
       return {
         type: location.type,

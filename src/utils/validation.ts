@@ -82,7 +82,7 @@ const csvSchema = {
         },
         name: { type: "string" },
         description: { type: "string" },
-        tags: { type: "string" }
+        tags: { type: "array", items: { type: "string" } }
       },
       required: ["geojson", "name"],
       additionalProperties: false
