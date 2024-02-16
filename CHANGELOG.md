@@ -1,5 +1,12 @@
 # @hivemapper/scout
 
+## 0.0.41
+
+### Patch Changes
+
+- aab1324: Bug fixes
+- a0af562: More file validation, UI improvements, Styles
+
 ## 0.0.40
 
 ### Patch Changes
