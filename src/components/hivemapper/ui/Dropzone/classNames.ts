@@ -10,7 +10,7 @@ export const dropzoneMarginTop = () =>
 export const dropzoneError = (hasError: boolean) =>
   cn(
     {
-      [`mt-4 text-destructive h-[24px] ${hasError ? "visible" : "invisible"}`]:
+      [`mt-4 text-destructive max-w-[500px] text-center h-[24px] ${hasError ? "visible" : "invisible"}`]:
         !twStore.get(),
     },
     "hm-dropzone-error",

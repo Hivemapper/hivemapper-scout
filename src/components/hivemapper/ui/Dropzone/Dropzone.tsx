@@ -15,6 +15,7 @@ import { Button } from "@components/shadcn/Button";
 import Upload from "@components/icons/Upload";
 import { registerLocations } from "@api/locations";
 import { setMapAccessToken } from "@utils/map";
+import { buildErrorMessage } from "@utils/string";
 
 interface Props {
   callback: (locations: ScoutLocation[], mode: "add" | "delete", hasFailures: boolean) => void;
@@ -73,11 +74,19 @@ const Dropzone: React.FC<Props> = ({
     });
   };
 
+  const containsFailures = (failures: Record<string, number>) => {
+    for (const value of Object.values(failures)) {
+      if (value > 0) {
+        return true;
+      }
+    }
+  }
+
   const addFilesAndLocations = async (newLocations: ScoutLocation[], file: File) => {
     let locations = newLocations;
     let hasFailures = false;
 
-    if(window.location.host === "hivemapper.com") {
+    if(window.location.host !== "hivemapper.com") {
       const response = await registerLocations(locations);
 
       if ("error" in response || !response.locations) {
@@ -85,9 +94,11 @@ const Dropzone: React.FC<Props> = ({
         return;
       }
 
-      if(response.maxAreaFailures > 0 || response.verticesFailures > 0 || response.polygonFailures > 0) {
+      if(containsFailures(response.failures)) {
         hasFailures = true;
-        setError(`There were ${response.maxAreaFailures} max area failures, ${response.verticesFailures} vertices failures, and ${response.polygonFailures} polygon failures`);
+        const { failures } = response;
+        const errorMessage = buildErrorMessage(failures);
+        setError(errorMessage);
       }
 
       if(response.locations) {
@@ -161,7 +172,10 @@ const Dropzone: React.FC<Props> = ({
   });
 
   const style = useMemo(() => {
-    setError("");
+    if(!isFocused) {
+      setError("");
+    }
+
     return {
       ...baseStyle,
       ...(isFocused ? focusedStyle : {}),

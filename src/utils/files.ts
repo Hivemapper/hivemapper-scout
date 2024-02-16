@@ -13,7 +13,7 @@ export const getLocationName = (location: Record<string, string>) => {
     }
   
     if (location.type.toLowerCase() === GeoJSONType.Address.toLowerCase()) {
-        return location.coordinates;
+        return location.location;
     }
   
     return location.type || "Location Name Missing";
@@ -81,11 +81,10 @@ export const processFile = (
 
           if (properties.length === 1) {
             location.type = inferType(properties[0].value);
-            location.coordinates = properties[0].value;
+            location.location = properties[0].value;
           }
 
           const geojson = await geojsonBasedOnType(location);
-
           parsedCsv.push({
             _id: uuidv4(),
             name: getLocationName(location),
@@ -168,25 +167,25 @@ export function downloadJson(url, filename) {
 export const geojsonBasedOnType = async (location: Record<string, string>) => {
   try {
     if (location.type.toLowerCase() === GeoJSONType.Address.toLowerCase()) {
-      const response = await getPointFromAddress(location.coordinates);
+      const response = await getPointFromAddress(location.location);
       if("error" in response || !response.features) {
-        throw new Error("Error getting point from address: " + location.coordinates);
+        throw new Error("Error getting point from address: " + location.location);
       }
 
       const { center } = response.features[0];
       if(!center) {
-        throw new Error("Error getting center from address: " + location.coordinates);
+        throw new Error("Error getting center from address: " + location.location);
       }
 
       const coords = center.join(", ");
       return convertPointToPolygon(coords);
     } else if (location.type.toLowerCase() === GeoJSONType.Point.toLowerCase()) {
-      return convertPointToPolygon(location.coordinates, true);
+      return convertPointToPolygon(location.location, true);
     } else if (location.type.toLowerCase() === GeoJSONType.Polygon.toLowerCase() || location.type.toLowerCase() === GeoJSONType.MultiPolygon.toLowerCase()) {
       return {
         type: location.type,
         coordinates: JSON.parse(
-          "[" + location.coordinates.replace(/, /g, ",") + "]",
+          "[" + location.location.replace(/, /g, ",") + "]",
         ),
       }
     } else {
