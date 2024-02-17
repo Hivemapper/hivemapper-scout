@@ -10,14 +10,15 @@ export const camelCaseToTitle = (str) => {
 }
 
 export const buildErrorMessage = (failures: Record<string, number>) => {
+  const filteredFailures = Object.entries(failures).filter(([key, value]) => value > 0);
   let errorMessage = "Some locations failed to register: ";
-  const last = Object.keys(failures).length - 1;
+  const last = filteredFailures.length - 1;
   let index = 0;
-  for (const [key, value] of Object.entries(failures)) {
+  filteredFailures.forEach(([key, value]) => {
     const formattedKey = camelCaseToTitle(key);
     errorMessage += `${formattedKey}: ${value}${index === last ? "" : ", "}`;
     index++;
-  }
+  });
 
   return errorMessage;
 }

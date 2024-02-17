@@ -86,7 +86,7 @@ const Dropzone: React.FC<Props> = ({
     let locations = newLocations;
     let hasFailures = false;
 
-    if(window.location.host !== "hivemapper.com") {
+    if(window.location.host === "hivemapper.com") {
       const response = await registerLocations(locations);
 
       if ("error" in response || !response.locations) {
