@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.43
+
+### Patch Changes
+
+- 007a83c: Better error handling message
+
 ## 0.0.42
 
 ### Patch Changes
