@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.44
+
+### Patch Changes
+
+- a6ba1ab: UI improvements, create org on the fly
+
 ## 0.0.43
 
 ### Patch Changes
