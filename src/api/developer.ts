@@ -1,3 +1,4 @@
+import { handleResponse } from "@utils/api";
 import { Frame, ScoutLocation } from "types/location";
 
 export const getImagesForPolygon = async (
@@ -41,19 +42,7 @@ export const getImagesForPolygon = async (
       credentials: !encodedCredentials ? "include" : undefined,
     });
 
-    let json: any;
-
-    if (!response.ok) {
-      const contentType = response.headers.get('content-type');
-      if (contentType.includes('application/json')) {
-        json = await response.json();
-      }
-  
-      throw new Error(json?.error || `${response.status} while fetching ${url}`);
-    }
-
-    json = await response.json()
-    return json;
+    return await handleResponse(response, url);
   } catch (error) {
     if(error instanceof Error) {
       return { error: error.message };

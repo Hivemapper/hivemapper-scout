@@ -13,20 +13,25 @@ import * as cn from "./classNames";
 import { processFile } from "@utils/files";
 import { Button } from "@components/shadcn/Button";
 import Upload from "@components/icons/Upload";
-import { registerLocations } from "@api/locations";
+import { createOrganization, registerLocations } from "@api/locations";
 import { setMapAccessToken } from "@utils/map";
 import { buildErrorMessage } from "@utils/string";
+import Loader from "@components/icons/Loader";
 
-interface Props {
+interface DropzoneProps {
   callback: (locations: ScoutLocation[], mode: "add" | "delete", hasFailures: boolean) => void;
   filesWithLocations: FilesWithLocations;
   setFilesWithLocations: Dispatch<SetStateAction<FilesWithLocations>>;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
-const Dropzone: React.FC<Props> = ({
+const Dropzone: React.FC<DropzoneProps> = ({
   callback,
   filesWithLocations,
   setFilesWithLocations,
+  isLoading,
+  setIsLoading,
 }) => {
   const { darkMode, mapAccessToken } = useConfig();
   const pal = palette[darkMode ? "dark" : "default"];
@@ -75,6 +80,10 @@ const Dropzone: React.FC<Props> = ({
   };
 
   const containsFailures = (failures: Record<string, number>) => {
+    if (typeof failures !== "object") {
+      return false;
+    }
+
     for (const value of Object.values(failures)) {
       if (value > 0) {
         return true;
@@ -87,11 +96,28 @@ const Dropzone: React.FC<Props> = ({
     let hasFailures = false;
 
     if(window.location.host === "hivemapper.com") {
-      const response = await registerLocations(locations);
+      let response = await registerLocations(locations);
 
       if ("error" in response || !response.locations) {
-        setError(`There was an error registering the locations: ${response.error}`);
-        return;
+        if(response.error === "User has no organization") {
+          // Try to create organization on the fly
+          const res = await createOrganization();
+
+          if ("error" in res || !res.userOrganization) {
+            setError(`There was an error creating the organization: ${res.error}`);
+            return;
+          }
+
+          response = await registerLocations(locations);
+
+          if ("error" in response || !response.locations) {
+            setError(`There was an error registering the locations: ${response.error}`);
+            return;
+          }
+        } else {
+          setError(`There was an error registering the locations: ${response.error}`);
+          return;
+        }
       }
 
       if(containsFailures(response.failures)) {
@@ -112,7 +138,14 @@ const Dropzone: React.FC<Props> = ({
       callback(locations, "add", hasFailures);
       return copy;
     });
+
+    setIsLoading(false);
   };
+
+  const handleError = (error: string) => {
+    setError(error);
+    setIsLoading(false);
+  }
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -128,27 +161,29 @@ const Dropzone: React.FC<Props> = ({
         const fileName = file.name;
         const fileExtension = fileName.split(".").pop().toLowerCase();
 
+        setIsLoading(true);
+
         try {
           setMapAccessToken(mapAccessToken);
 
           if (fileType === "text/csv" || fileExtension === "csv") {
-            processFile(file, "csv", addFilesAndLocations, setError);
+            processFile(file, "csv", addFilesAndLocations, handleError);
           } else if (
             fileType === "application/json" ||
             fileExtension === "json"
           ) {
-            processFile(file, "json", addFilesAndLocations, setError);
+            processFile(file, "json", addFilesAndLocations, handleError);
           } else if (
             fileType === "application/geo+json" ||
             fileExtension === "geojson"
           ) {
-            processFile(file, "geojson", addFilesAndLocations, setError);
+            processFile(file, "geojson", addFilesAndLocations, handleError);
           } else {
             throw new Error("Unsupported file type");
           }
         } catch (error) {
           console.error("Error processing file:", error.message);
-          setError(error.message);
+          handleError(error.message);
         }
       }
     },
@@ -198,6 +233,7 @@ const Dropzone: React.FC<Props> = ({
             </p>
           )}
           <Button className={cn.dropzoneMarginTop()}>Select a File</Button>
+          {isLoading && <Loader className={cn.dropzoneLoader()} />}
           <p className={cn.dropzoneError(!!error)}>{error}</p>
         </>
       </div>

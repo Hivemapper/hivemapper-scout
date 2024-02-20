@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { parse } from "csv-parse/sync";
-import { CSVLocation, ScoutLocation } from "types/location";
+import { ScoutLocation } from "types/location";
 import { GeoJSONFeatureCollection, GeoJSONType } from "types/geojson";
 import { convertPointToPolygon } from "@utils/h3";
 import { getPointFromAddress } from "@api/locations";
@@ -65,6 +65,7 @@ export const processFile = (
         const locations = parse(content, {
           columns: true,
           skip_empty_lines: true,
+          trim: true,
         });
 
         if(locations.length < 1) {

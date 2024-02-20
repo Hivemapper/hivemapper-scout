@@ -14,6 +14,6 @@ export const modalSection = () =>
 
 export const modalCloseButton = () =>
   cn(
-    { "absolute top-5 right-5 cursor-pointer": !twStore.get() },
+    { "absolute top-5 right-5 z-[9999] cursor-pointer": !twStore.get() },
     "hm-modal-close-button",
   );

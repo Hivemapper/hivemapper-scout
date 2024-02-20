@@ -3,8 +3,8 @@ import React, {
   SetStateAction,
   useCallback,
   useEffect,
-  MouseEvent,
   useRef,
+  useState,
 } from "react";
 import Dropzone from "@components/hivemapper/ui/Dropzone";
 import { FilesWithLocations, ScoutLocation } from "types/location";
@@ -28,6 +28,8 @@ const Upload: React.FC<Props> = ({
   setActiveView,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleParsedLocations = (
     locations: ScoutLocation[],
@@ -63,20 +65,24 @@ const Upload: React.FC<Props> = ({
 
   const eventKeyCallback = useCallback(
     (event: any) => {
+      if (isLoading) {
+        return;
+      }
+
       switch (event.key) {
         case "Escape":
           setShowModal(false);
           break;
       }
     },
-    [setShowModal],
+    [setShowModal, isLoading],
   );
 
   const handleClickOutside = useCallback((event: any) => {
-    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+    if (!isLoading && modalRef.current && !modalRef.current.contains(event.target as Node)) {
       setShowModal(false);
     }
-  }, [setShowModal])
+  }, [setShowModal, isLoading])
 
   useEffect(() => {
     document.addEventListener("keydown", eventKeyCallback, false);
@@ -85,15 +91,15 @@ const Upload: React.FC<Props> = ({
       document.removeEventListener("keydown", eventKeyCallback, false);
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [eventKeyCallback]);
+  }, [eventKeyCallback, isLoading, handleClickOutside, eventKeyCallback]);
 
   return (
     <div ref={modalRef} className={cn.uploadModalWrapper()}>
       <div
         onClick={() => {
-          setShowModal(false);
+          !isLoading && setShowModal(false);
         }}
-        className={cn.uploadModalCloseButton()}
+        className={cn.uploadModalCloseButton(isLoading)}
       >
         <Close />
       </div>
@@ -109,6 +115,8 @@ const Upload: React.FC<Props> = ({
         callback={handleParsedLocations}
         filesWithLocations={filesWithLocations}
         setFilesWithLocations={setFilesWithLocations}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
       />
     </div>
   );

@@ -1,3 +1,4 @@
+import { handleResponse } from "@utils/api";
 import { getMapAccessToken } from "@utils/map";
 import { ScoutLocation } from "types/location";
 
@@ -26,19 +27,36 @@ export const registerLocations = async (
       credentials: "include",
     });
 
-    let json: any;
-
-    if (!response.ok) {
-      const contentType = response.headers.get('content-type');
-      if (contentType.includes('application/json')) {
-        json = await response.json();
-      }
-  
-      throw new Error(json?.error || `${response.status} while fetching ${url}`);
+    return await handleResponse(response, url);
+  } catch (error) {
+    if(error instanceof Error) {
+      return { error: error.message };
     }
+    
+    return { error };
+  }
+};
 
-    json = await response.json()
-    return json;
+export const createOrganization = async (
+) => {
+  try {
+    const api = `https://hivemapper.com/api`;
+    const route = `organization/create`;
+
+    const url = `${api}/${route}`;
+
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      credentials: "include",
+    });
+
+    return await handleResponse(response, url);
   } catch (error) {
     if(error instanceof Error) {
       return { error: error.message };
@@ -58,20 +76,13 @@ export const getPointFromAddress = async (
       method: "GET",
     });
 
-    let json: any;
-
-    if (!response.ok) {
-      const contentType = response.headers.get('content-type');
-      if (contentType.includes('application/json')) {
-        json = await response.json();
-      }
-  
-      throw new Error(json?.error || `${response.status} while fetching ${url}`);
-    }
-
-    json = await response.json()
-    return json;
+    return await handleResponse(response, url);
   } catch (error) {
+    if(error instanceof Error) {
+      return { error: error.message };
+    }
+    
     return { error };
   }
 };
+
