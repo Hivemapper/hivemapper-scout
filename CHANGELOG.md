@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.45
+
+### Patch Changes
+
+- b97b05d: Additional validation
+
 ## 0.0.44
 
 ### Patch Changes
