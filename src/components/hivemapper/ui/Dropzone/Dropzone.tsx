@@ -233,8 +233,10 @@ const Dropzone: React.FC<DropzoneProps> = ({
             </p>
           )}
           <Button className={cn.dropzoneMarginTop()}>Select a File</Button>
-          {isLoading && <Loader className={cn.dropzoneLoader()} />}
-          <p className={cn.dropzoneError(!!error)}>{error}</p>
+          <div className={cn.dropzoneFeedback()}>
+            {isLoading && <Loader className={cn.dropzoneLoader()} />}
+            <p className={cn.dropzoneError(!!error)}>{error}</p>
+          </div>
         </>
       </div>
       {/* <div className={cn.dropzoneFileBadgeWrapper()}>

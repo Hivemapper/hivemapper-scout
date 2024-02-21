@@ -4,13 +4,15 @@ import CloseCircle from "@components/icons/CloseCircle";
 import palette from "@styles/palette";
 import { useConfig } from "@hooks/useConfig";
 import * as cn from "./classNames";
+import { Views } from "types/view";
 
 export interface SearchProps {
   placeholder?: string;
   onChange: (value: string) => void;
+  activeView: Views;
 }
 
-const Search: React.FC<SearchProps> = ({ placeholder, onChange }) => {
+const Search: React.FC<SearchProps> = ({ placeholder, onChange, activeView }) => {
   const [value, setValue] = useState("");
   const { darkMode } = useConfig();
 
@@ -32,6 +34,7 @@ const Search: React.FC<SearchProps> = ({ placeholder, onChange }) => {
         />
       </div>
       <Input
+        disabled={activeView === Views.Location}
         value={value}
         placeholder={placeholder}
         onChange={(e) => {

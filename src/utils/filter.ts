@@ -7,8 +7,8 @@ export const filterLocations = (
 ) => {
   return locations.filter((location) => {
     if (filters.tags.length > 0) {
-      const hasTag = location.tags?.some((tag) => filters.tags.includes(tag));
-      if (!hasTag) {
+      const hasTags = filters.tags?.every((tag) => location.tags.includes(tag));
+      if (!hasTags) {
         return false;
       }
     }

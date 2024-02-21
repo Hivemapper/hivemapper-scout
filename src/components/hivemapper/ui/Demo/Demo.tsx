@@ -133,7 +133,7 @@ const Demo: React.FC<DemoProps> = ({
         />
       </Modal>
       <Container activeView={activeView}>
-        <Filters locations={locations} setFilters={setFilters} />
+        <Filters locations={locations} setFilters={setFilters} activeView={activeView} />
         <View>
           <ViewSelector
             activeView={activeView}

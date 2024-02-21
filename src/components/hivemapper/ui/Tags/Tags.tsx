@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { ToggleGroup, ToggleGroupItem } from "@components/shadcn/ToggleGroup";
+import { Views } from "types/view";
 
 export interface TagsProps {
   tags: string[];
   onChange?: (tags: string[]) => void;
+  activeView: Views;
 }
 
-const Tags: React.FC<TagsProps> = ({ tags, onChange }) => {
+const Tags: React.FC<TagsProps> = ({ tags, onChange, activeView }) => {
   const [activeTags, setActiveTags] = useState<string[]>([]);
   const uniques = [...new Set(tags)];
 
@@ -18,6 +20,7 @@ const Tags: React.FC<TagsProps> = ({ tags, onChange }) => {
     <ToggleGroup type="multiple">
       {uniques.map((tag) => (
         <ToggleGroupItem
+          disabled={activeView === Views.Location}
           key={tag}
           value={tag}
           aria-label="Toggle tag"
