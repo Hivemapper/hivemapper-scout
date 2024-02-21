@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.46
+
+### Patch Changes
+
+- bff4038: Loading icon flicker, tags filtering, disabled search on Location view
+
 ## 0.0.45
 
 ### Patch Changes
