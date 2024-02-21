@@ -4,6 +4,12 @@ const ajv = new Ajv();
 
 const geoJsonTypeEnum = [GeoJSONType.Polygon, GeoJSONType.MultiPolygon, GeoJSONType.Polygon.toLowerCase(), GeoJSONType.MultiPolygon.toLowerCase()]
 
+export const isValidSetOfCoordinates = (coordinates: number[]) => {
+  const validation = ajv.compile(coordinatesSchema);
+  const valid = validation(coordinates);
+  return { valid, errors: validation.errors };
+}
+
 export const validate = (content: string | object, type: 'csv' | 'json' | 'geojson') => {
     if (typeof content === 'string') {
         content = JSON.parse(content);
@@ -28,27 +34,29 @@ export const validate = (content: string | object, type: 'csv' | 'json' | 'geojs
     return content;
 }
 
+const coordinatesSchema = {
+  type: "array",
+  minItems: 2,
+  maxItems: 2,
+  items: [
+    {
+      type: "number",
+      minimum: -180,
+      maximum: 180
+    },
+    {
+      type: "number",
+      minimum: -90,
+      maximum: 90
+    }
+  ]
+};
+
 const polygonSchema = {
   type: "array",
   items: {
     type: "array",
-    items: {
-      type: "array",
-      minItems: 2,
-      maxItems: 2,
-      items: [
-        {
-          type: "number",
-          minimum: -180,
-          maximum: 180
-        },
-        {
-          type: "number",
-          minimum: -90,
-          maximum: 90
-        }
-      ]
-    },
+    items: coordinatesSchema,
     minItems: 4
   },
   minItems: 1
