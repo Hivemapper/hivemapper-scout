@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.47
+
+### Patch Changes
+
+- d5ef41f: Deregister locations
+
 ## 0.0.46
 
 ### Patch Changes
