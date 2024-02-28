@@ -9,18 +9,18 @@ import { validate } from "@utils/validation";
 export const getLocationName = (location: Record<string, string>) => {
   try {
     if (location.name) {
-        return location.name;
+      return location.name;
     }
-  
+
     if (location.type.toLowerCase() === GeoJSONType.Address.toLowerCase()) {
-        return location.location;
+      return location.location;
     }
-  
+
     return location.type || "Location Name Missing";
   } catch (error) {
     return "Location Name Missing";
   }
-}
+};
 
 export const getPopulatedProperties = (location: Record<string, string>) => {
   const populatedProperties = [];
@@ -29,7 +29,7 @@ export const getPopulatedProperties = (location: Record<string, string>) => {
       continue;
     }
 
-    if(key.trim() === "" || value.trim() === "") {
+    if (key.trim() === "" || value.trim() === "") {
       key = key || value;
       value = value || key;
     }
@@ -38,7 +38,7 @@ export const getPopulatedProperties = (location: Record<string, string>) => {
   }
 
   return populatedProperties;
-}
+};
 
 export const inferType = (value: string) => {
   const regex = /^-?\d+\.\d+,\s*-?\d+\.\d+$/;
@@ -68,12 +68,12 @@ export const processFile = (
           trim: true,
         });
 
-        if(locations.length < 1) {
+        if (locations.length < 1) {
           throw new Error("No locations found in CSV");
         }
 
         const parsedCsv = [];
-        for(const location of locations) {
+        for (const location of locations) {
           const properties = getPopulatedProperties(location);
 
           if (properties.length < 1) {
@@ -91,11 +91,14 @@ export const processFile = (
             name: getLocationName(location),
             geojson,
             description: location.description,
-            tags: location.tags?.split(",").map((tag: string) => tag.trim()).filter(Boolean),
-          })
+            tags: location.tags
+              ?.split(",")
+              .map((tag: string) => tag.trim())
+              .filter(Boolean),
+          });
         }
 
-        const validCsv = validate(parsedCsv, 'csv') as ScoutLocation[];
+        const validCsv = validate(parsedCsv, "csv") as ScoutLocation[];
         onSuccess(validCsv, file);
       } catch (error) {
         console.error("Error parsing CSV:", error);
@@ -103,8 +106,10 @@ export const processFile = (
       }
     } else if (type === "geojson") {
       try {
-        const validGeoJson = validate(content, 'geojson');
-        const parsedGeojson = parseGeojsonToLocations(validGeoJson as GeoJSONFeatureCollection);
+        const validGeoJson = validate(content, "geojson");
+        const parsedGeojson = parseGeojsonToLocations(
+          validGeoJson as GeoJSONFeatureCollection,
+        );
         onSuccess(parsedGeojson, file);
       } catch (error) {
         console.error("Error parsing GeoJSON:", error);
@@ -169,26 +174,35 @@ export const geojsonBasedOnType = async (location: Record<string, string>) => {
   try {
     if (location.type.toLowerCase() === GeoJSONType.Address.toLowerCase()) {
       const response = await getPointFromAddress(location.location);
-      if("error" in response || !response.features) {
-        throw new Error("Error getting point from address: " + location.location);
+      if ("error" in response || !response.features) {
+        throw new Error(
+          "Error getting point from address: " + location.location,
+        );
       }
 
       const { center } = response.features[0];
-      if(!center) {
-        throw new Error("Error getting center from address: " + location.location);
+      if (!center) {
+        throw new Error(
+          "Error getting center from address: " + location.location,
+        );
       }
 
       const coords = center.join(", ");
       return convertPointToPolygon(coords);
-    } else if (location.type.toLowerCase() === GeoJSONType.Point.toLowerCase()) {
+    } else if (
+      location.type.toLowerCase() === GeoJSONType.Point.toLowerCase()
+    ) {
       return convertPointToPolygon(location.location, true);
-    } else if (location.type.toLowerCase() === GeoJSONType.Polygon.toLowerCase() || location.type.toLowerCase() === GeoJSONType.MultiPolygon.toLowerCase()) {
+    } else if (
+      location.type.toLowerCase() === GeoJSONType.Polygon.toLowerCase() ||
+      location.type.toLowerCase() === GeoJSONType.MultiPolygon.toLowerCase()
+    ) {
       return {
         type: location.type,
         coordinates: JSON.parse(
           "[" + location.location.replace(/, /g, ",") + "]",
         ),
-      }
+      };
     } else {
       return null;
     }

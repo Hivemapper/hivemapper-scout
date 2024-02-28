@@ -120,7 +120,11 @@ const Demo: React.FC<DemoProps> = ({
   };
 
   return (
-    <Config darkMode={!!darkMode} stripTailwindClasses={!!stripTailwindClasses} mapAccessToken={mapAccessToken}>
+    <Config
+      darkMode={!!darkMode}
+      stripTailwindClasses={!!stripTailwindClasses}
+      mapAccessToken={mapAccessToken}
+    >
       <Modal
         showModal={isUploadModalVisible}
         setShowModal={setIsUploadModalVisible}
@@ -135,7 +139,11 @@ const Demo: React.FC<DemoProps> = ({
         />
       </Modal>
       <Container activeView={activeView}>
-        <Filters locations={locations} setFilters={setFilters} activeView={activeView} />
+        <Filters
+          locations={locations}
+          setFilters={setFilters}
+          activeView={activeView}
+        />
         <View>
           <ViewSelector
             activeView={activeView}

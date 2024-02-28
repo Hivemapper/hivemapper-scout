@@ -18,7 +18,6 @@ import { SourceOptions } from "types/map";
 import * as cn from "./classNames";
 import { useIsomorphicLayoutEffect } from "@utils/helpers";
 
-
 const MAP_CENTROID_LAYER = "map-centroid-hm-layer";
 const MAP_CENTROID_SOURCE = "map-centroid-hm-source";
 const MAP_GEOJSON_LAYER = "map-geojson-hm-layer";

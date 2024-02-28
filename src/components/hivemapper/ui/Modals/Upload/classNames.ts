@@ -10,9 +10,11 @@ export const uploadModalWrapper = () =>
   );
 export const uploadModalCloseButton = (isLoading: boolean) =>
   cn(
-    { [`absolute top-[8px] right-[8px] ${
-      isLoading ? "cursor-wait" : "cursor-pointer"
-    }`]: !twStore.get() },
+    {
+      [`absolute top-[8px] right-[8px] ${
+        isLoading ? "cursor-wait" : "cursor-pointer"
+      }`]: !twStore.get(),
+    },
     "hm-upload-modal-close-button",
   );
 export const uploadModalHeader = () =>

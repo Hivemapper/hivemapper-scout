@@ -10,7 +10,7 @@ export interface ListProps {
   apiKey: string;
   username: string;
   locations: ScoutLocation[];
-  setLocations: Dispatch<SetStateAction<ScoutLocation[]>>
+  setLocations: Dispatch<SetStateAction<ScoutLocation[]>>;
   itemsPerPage?: number;
   selectionCallback?: (id: string | number) => void;
 }
@@ -74,7 +74,14 @@ const List: React.FC<ListProps> = ({
             scrollToTarget();
           }}
         />
-      ): <div className={cn.listNullState()} style={{ minHeight: `calc(95vh - ${distanceFromTop}px)` }}>Press "Upload" to start monitoring locations with Scout.</div>}
+      ) : (
+        <div
+          className={cn.listNullState()}
+          style={{ minHeight: `calc(95vh - ${distanceFromTop}px)` }}
+        >
+          Press "Upload" to start monitoring locations with Scout.
+        </div>
+      )}
     </div>
   );
 };

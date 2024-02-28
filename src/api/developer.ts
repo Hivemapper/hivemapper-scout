@@ -14,8 +14,12 @@ export const getImagesForPolygon = async (
     const url = encodedCredentials ? `${api}/${route}` : `${api}/${forwarder}`;
 
     const payload = {
-      coordinates: location.searchShape ? location.searchShape.coordinates : location.geojson.coordinates,
-      type: location.searchShape ? location.searchShape.type : location.geojson.type,
+      coordinates: location.searchShape
+        ? location.searchShape.coordinates
+        : location.geojson.coordinates,
+      type: location.searchShape
+        ? location.searchShape.type
+        : location.geojson.type,
     };
 
     const forwarderPayload = {
@@ -44,7 +48,7 @@ export const getImagesForPolygon = async (
 
     return await handleResponse(response, url);
   } catch (error) {
-    if(error instanceof Error) {
+    if (error instanceof Error) {
       return { error: error.message };
     }
 

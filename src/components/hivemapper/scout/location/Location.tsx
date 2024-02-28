@@ -41,7 +41,16 @@ const Location: React.FC<LocationProps> = ({
     }
   }, []);
 
-  if (!location) return <div ref={nullStateRef} className={cn.locationNullState()} style={{ minHeight: `calc(95vh - ${distanceFromTop}px)` }}>Press "Upload" to start monitoring locations with Scout.</div>;
+  if (!location)
+    return (
+      <div
+        ref={nullStateRef}
+        className={cn.locationNullState()}
+        style={{ minHeight: `calc(95vh - ${distanceFromTop}px)` }}
+      >
+        Press "Upload" to start monitoring locations with Scout.
+      </div>
+    );
 
   const [sortedSequences, setSortedSequences] = useState<Frame[][] | null>([]);
   const [activeSequenceIndex, setActiveSequenceIndex] = useState(0);
@@ -91,7 +100,14 @@ const Location: React.FC<LocationProps> = ({
           </div>
           <div className={cn.locationSectionTopRight()}>
             <div className={cn.locationMoreOptionsMenu()}>
-              <MoreOptionsMenu elements={[<RemoveLocation id={location._id} setLocations={setLocations} />]} />
+              <MoreOptionsMenu
+                elements={[
+                  <RemoveLocation
+                    id={location._id}
+                    setLocations={setLocations}
+                  />,
+                ]}
+              />
             </div>
           </div>
         </div>

@@ -19,7 +19,7 @@ import RemoveLocation from "@components/hivemapper/ui/MoreOptionsMenu/RemoveLoca
 
 export interface DetailedProps {
   location: ScoutLocation;
-  setLocations: Dispatch<SetStateAction<ScoutLocation[]>>
+  setLocations: Dispatch<SetStateAction<ScoutLocation[]>>;
   encodedCredentials: string | null;
   selectionCallback?: (id: string | number) => void;
 }
@@ -33,7 +33,7 @@ const Detailed: React.FC<DetailedProps> = ({
   const [sortedSequences, setSortedSequences] = useState<Frame[][] | null>([]);
   const [apiCallsComplete, setApiCallsComplete] = useState(false);
   const [framesLength, setFramesLength] = useState(0);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
 
   const latestSequence = sortedSequences[0] || [];
   const lastFrame: Frame | undefined =
@@ -45,22 +45,21 @@ const Detailed: React.FC<DetailedProps> = ({
     threshold: 0.01,
   });
 
-
   const centroid = turf.centroid(location.geojson);
 
   useEffect(() => {
     if (inView) {
       const fetchImagery = async () => {
-        const allFrames = []; 
+        const allFrames = [];
         const weeks = getLastThreeMondays();
-        let apiError = '';
+        let apiError = "";
 
         for (const week of weeks) {
           const data = await getImagesForPolygon(
-              location,
-              week,
-              encodedCredentials,
-            );
+            location,
+            week,
+            encodedCredentials,
+          );
 
           if ("error" in data) {
             apiError = data.error;
@@ -71,7 +70,7 @@ const Detailed: React.FC<DetailedProps> = ({
           allFrames.push(...frames);
         }
 
-        if(allFrames.length === 0 && apiError) {
+        if (allFrames.length === 0 && apiError) {
           setError(apiError);
           setApiCallsComplete(true);
           return;
@@ -96,7 +95,12 @@ const Detailed: React.FC<DetailedProps> = ({
   return (
     <div ref={ref} className={cn.detailedItemWrapper()}>
       <div className={cn.detailedItemLeftSection()}>
-        <div className={cn.detailedItemLocation()} onClick={() => selectionCallback(location._id)}>{location.name}</div>
+        <div
+          className={cn.detailedItemLocation()}
+          onClick={() => selectionCallback(location._id)}
+        >
+          {location.name}
+        </div>
         <div className={cn.detailedItemDescription()}>
           {location.description}
         </div>
@@ -132,7 +136,11 @@ const Detailed: React.FC<DetailedProps> = ({
       </div>
       <div className={cn.detailedItemImagery()}>
         <div className={cn.detailedItemMoreOptionsMenu()}>
-          <MoreOptionsMenu elements={[<RemoveLocation id={location._id} setLocations={setLocations} />]} />
+          <MoreOptionsMenu
+            elements={[
+              <RemoveLocation id={location._id} setLocations={setLocations} />,
+            ]}
+          />
         </div>
         {!apiCallsComplete ? (
           <div className={cn.detailedItemLoader()}>
@@ -155,10 +163,9 @@ const Detailed: React.FC<DetailedProps> = ({
               );
             })}
           </div>
+        ) : error ? (
+          <div className={cn.detailedItemNullState()}>{error}</div>
         ) : (
-          error ? <div className={cn.detailedItemNullState()}>
-            {error}
-          </div> : 
           <div className={cn.detailedItemNullState()}>
             No imagery available in the last 14 days.
           </div>

@@ -15,11 +15,8 @@ export const dropzoneError = (hasError: boolean) =>
     },
     "hm-dropzone-error",
   );
-  export const dropzoneLoader = () =>
-  cn(
-    { "mt-4 h-[32px]": !twStore.get() },
-    "hm-dropzone-loader",
-  );
+export const dropzoneLoader = () =>
+  cn({ "mt-4 h-[32px]": !twStore.get() }, "hm-dropzone-loader");
 export const dropzoneFileBadgeWrapper = () =>
   cn({ "flex h-[24px]": !twStore.get() }, "hm-dropzone-file-badge-wrapper");
 export const dropzoneFileBadge = () =>
@@ -33,8 +30,4 @@ export const dropzoneFileBadgeCloseButton = () =>
     "hm-dropzone-file-badge-close-button",
   );
 export const dropzoneFeedback = () =>
-  cn(
-    { "h-[32px]": !twStore.get() },
-    "hm-dropzone-feedback",
-  );
-
+  cn({ "h-[32px]": !twStore.get() }, "hm-dropzone-feedback");

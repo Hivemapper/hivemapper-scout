@@ -19,7 +19,11 @@ import { buildErrorMessage } from "@utils/string";
 import Loader from "@components/icons/Loader";
 
 interface DropzoneProps {
-  callback: (locations: ScoutLocation[], mode: "add" | "delete", hasFailures: boolean) => void;
+  callback: (
+    locations: ScoutLocation[],
+    mode: "add" | "delete",
+    hasFailures: boolean,
+  ) => void;
   filesWithLocations: FilesWithLocations;
   setFilesWithLocations: Dispatch<SetStateAction<FilesWithLocations>>;
   isLoading: boolean;
@@ -89,45 +93,54 @@ const Dropzone: React.FC<DropzoneProps> = ({
         return true;
       }
     }
-  }
+  };
 
-  const addFilesAndLocations = async (newLocations: ScoutLocation[], file: File) => {
+  const addFilesAndLocations = async (
+    newLocations: ScoutLocation[],
+    file: File,
+  ) => {
     let locations = newLocations;
     let hasFailures = false;
 
-    if(window.location.host === "hivemapper.com") {
+    if (window.location.host === "hivemapper.com") {
       let response = await registerLocations(locations);
 
       if ("error" in response || !response.locations) {
-        if(response.error === "User has no organization") {
+        if (response.error === "User has no organization") {
           // Try to create organization on the fly
           const res = await createOrganization();
 
           if ("error" in res || !res.userOrganization) {
-            setError(`There was an error creating the organization: ${res.error}`);
+            setError(
+              `There was an error creating the organization: ${res.error}`,
+            );
             return;
           }
 
           response = await registerLocations(locations);
 
           if ("error" in response || !response.locations) {
-            setError(`There was an error registering the locations: ${response.error}`);
+            setError(
+              `There was an error registering the locations: ${response.error}`,
+            );
             return;
           }
         } else {
-          setError(`There was an error registering the locations: ${response.error}`);
+          setError(
+            `There was an error registering the locations: ${response.error}`,
+          );
           return;
         }
       }
 
-      if(containsFailures(response.failures)) {
+      if (containsFailures(response.failures)) {
         hasFailures = true;
         const { failures } = response;
         const errorMessage = buildErrorMessage(failures);
         setError(errorMessage);
       }
 
-      if(response.locations) {
+      if (response.locations) {
         locations = response.locations;
       }
     }
@@ -145,7 +158,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
   const handleError = (error: string) => {
     setError(error);
     setIsLoading(false);
-  }
+  };
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -207,7 +220,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
   });
 
   const style = useMemo(() => {
-    if(!isFocused) {
+    if (!isFocused) {
       setError("");
     }
 

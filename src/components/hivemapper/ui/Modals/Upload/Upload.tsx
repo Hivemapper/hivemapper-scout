@@ -36,7 +36,6 @@ const Upload: React.FC<Props> = ({
     mode: "add" | "delete",
     hasFailures: boolean,
   ) => {
-
     if (mode === "add") {
       setLocations((prevState) => [...locations, ...prevState]);
     } else {
@@ -50,16 +49,16 @@ const Upload: React.FC<Props> = ({
       });
     }
 
-    if(!hasFailures) {
+    if (!hasFailures) {
       setShowModal(false);
     }
 
-    setActiveView(prevState => {
-      if(prevState === Views.Location) {
+    setActiveView((prevState) => {
+      if (prevState === Views.Location) {
         return Views.Thumbnail;
       }
 
-      return prevState; 
+      return prevState;
     });
   };
 
@@ -78,18 +77,25 @@ const Upload: React.FC<Props> = ({
     [setShowModal, isLoading],
   );
 
-  const handleClickOutside = useCallback((event: any) => {
-    if (!isLoading && modalRef.current && !modalRef.current.contains(event.target as Node)) {
-      setShowModal(false);
-    }
-  }, [setShowModal, isLoading])
+  const handleClickOutside = useCallback(
+    (event: any) => {
+      if (
+        !isLoading &&
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setShowModal(false);
+      }
+    },
+    [setShowModal, isLoading],
+  );
 
   useEffect(() => {
     document.addEventListener("keydown", eventKeyCallback, false);
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("keydown", eventKeyCallback, false);
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [eventKeyCallback, isLoading, handleClickOutside, eventKeyCallback]);
 
@@ -106,7 +112,10 @@ const Upload: React.FC<Props> = ({
       <div className={cn.uploadModalHeader()}>
         <div className={cn.uploadModalBold()}>Add Locations</div>
         <div>
-          <a href="https://docs.hivemapper.com/use-the-map/scout/scout-hosted-service" target="_blank">
+          <a
+            href="https://docs.hivemapper.com/use-the-map/scout/scout-hosted-service"
+            target="_blank"
+          >
             View supported upload formats
           </a>
         </div>

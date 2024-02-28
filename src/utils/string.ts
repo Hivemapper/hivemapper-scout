@@ -4,13 +4,15 @@ export const capitalizeFirstCharacter = (str: string) => {
 };
 
 export const camelCaseToTitle = (str) => {
-  const spaced = str.replace(/([A-Z])/g, ' $1');
+  const spaced = str.replace(/([A-Z])/g, " $1");
   const capitalized = spaced.charAt(0).toUpperCase() + spaced.slice(1);
   return capitalized;
-}
+};
 
 export const buildErrorMessage = (failures: Record<string, number>) => {
-  const filteredFailures = Object.entries(failures).filter(([key, value]) => value > 0);
+  const filteredFailures = Object.entries(failures).filter(
+    ([key, value]) => value > 0,
+  );
   let errorMessage = "Some locations failed to register: ";
   const last = filteredFailures.length - 1;
   let index = 0;
@@ -21,4 +23,4 @@ export const buildErrorMessage = (failures: Record<string, number>) => {
   });
 
   return errorMessage;
-}
+};

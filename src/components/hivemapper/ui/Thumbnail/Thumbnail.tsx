@@ -24,9 +24,7 @@ const Thumbnail: React.FC<Props> = ({ url, timestamp, onClick, isActive }) => {
       </div>
       <div className={cn.thumbnailDate()}>{monthDayTime(timestamp)}</div>
       <div className={cn.thumbnailPrettyDate()}>
-        <span>
-          {prettyDate(timestamp, true)}
-        </span>
+        <span>{prettyDate(timestamp, true)}</span>
       </div>
     </div>
   );

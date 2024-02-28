@@ -17,9 +17,9 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const canUseDOM = !!(
-  typeof window !== 'undefined' &&
-  typeof window.document !== 'undefined' &&
-  typeof window.document.createElement !== 'undefined'
+  typeof window !== "undefined" &&
+  typeof window.document !== "undefined" &&
+  typeof window.document.createElement !== "undefined"
 );
 
 export const useIsomorphicLayoutEffect = canUseDOM

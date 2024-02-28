@@ -12,7 +12,11 @@ export interface SearchProps {
   activeView: Views;
 }
 
-const Search: React.FC<SearchProps> = ({ placeholder, onChange, activeView }) => {
+const Search: React.FC<SearchProps> = ({
+  placeholder,
+  onChange,
+  activeView,
+}) => {
   const [value, setValue] = useState("");
   const { darkMode } = useConfig();
 

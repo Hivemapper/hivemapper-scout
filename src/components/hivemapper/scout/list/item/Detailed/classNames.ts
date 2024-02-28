@@ -46,9 +46,15 @@ export const detailedItemDateSection = () =>
 export const detailedItemDate = () =>
   cn({ "text-md font-bold": !twStore.get() }, "hm-detailed-item-date");
 export const detailedItemImagery = () =>
-  cn({ "relative flex flex-row w-2/3 pt-10": !twStore.get() }, "hm-detailed-item-imagery");
-  export const detailedItemMoreOptionsMenu = () =>
-  cn({ "absolute right-0 top-0": !twStore.get() }, "hm-detailed-item-more-options-menu");
+  cn(
+    { "relative flex flex-row w-2/3 pt-10": !twStore.get() },
+    "hm-detailed-item-imagery",
+  );
+export const detailedItemMoreOptionsMenu = () =>
+  cn(
+    { "absolute right-0 top-0": !twStore.get() },
+    "hm-detailed-item-more-options-menu",
+  );
 export const detailedItemLoader = () =>
   cn(
     { "flex w-full justify-center items-center": !twStore.get() },

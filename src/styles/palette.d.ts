@@ -30,8 +30,8 @@ interface Palette {
     location: ColorSettings;
     frame: {
       active: ColorSettings;
-      default: ColorSettings
-    }
+      default: ColorSettings;
+    };
   };
 }
 

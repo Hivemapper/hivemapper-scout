@@ -12,7 +12,11 @@ export interface FiltersProps {
   activeView: Views;
 }
 
-const Filters: React.FC<FiltersProps> = ({ locations, setFilters, activeView }) => {
+const Filters: React.FC<FiltersProps> = ({
+  locations,
+  setFilters,
+  activeView,
+}) => {
   const onChange = (key: keyof FiltersState, value: string | string[]) => {
     setFilters((filters) => ({
       ...filters,

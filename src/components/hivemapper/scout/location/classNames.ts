@@ -48,10 +48,7 @@ export const locationLastMapped = () =>
   );
 
 export const locationLastMappedText = () =>
-  cn(
-    { "text-md font-bold": !twStore.get() },
-    "hm-location-last-mapped-text",
-  );
+  cn({ "text-md font-bold": !twStore.get() }, "hm-location-last-mapped-text");
 
 export const locationLastMappedDate = () =>
   cn(
@@ -97,7 +94,7 @@ export const locationImagery = () =>
     "hm-location-imagery",
   );
 
-  export const locationNullState = () =>
+export const locationNullState = () =>
   cn(
     {
       "flex h-[100%] justify-center items-center text-primary": !twStore.get(),
@@ -105,7 +102,7 @@ export const locationImagery = () =>
     "hm-location-null-state",
   );
 
-  export const locationMoreOptionsMenu = () =>
+export const locationMoreOptionsMenu = () =>
   cn(
     {
       "absolute right-0 top-0": !twStore.get(),

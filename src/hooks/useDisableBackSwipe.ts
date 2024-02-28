@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 const useDisableBackSwipe = () => {
   useEffect(() => {
-    document.body.style.overscrollBehaviorX = 'none';
+    document.body.style.overscrollBehaviorX = "none";
     return () => {
-      document.body.style.overscrollBehaviorX = 'auto';
+      document.body.style.overscrollBehaviorX = "auto";
     };
   }, []);
 };

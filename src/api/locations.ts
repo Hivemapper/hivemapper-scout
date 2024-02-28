@@ -2,9 +2,7 @@ import { handleResponse } from "@utils/api";
 import { getMapAccessToken } from "@utils/map";
 import { ScoutLocation } from "types/location";
 
-export const registerLocations = async (
-    locations: ScoutLocation[]
-) => {
+export const registerLocations = async (locations: ScoutLocation[]) => {
   try {
     const api = `https://hivemapper.com/api`;
     const route = `loi/register`;
@@ -12,7 +10,7 @@ export const registerLocations = async (
     const url = `${api}/${route}`;
 
     const payload = {
-      locations
+      locations,
     };
 
     const response = await fetch(url, {
@@ -29,17 +27,15 @@ export const registerLocations = async (
 
     return await handleResponse(response, url);
   } catch (error) {
-    if(error instanceof Error) {
+    if (error instanceof Error) {
       return { error: error.message };
     }
-    
+
     return { error };
   }
 };
 
-export const deregisterLocations = async (
-  id: string
-) => {
+export const deregisterLocations = async (id: string) => {
   try {
     const api = `https://hivemapper.com/api`;
     const route = `loi/deregister`;
@@ -47,7 +43,7 @@ export const deregisterLocations = async (
     const url = `${api}/${route}`;
 
     const payload = {
-      id
+      id,
     };
 
     const response = await fetch(url, {
@@ -64,16 +60,15 @@ export const deregisterLocations = async (
 
     return await handleResponse(response, url);
   } catch (error) {
-    if(error instanceof Error) {
+    if (error instanceof Error) {
       return { error: error.message };
     }
-    
+
     return { error };
   }
 };
 
-export const createOrganization = async (
-) => {
+export const createOrganization = async () => {
   try {
     const api = `https://hivemapper.com/api`;
     const route = `organization/create`;
@@ -93,19 +88,17 @@ export const createOrganization = async (
 
     return await handleResponse(response, url);
   } catch (error) {
-    if(error instanceof Error) {
+    if (error instanceof Error) {
       return { error: error.message };
     }
-    
+
     return { error };
   }
 };
 
-export const getPointFromAddress = async (
-    address: string
-) => {
+export const getPointFromAddress = async (address: string) => {
   try {
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?proximity=ip&access_token=${getMapAccessToken()}`
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?proximity=ip&access_token=${getMapAccessToken()}`;
 
     const response = await fetch(url, {
       method: "GET",
@@ -113,11 +106,10 @@ export const getPointFromAddress = async (
 
     return await handleResponse(response, url);
   } catch (error) {
-    if(error instanceof Error) {
+    if (error instanceof Error) {
       return { error: error.message };
     }
-    
+
     return { error };
   }
 };
-

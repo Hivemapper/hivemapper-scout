@@ -30,8 +30,8 @@ export interface GeoJSONMultiPolygon {
 }
 
 export enum GeoJSONType {
-  Polygon = 'Polygon',
-  MultiPolygon = 'MultiPolygon',
-  Point = 'Point',
-  Address = 'Address',
+  Polygon = "Polygon",
+  MultiPolygon = "MultiPolygon",
+  Point = "Point",
+  Address = "Address",
 }

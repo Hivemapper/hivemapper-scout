@@ -1,4 +1,9 @@
-import { Coordinates, GeoJSONMultiPolygon, GeoJSONPolygon, GeoJSONType } from "./geojson";
+import {
+  Coordinates,
+  GeoJSONMultiPolygon,
+  GeoJSONPolygon,
+  GeoJSONType,
+} from "./geojson";
 
 export interface ScoutLocation extends InputLocation {
   _id: string;
@@ -58,4 +63,3 @@ export interface CSVLocation {
   description?: string;
   tags?: string;
 }
-

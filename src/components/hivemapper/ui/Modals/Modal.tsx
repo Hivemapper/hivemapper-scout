@@ -10,7 +10,12 @@ interface Props {
   children: React.ReactNode;
 }
 
-const Modal: React.FC<Props> = ({ showModal, setShowModal, hideCloseButton = false, children }) => {
+const Modal: React.FC<Props> = ({
+  showModal,
+  setShowModal,
+  hideCloseButton = false,
+  children,
+}) => {
   return (
     <Dialog open={showModal}>
       <DialogContent>
