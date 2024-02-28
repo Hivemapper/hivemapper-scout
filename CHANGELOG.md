@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.48
+
+### Patch Changes
+
+- 675ceeb: Wrong conditional
+
 ## 0.0.47
 
 ### Patch Changes
