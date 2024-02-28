@@ -16,7 +16,7 @@ const RemoveLocation: React.FC<RemoveLocationProps> = ({
     <div
       className={cn.moreOptionsRemoveLocation()}
       onClick={async () => {
-        if (window.location.host !== "hivemapper.com") {
+        if (window.location.host === "hivemapper.com") {
           let response = await deregisterLocations(id);
 
           if ("error" in response) {
