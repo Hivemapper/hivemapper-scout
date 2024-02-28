@@ -37,6 +37,41 @@ export const registerLocations = async (
   }
 };
 
+export const deregisterLocations = async (
+  id: string
+) => {
+  try {
+    const api = `https://hivemapper.com/api`;
+    const route = `loi/deregister`;
+
+    const url = `${api}/${route}`;
+
+    const payload = {
+      id
+    };
+
+    const response = await fetch(url, {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      body: JSON.stringify(payload),
+      credentials: "include",
+    });
+
+    return await handleResponse(response, url);
+  } catch (error) {
+    if(error instanceof Error) {
+      return { error: error.message };
+    }
+    
+    return { error };
+  }
+};
+
 export const createOrganization = async (
 ) => {
   try {

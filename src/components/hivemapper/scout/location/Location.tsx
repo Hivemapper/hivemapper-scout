@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, Dispatch, SetStateAction } from "react";
 import * as turf from "@turf/turf";
 import MiniMap from "@components/hivemapper/ui/MiniMap";
 import Imagery from "@components/hivemapper/ui/Imagery";
@@ -9,9 +9,12 @@ import * as cn from "./classNames";
 import useDisableBackSwipe from "@hooks/useDisableBackSwipe";
 import Modal from "@components/hivemapper/ui/Modals/Modal";
 import { useIsomorphicLayoutEffect } from "@utils/helpers";
+import MoreOptionsMenu from "@components/hivemapper/ui/MoreOptionsMenu";
+import RemoveLocation from "@components/hivemapper/ui/MoreOptionsMenu/RemoveLocation";
 
 export interface LocationProps {
   location: ScoutLocation;
+  setLocations: Dispatch<SetStateAction<ScoutLocation[]>>;
   mapAccessToken: string;
   mapStyle?: string;
   username: string;
@@ -21,6 +24,7 @@ export interface LocationProps {
 
 const Location: React.FC<LocationProps> = ({
   location,
+  setLocations,
   mapAccessToken,
   mapStyle,
   username,
@@ -86,28 +90,8 @@ const Location: React.FC<LocationProps> = ({
             )}
           </div>
           <div className={cn.locationSectionTopRight()}>
-            <div>
-              {lastMapped && (
-                <>
-                  <div className={cn.locationLastMapped()}>
-                    <span className={cn.locationLastMappedText()}>
-                      Mapped {prettyDate(lastMapped, true)}
-                    </span>
-                  </div>
-                  <div className={cn.locationLastMappedDate()}>
-                    <span className={cn.locationLastMappedDateText()}>
-                      {monthDayTime(lastMapped)}
-                    </span>
-                  </div>
-                </>
-              )}
-            </div>
-            <div>
-              {sortedSequences.length > 0 && (
-                <div className={cn.locationCollectionsImages()}>
-                  {sortedSequences.length} collections, {framesLength} images
-                </div>
-              )}
+            <div className={cn.locationMoreOptionsMenu()}>
+              <MoreOptionsMenu elements={[<RemoveLocation id={location._id} setLocations={setLocations} />]} />
             </div>
           </div>
         </div>

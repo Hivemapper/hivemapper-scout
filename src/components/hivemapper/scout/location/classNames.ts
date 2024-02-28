@@ -2,7 +2,7 @@ import twStore, { cn } from "@utils/helpers";
 
 export const locationWrapper = () =>
   cn(
-    { "bg-background rounded-md mx-1 px-3 py-3 mt-0": !twStore.get() },
+    { "bg-background rounded-md p-4 mt-0": !twStore.get() },
     "hm-location-wrapper",
   );
 
@@ -37,7 +37,7 @@ export const locationCentroid = () =>
 
 export const locationSectionTopRight = () =>
   cn(
-    { "w-3/5 flex flex-col justify-between": !twStore.get() },
+    { "relative w-3/5 flex flex-col justify-between": !twStore.get() },
     "hm-location-section-top-right",
   );
 
@@ -83,7 +83,7 @@ export const locationSectionBottom = () =>
 export const locationMiniMap = () =>
   cn(
     {
-      [`relative h-[25vh] pb-3 w-full md:w-2/5 md:min-h-[60vh] md:pb-0 md:pr-3`]:
+      "relative h-[25vh] pb-3 w-full md:w-2/5 md:min-h-[60vh] md:pb-0 md:pr-3":
         !twStore.get(),
     },
     "hm-location-mini-map",
@@ -103,4 +103,12 @@ export const locationImagery = () =>
       "flex h-[100%] justify-center items-center text-primary": !twStore.get(),
     },
     "hm-location-null-state",
+  );
+
+  export const locationMoreOptionsMenu = () =>
+  cn(
+    {
+      "absolute right-0 top-0": !twStore.get(),
+    },
+    "hm-location-more-options-menu",
   );

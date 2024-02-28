@@ -99,6 +99,7 @@ const Demo: React.FC<DemoProps> = ({
         return (
           <List
             locations={filteredLocations}
+            setLocations={setLocations}
             itemsPerPage={10}
             selectionCallback={selectionCallback}
             username={username}
@@ -109,6 +110,7 @@ const Demo: React.FC<DemoProps> = ({
         return (
           <Location
             location={activeLocation || filteredLocations[0]}
+            setLocations={setLocations}
             mapAccessToken={mapAccessToken}
             username={username}
             apiKey={apiKey}

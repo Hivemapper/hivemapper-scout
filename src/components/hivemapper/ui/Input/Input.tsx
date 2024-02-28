@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as cn from "./classNames";
-import { de } from "date-fns/locale";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, Dispatch, SetStateAction } from "react";
 import Pagination from "@components/hivemapper/ui/Pagination";
 import Detailed from "./item/Detailed/Detailed";
 import { ScoutLocation } from "types/location";
@@ -10,6 +10,7 @@ export interface ListProps {
   apiKey: string;
   username: string;
   locations: ScoutLocation[];
+  setLocations: Dispatch<SetStateAction<ScoutLocation[]>>
   itemsPerPage?: number;
   selectionCallback?: (id: string | number) => void;
 }
@@ -18,6 +19,7 @@ const List: React.FC<ListProps> = ({
   apiKey,
   username,
   locations,
+  setLocations,
   itemsPerPage = 10,
   selectionCallback = () => {},
 }) => {
@@ -58,6 +60,7 @@ const List: React.FC<ListProps> = ({
           <Detailed
             key={location._id}
             location={location}
+            setLocations={setLocations}
             encodedCredentials={encodedCredentials}
             selectionCallback={selectionCallback}
           />

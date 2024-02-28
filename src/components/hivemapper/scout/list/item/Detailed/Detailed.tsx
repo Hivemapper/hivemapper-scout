@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 import * as turf from "@turf/turf";
 import { Frame, ScoutLocation } from "types/location";
 import Thumbnail from "@components/hivemapper/ui/Thumbnail";
@@ -14,15 +14,19 @@ import { sortSequencesByTimestamp } from "@utils/sort";
 import Loader from "@components/icons/Loader";
 import { Badge } from "@components/shadcn/Badge";
 import * as cn from "./classNames";
+import MoreOptionsMenu from "@components/hivemapper/ui/MoreOptionsMenu";
+import RemoveLocation from "@components/hivemapper/ui/MoreOptionsMenu/RemoveLocation";
 
 export interface DetailedProps {
   location: ScoutLocation;
+  setLocations: Dispatch<SetStateAction<ScoutLocation[]>>
   encodedCredentials: string | null;
   selectionCallback?: (id: string | number) => void;
 }
 
 const Detailed: React.FC<DetailedProps> = ({
   location,
+  setLocations,
   encodedCredentials,
   selectionCallback,
 }) => {
@@ -127,6 +131,9 @@ const Detailed: React.FC<DetailedProps> = ({
         )}
       </div>
       <div className={cn.detailedItemImagery()}>
+        <div className={cn.detailedItemMoreOptionsMenu()}>
+          <MoreOptionsMenu elements={[<RemoveLocation id={location._id} setLocations={setLocations} />]} />
+        </div>
         {!apiCallsComplete ? (
           <div className={cn.detailedItemLoader()}>
             <Loader />
