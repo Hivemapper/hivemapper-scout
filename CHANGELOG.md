@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.49
+
+### Patch Changes
+
+- b580b19: Better type checking for Polygons and Multipolygons
+
 ## 0.0.48
 
 ### Patch Changes
