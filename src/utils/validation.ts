@@ -5,8 +5,6 @@ const ajv = new Ajv();
 const geoJsonTypeEnum = [
   GeoJSONType.Polygon,
   GeoJSONType.MultiPolygon,
-  GeoJSONType.Polygon.toLowerCase(),
-  GeoJSONType.MultiPolygon.toLowerCase(),
 ];
 
 export const isValidSetOfCoordinates = (coordinates: number[]) => {
@@ -17,7 +15,7 @@ export const isValidSetOfCoordinates = (coordinates: number[]) => {
 
 export const validate = (
   content: string | object,
-  type: "csv" | "json" | "geojson",
+  type: "csv" | "geojson",
 ) => {
   if (typeof content === "string") {
     content = JSON.parse(content);
@@ -26,8 +24,6 @@ export const validate = (
   let schema: any;
   if (type === "csv") {
     schema = csvSchema;
-  } else if (type === "json") {
-    schema = jsonSchema;
   } else {
     schema = geoJSONFeatureCollectionSchema;
   }
@@ -92,29 +88,17 @@ const csvSchema = {
             oneOf: [polygonSchema, multiPolygonSchema],
           },
         },
-        required: ["type", "coordinates"],
-        additionalProperties: false,
-      },
-      name: { type: "string" },
-      description: { type: "string" },
-      tags: { type: "array", items: { type: "string" } },
-    },
-    required: ["geojson", "name"],
-    additionalProperties: false,
-  },
-};
-
-const jsonSchema = {
-  type: "array",
-  items: {
-    type: "object",
-    properties: {
-      geojson: {
-        type: "object",
-        properties: {
-          type: { type: "string", enum: geoJsonTypeEnum },
-          coordinates: {
-            oneOf: [polygonSchema, multiPolygonSchema],
+        if: {
+          properties: { type: { enum: [GeoJSONType.Polygon] } }
+        },
+        then: {
+          properties: {
+            coordinates: polygonSchema,
+          }
+        },
+        else: {
+          properties: {
+            coordinates: multiPolygonSchema,
           },
         },
         required: ["type", "coordinates"],
@@ -139,6 +123,19 @@ export const geoJSONFeatureSchema = {
         type: { type: "string", enum: geoJsonTypeEnum },
         coordinates: {
           oneOf: [polygonSchema, multiPolygonSchema],
+        },
+      },
+      if: {
+        properties: { type: { enum: [GeoJSONType.Polygon] } }
+      },
+      then: {
+        properties: {
+          coordinates: polygonSchema,
+        }
+      },
+      else: {
+        properties: {
+          coordinates: multiPolygonSchema,
         },
       },
       required: ["type", "coordinates"],

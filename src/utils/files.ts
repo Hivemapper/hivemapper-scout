@@ -5,6 +5,7 @@ import { GeoJSONFeatureCollection, GeoJSONType } from "types/geojson";
 import { convertPointToPolygon } from "@utils/h3";
 import { getPointFromAddress } from "@api/locations";
 import { validate } from "@utils/validation";
+import { standardizeType } from "@utils/string";
 
 export const getLocationName = (location: Record<string, string>) => {
   try {
@@ -171,8 +172,10 @@ export function downloadJson(url, filename) {
 }
 
 export const geojsonBasedOnType = async (location: Record<string, string>) => {
+  location.type = standardizeType(location.type);
+
   try {
-    if (location.type.toLowerCase() === GeoJSONType.Address.toLowerCase()) {
+    if (location.type === GeoJSONType.Address) {
       const response = await getPointFromAddress(location.location);
       if ("error" in response || !response.features) {
         throw new Error(
@@ -190,12 +193,12 @@ export const geojsonBasedOnType = async (location: Record<string, string>) => {
       const coords = center.join(", ");
       return convertPointToPolygon(coords);
     } else if (
-      location.type.toLowerCase() === GeoJSONType.Point.toLowerCase()
+      location.type === GeoJSONType.Point
     ) {
       return convertPointToPolygon(location.location, true);
     } else if (
-      location.type.toLowerCase() === GeoJSONType.Polygon.toLowerCase() ||
-      location.type.toLowerCase() === GeoJSONType.MultiPolygon.toLowerCase()
+      location.type === GeoJSONType.Polygon ||
+      location.type === GeoJSONType.MultiPolygon
     ) {
       return {
         type: location.type,

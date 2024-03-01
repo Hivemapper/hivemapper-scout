@@ -1,3 +1,5 @@
+import { GeoJSONType } from "types/geojson";
+
 export const capitalizeFirstCharacter = (str: string) => {
   if (!str) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -24,3 +26,23 @@ export const buildErrorMessage = (failures: Record<string, number>) => {
 
   return errorMessage;
 };
+
+export const standardizeType = (type: string) => {
+  if (type.toLowerCase() === GeoJSONType.Address.toLowerCase()) {
+    return GeoJSONType.Address;
+  }
+
+  if (type.toLowerCase() === GeoJSONType.Point.toLowerCase()) {
+    return GeoJSONType.Point;
+  }
+
+  if (type.toLowerCase() === GeoJSONType.Polygon.toLowerCase()) {
+    return GeoJSONType.Polygon;
+  }
+
+  if (type.toLowerCase() === GeoJSONType.MultiPolygon.toLowerCase()) {
+    return GeoJSONType.MultiPolygon;
+  }
+
+  return type;
+}
