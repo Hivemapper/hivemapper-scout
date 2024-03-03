@@ -20,7 +20,8 @@ import {
 import { Views } from "types/view";
 import { GeoJSONFeatureCollection } from "types/geojson";
 import { parseGeojsonToLocations } from "@utils/files";
-import Modal from "../Modals/Modal";
+import Modal from "@components/hivemapper/ui/Modals/Modal";
+import * as cn from "./classNames";
 
 export interface DemoProps {
   inputLocations?: InputLocation[];
@@ -83,42 +84,6 @@ const Demo: React.FC<DemoProps> = ({
     setActiveView(Views.Location);
   };
 
-  const renderView = (view: Views) => {
-    switch (view) {
-      case Views.Map:
-        return (
-          <Map
-            mapAccessToken={mapAccessToken}
-            mapDefaultCoords={mapDefaultCoords}
-            locations={filteredLocations}
-            selectionCallback={selectionCallback}
-            mapStyle={mapStyle}
-          />
-        );
-      case Views.Thumbnail:
-        return (
-          <List
-            locations={filteredLocations}
-            setLocations={setLocations}
-            itemsPerPage={10}
-            selectionCallback={selectionCallback}
-            username={username}
-            apiKey={apiKey}
-          />
-        );
-      case Views.Location:
-        return (
-          <Location
-            location={activeLocation || filteredLocations[0]}
-            setLocations={setLocations}
-            mapAccessToken={mapAccessToken}
-            username={username}
-            apiKey={apiKey}
-          />
-        );
-    }
-  };
-
   return (
     <Config
       darkMode={!!darkMode}
@@ -150,7 +115,40 @@ const Demo: React.FC<DemoProps> = ({
             setActiveView={setActiveView}
             setIsUploadModalVisible={setIsUploadModalVisible}
           />
-          {renderView(activeView)}
+          <div className={cn.demoMapViewWrapper(activeView === Views.Map)}>
+            <Map
+              mapAccessToken={mapAccessToken}
+              mapDefaultCoords={mapDefaultCoords}
+              locations={filteredLocations}
+              selectionCallback={selectionCallback}
+              mapStyle={mapStyle}
+            />
+          </div>
+          <div
+            className={cn.demoListViewWrapper(activeView === Views.Thumbnail)}
+          >
+            <List
+              locations={filteredLocations}
+              setLocations={setLocations}
+              itemsPerPage={10}
+              selectionCallback={selectionCallback}
+              username={username}
+              apiKey={apiKey}
+            />
+          </div>
+          <div
+            className={cn.demoLocationViewWrapper(
+              activeView === Views.Location,
+            )}
+          >
+            <Location
+              location={activeLocation || filteredLocations[0]}
+              setLocations={setLocations}
+              mapAccessToken={mapAccessToken}
+              username={username}
+              apiKey={apiKey}
+            />
+          </div>
         </View>
       </Container>
     </Config>
