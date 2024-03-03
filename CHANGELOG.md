@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.50
+
+### Patch Changes
+
+- be8f9be: Maintain view current context when switching
+
 ## 0.0.49
 
 ### Patch Changes
