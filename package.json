@@ -22,6 +22,7 @@
   "scripts": {
     "generate": "node ./src/scripts/generateGlobalCSS.ts",
     "build": "pnpm generate && tsup src/index.ts --target esnext --format esm --dts",
+    "build-dev": "pnpm generate && tsup src/index.ts --env.API_ROOT $API_ROOT --env.DEVELOPMENT true  --target esnext --format esm --dts",
     "lint": "tsc",
     "style": "prettier . --write",
     "release": "pnpm lint && pnpm build && pnpm publish",
@@ -35,7 +36,7 @@
     "ignore": [
       "dist"
     ],
-    "exec": "pnpm run build"
+    "exec": "pnpm run build-dev"
   },
   "engines": {
     "node": ">=16.18.1",

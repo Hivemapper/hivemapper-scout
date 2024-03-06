@@ -4,7 +4,7 @@ import { ScoutLocation } from "types/location";
 
 export const registerLocations = async (locations: ScoutLocation[]) => {
   try {
-    const api = `https://hivemapper.com/api`;
+    const api = process.env.API_ROOT ?? `https://hivemapper.com/api`;
     const route = `loi/register`;
 
     const url = `${api}/${route}`;
@@ -37,7 +37,7 @@ export const registerLocations = async (locations: ScoutLocation[]) => {
 
 export const deregisterLocations = async (id: string) => {
   try {
-    const api = `https://hivemapper.com/api`;
+    const api = process.env.API_ROOT ?? `https://hivemapper.com/api`;
     const route = `loi/deregister`;
 
     const url = `${api}/${route}`;
@@ -70,7 +70,7 @@ export const deregisterLocations = async (id: string) => {
 
 export const createOrganization = async () => {
   try {
-    const api = `https://hivemapper.com/api`;
+    const api = process.env.API_ROOT ?? `https://hivemapper.com/api`;
     const route = `organization/create`;
 
     const url = `${api}/${route}`;

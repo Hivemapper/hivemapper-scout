@@ -73,16 +73,6 @@ const Dropzone: React.FC<DropzoneProps> = ({
     borderColor: pal.destructive,
   };
 
-  const removeFileAndLocations = (fileName: string) => {
-    setFilesWithLocations((prevState) => {
-      const copy = { ...prevState };
-      const locations = copy[fileName].locations;
-      delete copy[fileName];
-      callback(locations, "delete", false);
-      return copy;
-    });
-  };
-
   const containsFailures = (failures: Record<string, number>) => {
     if (typeof failures !== "object") {
       return false;
@@ -102,7 +92,10 @@ const Dropzone: React.FC<DropzoneProps> = ({
     let locations = newLocations;
     let hasFailures = false;
 
-    if (window.location.host === "hivemapper.com") {
+    if (
+      process.env.DEVELOPMENT === "true" ||
+      window.location.host === "hivemapper.com"
+    ) {
       let response = await registerLocations(locations);
 
       if ("error" in response || !response.locations) {

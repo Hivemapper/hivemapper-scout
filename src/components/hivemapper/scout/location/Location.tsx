@@ -1,16 +1,21 @@
-import React, { useRef, useState, Dispatch, SetStateAction } from "react";
+import React, {
+  useRef,
+  useState,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from "react";
 import * as turf from "@turf/turf";
 import MiniMap from "@components/hivemapper/ui/MiniMap";
 import Imagery from "@components/hivemapper/ui/Imagery";
 import Frames from "@components/hivemapper/ui/Modals/Frames";
 import { ScoutLocation, Frame } from "types/location";
-import { monthDayTime, prettyDate } from "@utils/dates";
-import * as cn from "./classNames";
 import useDisableBackSwipe from "@hooks/useDisableBackSwipe";
 import Modal from "@components/hivemapper/ui/Modals/Modal";
 import { useIsomorphicLayoutEffect } from "@utils/helpers";
 import MoreOptionsMenu from "@components/hivemapper/ui/MoreOptionsMenu";
 import RemoveLocation from "@components/hivemapper/ui/MoreOptionsMenu/RemoveLocation";
+import * as cn from "./classNames";
 
 export interface LocationProps {
   location: ScoutLocation;
@@ -41,7 +46,22 @@ const Location: React.FC<LocationProps> = ({
     }
   }, []);
 
-  if (!location)
+  useEffect(() => {
+    if (location) {
+      setApiCallsComplete(false);
+    }
+  }, [location]);
+
+  useDisableBackSwipe();
+
+  const [sortedSequences, setSortedSequences] = useState<Frame[][] | null>([]);
+  const [activeSequenceIndex, setActiveSequenceIndex] = useState(0);
+  const [activeFrameIndex, setActiveFrameIndex] = useState({ value: 0 });
+  const [apiCallsComplete, setApiCallsComplete] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [_, setFramesLength] = useState(0);
+
+  if (!location) {
     return (
       <div
         ref={nullStateRef}
@@ -51,23 +71,9 @@ const Location: React.FC<LocationProps> = ({
         Press "Upload" to start monitoring locations with Scout.
       </div>
     );
-
-  const [sortedSequences, setSortedSequences] = useState<Frame[][] | null>([]);
-  const [activeSequenceIndex, setActiveSequenceIndex] = useState(0);
-  const [activeFrameIndex, setActiveFrameIndex] = useState({ value: 0 });
-  const [apiCallsComplete, setApiCallsComplete] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [framesLength, setFramesLength] = useState(0);
-
-  useDisableBackSwipe();
-
-  const latestSequence = sortedSequences[0] || [];
-  const lastFrame: Frame | undefined =
-    latestSequence[latestSequence.length - 1];
-  const lastMapped = (lastFrame && lastFrame.timestamp) || null;
+  }
 
   const activeSequence = sortedSequences?.[activeSequenceIndex] || null;
-
   const centroid = turf.centroid(location.geojson);
 
   return (

@@ -7,10 +7,6 @@ import {
 
 export interface ScoutLocation extends InputLocation {
   _id: string;
-  searchShape?: {
-    type: GeoJSONType.Polygon | GeoJSONType.MultiPolygon;
-    coordinates: Coordinates[] | Coordinates[][];
-  };
 }
 
 export interface InputLocation {

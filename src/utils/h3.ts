@@ -8,7 +8,7 @@ export const findTouchedH3Hexagons = (
   lat: number,
   radius: number,
 ): string[] => {
-  const resolution = 11;
+  const resolution = 12;
   const h3Index = latLngToCell(lat, lon, resolution);
   return gridDisk(h3Index, radius);
 };
@@ -54,7 +54,7 @@ export const convertPointToPolygon = (
     return null;
   }
 
-  const radius = 1;
+  const radius = 4;
   const touchedHexes = findTouchedH3Hexagons(
     coordsArray[0],
     coordsArray[1],

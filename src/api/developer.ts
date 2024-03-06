@@ -7,19 +7,15 @@ export const getImagesForPolygon = async (
   encodedCredentials: string | null,
 ): Promise<{ frames: Frame[] } | { error: string }> => {
   try {
-    const api = `https://hivemapper.com/api`;
+    const api = process.env.API_ROOT ?? `https://hivemapper.com/api`;
     const forwarder = `forwarder`;
     const route = `developer/imagery/poly${day ? `?week=${day}` : ""}`;
 
     const url = encodedCredentials ? `${api}/${route}` : `${api}/${forwarder}`;
 
     const payload = {
-      coordinates: location.searchShape
-        ? location.searchShape.coordinates
-        : location.geojson.coordinates,
-      type: location.searchShape
-        ? location.searchShape.type
-        : location.geojson.type,
+      coordinates: location.geojson.coordinates,
+      type: location.geojson.type,
     };
 
     const forwarderPayload = {
