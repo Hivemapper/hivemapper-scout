@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.51
+
+### Patch Changes
+
+- 0a4c7fe: Deprecate searchShape
+
 ## 0.0.50
 
 ### Patch Changes
