@@ -6,11 +6,13 @@ import { deregisterLocations } from "@api/locations";
 interface RemoveLocationProps {
   id: string;
   setLocations: Dispatch<SetStateAction<ScoutLocation[]>>;
+  callback?: () => void;
 }
 
 const RemoveLocation: React.FC<RemoveLocationProps> = ({
   id,
   setLocations,
+  callback,
 }) => {
   return (
     <div
@@ -35,6 +37,8 @@ const RemoveLocation: React.FC<RemoveLocationProps> = ({
             prevState.filter((loc) => loc._id !== id),
           );
         }
+
+        callback && callback();
       }}
     >
       Remove Location

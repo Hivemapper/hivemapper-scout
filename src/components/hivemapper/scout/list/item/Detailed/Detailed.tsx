@@ -33,6 +33,7 @@ const Detailed: React.FC<DetailedProps> = ({
   const [sortedSequences, setSortedSequences] = useState<Frame[][] | null>([]);
   const [apiCallsComplete, setApiCallsComplete] = useState(false);
   const [framesLength, setFramesLength] = useState(0);
+  const [requestCost, setRequestCost] = useState<number | null>(null);
   const [error, setError] = useState<string>("");
 
   const latestSequence = sortedSequences[0] || [];
@@ -50,9 +51,12 @@ const Detailed: React.FC<DetailedProps> = ({
   useEffect(() => {
     if (inView) {
       const fetchImagery = async () => {
+        setRequestCost(null);
+
         const allFrames = [];
         const weeks = getLastThreeMondays();
         let apiError = "";
+        let totalCost = 0;
 
         for (const week of weeks) {
           const data = await getImagesForPolygon(
@@ -66,8 +70,9 @@ const Detailed: React.FC<DetailedProps> = ({
             continue;
           }
 
-          const { frames }: { frames: Frame[] } = data;
+          const { frames, cost } = data;
           allFrames.push(...frames);
+          totalCost += cost;
         }
 
         if (allFrames.length === 0 && apiError) {
@@ -85,6 +90,7 @@ const Detailed: React.FC<DetailedProps> = ({
           setFramesLength(framesFresherThan14Days.length);
         }
 
+        setRequestCost(totalCost);
         setApiCallsComplete(true);
       };
 
@@ -135,7 +141,12 @@ const Detailed: React.FC<DetailedProps> = ({
         )}
       </div>
       <div className={cn.detailedItemImagery()}>
-        <div className={cn.detailedItemMoreOptionsMenu()}>
+        <div className={cn.detailedItemOptions()}>
+          {requestCost !== null && (
+            <div className={cn.detailedItemOptionsCredits()}>
+              {requestCost} credits
+            </div>
+          )}
           <MoreOptionsMenu
             elements={[
               <RemoveLocation id={location._id} setLocations={setLocations} />,

@@ -60,6 +60,7 @@ const Location: React.FC<LocationProps> = ({
   const [apiCallsComplete, setApiCallsComplete] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [_, setFramesLength] = useState(0);
+  const [requestCost, setRequestCost] = useState<number | null>(null);
 
   if (!location) {
     return (
@@ -106,11 +107,20 @@ const Location: React.FC<LocationProps> = ({
           </div>
           <div className={cn.locationSectionTopRight()}>
             <div className={cn.locationMoreOptionsMenu()}>
+              {requestCost !== null && (
+                <div className={cn.locationOptionsCredits()}>
+                  {requestCost} credits
+                </div>
+              )}
               <MoreOptionsMenu
                 elements={[
                   <RemoveLocation
                     id={location._id}
                     setLocations={setLocations}
+                    callback={() => {
+                      setActiveSequenceIndex(0);
+                      setActiveFrameIndex({ value: 0 });
+                    }}
                   />,
                 ]}
               />
@@ -150,6 +160,7 @@ const Location: React.FC<LocationProps> = ({
               setActiveFrameIndex={setActiveFrameIndex}
               setShowModal={setShowModal}
               setFramesLength={setFramesLength}
+              setRequestCost={setRequestCost}
             />
           </div>
         </div>

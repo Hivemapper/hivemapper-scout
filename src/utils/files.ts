@@ -111,6 +111,7 @@ export const processFile = (
         const parsedGeojson = parseGeojsonToLocations(
           validGeoJson as GeoJSONFeatureCollection,
         );
+
         onSuccess(parsedGeojson, file);
       } catch (error) {
         console.error("Error parsing GeoJSON:", error);
@@ -132,7 +133,7 @@ export const parseGeojsonToLocations = (
     const location = {
       _id: uuidv4(),
       geojson: feature.geometry,
-      name: feature.properties.name,
+      name: feature.properties.name || feature.type,
       description: feature.properties.description,
       tags: feature.properties.tags,
     };
@@ -192,9 +193,7 @@ export const geojsonBasedOnType = async (location: Record<string, string>) => {
 
       const coords = center.join(", ");
       return convertPointToPolygon(coords);
-    } else if (
-      location.type === GeoJSONType.Point
-    ) {
+    } else if (location.type === GeoJSONType.Point) {
       return convertPointToPolygon(location.location, true);
     } else if (
       location.type === GeoJSONType.Polygon ||

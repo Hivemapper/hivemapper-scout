@@ -5,7 +5,7 @@ export const getImagesForPolygon = async (
   location: ScoutLocation,
   day: string | null,
   encodedCredentials: string | null,
-): Promise<{ frames: Frame[] } | { error: string }> => {
+): Promise<{ frames: Frame[]; cost: number } | { error: string }> => {
   try {
     const api = process.env.API_ROOT ?? `https://hivemapper.com/api`;
     const forwarder = `forwarder`;

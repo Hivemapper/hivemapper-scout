@@ -35,6 +35,7 @@ interface Props {
   setActiveFrameIndex: Dispatch<SetStateAction<{ value: number }>>;
   setShowModal: Dispatch<SetStateAction<boolean>>;
   setFramesLength: Dispatch<SetStateAction<number>>;
+  setRequestCost: Dispatch<SetStateAction<number>>;
 }
 
 const Imagery: React.FC<Props> = ({
@@ -52,6 +53,7 @@ const Imagery: React.FC<Props> = ({
   setActiveFrameIndex,
   setShowModal,
   setFramesLength,
+  setRequestCost,
 }) => {
   const [error, setError] = useState<string>("");
 
@@ -67,9 +69,12 @@ const Imagery: React.FC<Props> = ({
 
   useEffect(() => {
     const fetchImagery = async () => {
+      setRequestCost(null);
+
       const allFrames = [];
       const weeks = getLastThreeMondays();
       let apiError = "";
+      let totalCost = 0;
 
       for (const week of weeks) {
         const data = await getImagesForPolygon(
@@ -83,8 +88,9 @@ const Imagery: React.FC<Props> = ({
           continue;
         }
 
-        const { frames }: { frames: Frame[] } = data;
+        const { frames, cost } = data;
         allFrames.push(...frames);
+        totalCost += cost;
       }
 
       if (allFrames.length === 0 && apiError) {
@@ -101,6 +107,9 @@ const Imagery: React.FC<Props> = ({
         setFramesLength(framesFresherThan14Days.length);
       }
 
+      setRequestCost(totalCost);
+      setActiveSequenceIndex(0);
+      setActiveFrameIndex({ value: 0 });
       setApiCallsComplete(true);
     };
 

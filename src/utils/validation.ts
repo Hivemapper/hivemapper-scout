@@ -2,10 +2,7 @@ import Ajv from "ajv";
 import { GeoJSONType } from "types/geojson";
 const ajv = new Ajv();
 
-const geoJsonTypeEnum = [
-  GeoJSONType.Polygon,
-  GeoJSONType.MultiPolygon,
-];
+const geoJsonTypeEnum = [GeoJSONType.Polygon, GeoJSONType.MultiPolygon];
 
 export const isValidSetOfCoordinates = (coordinates: number[]) => {
   const validation = ajv.compile(coordinatesSchema);
@@ -13,10 +10,7 @@ export const isValidSetOfCoordinates = (coordinates: number[]) => {
   return { valid, errors: validation.errors };
 };
 
-export const validate = (
-  content: string | object,
-  type: "csv" | "geojson",
-) => {
+export const validate = (content: string | object, type: "csv" | "geojson") => {
   if (typeof content === "string") {
     content = JSON.parse(content);
   }
@@ -89,12 +83,12 @@ const csvSchema = {
           },
         },
         if: {
-          properties: { type: { enum: [GeoJSONType.Polygon] } }
+          properties: { type: { enum: [GeoJSONType.Polygon] } },
         },
         then: {
           properties: {
             coordinates: polygonSchema,
-          }
+          },
         },
         else: {
           properties: {
@@ -126,12 +120,12 @@ export const geoJSONFeatureSchema = {
         },
       },
       if: {
-        properties: { type: { enum: [GeoJSONType.Polygon] } }
+        properties: { type: { enum: [GeoJSONType.Polygon] } },
       },
       then: {
         properties: {
           coordinates: polygonSchema,
-        }
+        },
       },
       else: {
         properties: {
@@ -147,7 +141,6 @@ export const geoJSONFeatureSchema = {
         description: { type: "string" },
         tags: { type: "array", items: { type: "string" } },
       },
-      required: ["name"],
       additionalProperties: false,
     },
   },

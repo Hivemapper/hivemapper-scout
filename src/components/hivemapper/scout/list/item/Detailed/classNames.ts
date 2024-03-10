@@ -50,10 +50,15 @@ export const detailedItemImagery = () =>
     { "relative flex flex-row w-2/3 pt-10": !twStore.get() },
     "hm-detailed-item-imagery",
   );
-export const detailedItemMoreOptionsMenu = () =>
+export const detailedItemOptions = () =>
   cn(
-    { "absolute right-0 top-0": !twStore.get() },
-    "hm-detailed-item-more-options-menu",
+    { "flex items-center absolute right-0 top-0": !twStore.get() },
+    "hm-detailed-item-options",
+  );
+export const detailedItemOptionsCredits = () =>
+  cn(
+    { "font-semibold mr-4": !twStore.get() },
+    "hm-detailed-item-options-credit",
   );
 export const detailedItemLoader = () =>
   cn(

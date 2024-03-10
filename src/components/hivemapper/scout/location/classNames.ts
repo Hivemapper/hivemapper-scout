@@ -41,6 +41,12 @@ export const locationSectionTopRight = () =>
     "hm-location-section-top-right",
   );
 
+export const locationOptionsCredits = () =>
+  cn(
+    { "font-semibold mr-4": !twStore.get() },
+    "hm-detailed-item-options-credit",
+  );
+
 export const locationLastMapped = () =>
   cn(
     { "flex items-center justify-end mt-2": !twStore.get() },
@@ -105,7 +111,7 @@ export const locationNullState = () =>
 export const locationMoreOptionsMenu = () =>
   cn(
     {
-      "absolute right-0 top-0": !twStore.get(),
+      "flex items-center absolute right-0 top-0": !twStore.get(),
     },
     "hm-location-more-options-menu",
   );
