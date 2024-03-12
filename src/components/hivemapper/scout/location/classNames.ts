@@ -2,7 +2,7 @@ import twStore, { cn } from "@utils/helpers";
 
 export const locationWrapper = () =>
   cn(
-    { "bg-background rounded-md p-4 mt-0": !twStore.get() },
+    { "bg-background rounded-b-md p-4 mt-0": !twStore.get() },
     "hm-location-wrapper",
   );
 

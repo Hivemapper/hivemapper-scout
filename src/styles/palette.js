@@ -38,14 +38,14 @@ module.exports = {
     muted: "#0F1629",
     mutedForeground: "#7F8EA3",
 
-    accent: "#30353B",
+    accent: "#3F454D",
     accentForeground: "#C7CCD1",
 
     popover: "#171B21",
     popoverForeground: "#94A3B8",
 
-    border: "#30353B",
-    input: "#30353B",
+    border: "#3F454D",
+    input: "#3F454D",
 
     card: "#171B21",
     cardForeground: "#E1E7EF",

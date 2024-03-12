@@ -9,9 +9,16 @@ export const viewSelectorWrapper = (omitBottomBorder: boolean) =>
     },
     "hm-view-selector-wrapper",
   );
+export const viewSelectorAndTags = () =>
+  cn(
+    {
+      flex: !twStore.get(),
+    },
+    "hm-view-selector-and-tags",
+  );
 export const viewSelectorIconSection = () =>
   cn(
-    { "flex rounded-md border border-solid": !twStore.get() },
+    { "flex rounded-md border border-solid mr-2": !twStore.get() },
     "hm-view-selector-icon-section",
   );
 export const viewSelectorIcon = (isLast?: boolean) =>

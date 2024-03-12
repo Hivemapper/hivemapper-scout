@@ -28,15 +28,9 @@ const RemoveLocation: React.FC<RemoveLocationProps> = ({
             console.log(response.error);
             return;
           }
-
-          setLocations((prevState) =>
-            prevState.filter((loc) => loc._id !== id),
-          );
-        } else {
-          setLocations((prevState) =>
-            prevState.filter((loc) => loc._id !== id),
-          );
         }
+
+        setLocations((prevState) => prevState.filter((loc) => loc._id !== id));
 
         callback && callback();
       }}

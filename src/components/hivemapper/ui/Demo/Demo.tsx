@@ -84,6 +84,21 @@ const Demo: React.FC<DemoProps> = ({
     setActiveView(Views.Location);
   };
 
+  const tagSet = new Set<string>(
+    locations.flatMap((location) => location.tags),
+  );
+
+  const uniqueTags = Array.from(tagSet);
+
+  if (filters.tags.some((tag) => !uniqueTags.includes(tag))) {
+    setFilters((prevState) => {
+      return {
+        ...prevState,
+        tags: prevState.tags.filter((tag) => uniqueTags.includes(tag)),
+      };
+    });
+  }
+
   return (
     <Config
       darkMode={!!darkMode}
@@ -104,16 +119,15 @@ const Demo: React.FC<DemoProps> = ({
         />
       </Modal>
       <Container activeView={activeView}>
-        <Filters
-          locations={locations}
-          setFilters={setFilters}
-          activeView={activeView}
-        />
+        <Filters setFilters={setFilters} activeView={activeView} />
         <View>
           <ViewSelector
             activeView={activeView}
             setActiveView={setActiveView}
             setIsUploadModalVisible={setIsUploadModalVisible}
+            tags={uniqueTags}
+            selectedTags={filters.tags}
+            setFilters={setFilters}
           />
           <div className={cn.demoMapViewWrapper(activeView === Views.Map)}>
             <Map

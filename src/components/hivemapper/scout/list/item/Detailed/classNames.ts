@@ -3,7 +3,7 @@ import twStore, { cn } from "@utils/helpers";
 export const detailedItemWrapper = () =>
   cn(
     {
-      "flex bg-background p-4 border-b border-b-1 min-h-[222px] text-left":
+      "flex bg-background p-4 border-b border-b-[1px] min-h-[222px] text-left":
         !twStore.get(),
     },
     "hm-detailed-item-wrapper",

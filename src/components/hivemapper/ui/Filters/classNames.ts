@@ -1,7 +1,7 @@
 import twStore, { cn } from "@utils/helpers";
 
 export const filterWrapper = () =>
-  cn({ "flex w-full justify-between": !twStore.get() }, "hm-filter-wrapper");
+  cn({ "flex w-full justify-end": !twStore.get() }, "hm-filter-wrapper");
 
 export const filterSection = () =>
   cn({ "flex flex-col md:flex-row": !twStore.get() }, "hm-filter-section");
