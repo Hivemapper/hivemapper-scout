@@ -1,5 +1,12 @@
 # @hivemapper/scout
 
+## 0.0.52
+
+### Patch Changes
+
+- d5a03eb: Branding, remove location bug fix
+- 7027d53: Add query cost, loosen geojson field validation
+
 ## 0.0.51
 
 ### Patch Changes
