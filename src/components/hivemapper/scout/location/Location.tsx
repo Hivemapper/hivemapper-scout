@@ -36,6 +36,13 @@ const Location: React.FC<LocationProps> = ({
   apiKey,
 }) => {
   const [distanceFromTop, setDistanceFromTop] = useState(0);
+  const [sortedSequences, setSortedSequences] = useState<Frame[][] | null>([]);
+  const [activeSequenceIndex, setActiveSequenceIndex] = useState(0);
+  const [activeFrameIndex, setActiveFrameIndex] = useState({ value: 0 });
+  const [apiCallsComplete, setApiCallsComplete] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [_, setFramesLength] = useState(0);
+  const [requestCost, setRequestCost] = useState<number | null>(null);
 
   const nullStateRef = useRef<HTMLDivElement>(null);
 
@@ -49,18 +56,11 @@ const Location: React.FC<LocationProps> = ({
   useEffect(() => {
     if (location) {
       setApiCallsComplete(false);
+      setSortedSequences([]);
     }
   }, [location]);
 
   useDisableBackSwipe();
-
-  const [sortedSequences, setSortedSequences] = useState<Frame[][] | null>([]);
-  const [activeSequenceIndex, setActiveSequenceIndex] = useState(0);
-  const [activeFrameIndex, setActiveFrameIndex] = useState({ value: 0 });
-  const [apiCallsComplete, setApiCallsComplete] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [_, setFramesLength] = useState(0);
-  const [requestCost, setRequestCost] = useState<number | null>(null);
 
   if (!location) {
     return (
