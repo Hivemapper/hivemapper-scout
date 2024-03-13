@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.53
+
+### Patch Changes
+
+- 4422616: Map redirection bug when Location has no imagery
+
 ## 0.0.52
 
 ### Patch Changes
