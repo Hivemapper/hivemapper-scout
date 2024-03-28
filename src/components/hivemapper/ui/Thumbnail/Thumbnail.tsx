@@ -8,9 +8,16 @@ interface Props {
   timestamp: string;
   onClick: () => void;
   isActive?: boolean;
+  showDates?: boolean;
 }
 
-const Thumbnail: React.FC<Props> = ({ url, timestamp, onClick, isActive }) => {
+const Thumbnail: React.FC<Props> = ({
+  url,
+  timestamp,
+  onClick,
+  isActive,
+  showDates = true,
+}) => {
   const { darkMode } = useConfig();
 
   return (
@@ -22,10 +29,14 @@ const Thumbnail: React.FC<Props> = ({ url, timestamp, onClick, isActive }) => {
           alt="Active sequence"
         />
       </div>
-      <div className={cn.thumbnailDate()}>{monthDayTime(timestamp)}</div>
-      <div className={cn.thumbnailPrettyDate()}>
-        <span>{prettyDate(timestamp, true)}</span>
-      </div>
+      {showDates && (
+        <>
+          <div className={cn.thumbnailDate()}>{monthDayTime(timestamp)}</div>
+          <div className={cn.thumbnailPrettyDate()}>
+            <span>{prettyDate(timestamp, true)}</span>
+          </div>
+        </>
+      )}
     </div>
   );
 };

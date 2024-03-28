@@ -11,6 +11,7 @@ interface Props {
   activeFrameIndex: { value: number };
   setActiveFrameIndex: Dispatch<SetStateAction<{ value: number }>>;
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  showDates?: boolean;
 }
 
 const Frames: React.FC<Props> = ({
@@ -21,6 +22,7 @@ const Frames: React.FC<Props> = ({
   activeFrameIndex,
   setActiveFrameIndex,
   setShowModal,
+  showDates = true,
 }) => {
   const isLastFrame =
     activeFrameIndex.value === activeSequence.length - 1 &&
@@ -107,13 +109,18 @@ const Frames: React.FC<Props> = ({
           <div className={cn.frameModalSequence()}>
             {activeFrameIndex.value + 1} / {activeSequence.length}
           </div>
-          <div className={cn.frameModalDate()}>
-            {prettyDate(activeSequence[activeFrameIndex.value].timestamp, true)}
-            {", "}
-            {monthDayTime(
-              new Date(activeSequence[activeFrameIndex.value].timestamp),
-            )}
-          </div>
+          {showDates && (
+            <div className={cn.frameModalDate()}>
+              {prettyDate(
+                activeSequence[activeFrameIndex.value].timestamp,
+                true,
+              )}
+              {", "}
+              {monthDayTime(
+                new Date(activeSequence[activeFrameIndex.value].timestamp),
+              )}
+            </div>
+          )}
         </>
       )}
       <img

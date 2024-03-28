@@ -12,13 +12,14 @@ import Filters from "./hivemapper/ui/Filters";
 import Imagery from "./hivemapper/ui/Imagery";
 import Input from "./hivemapper/ui/Input";
 import MiniMap from "./hivemapper/ui/MiniMap";
-import Frames from "./hivemapper/ui/Modals/Frames";
 import Pagination from "./hivemapper/ui/Pagination";
 import Search from "./hivemapper/ui/Search";
 import Tags from "./hivemapper/ui/Tags";
 import Thumbnail from "./hivemapper/ui/Thumbnail";
 import View from "./hivemapper/ui/View";
 import ViewSelector from "./hivemapper/ui/ViewSelector";
+import Modal from "./hivemapper/ui/Modals/Modal";
+import Frames from "./hivemapper/ui/Modals/Frames";
 
 // HOC components
 export { Config };
@@ -42,4 +43,6 @@ export {
   Thumbnail,
   View,
   ViewSelector,
+  Modal,
+  Frames
 };

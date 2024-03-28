@@ -13,11 +13,10 @@ export const thumbnailImgSection = () =>
 export const thumbnailImg = (isActive: boolean, darkMode: boolean) =>
   cn(
     {
-      [`${
-        isActive ? "border-2 border-primary" : "border-2 border-transparent"
-      } rounded-md`]: !twStore.get(),
+      [`${isActive ? "border-2 border-primary" : "border-2 border-transparent"
+        } rounded-md`]: !twStore.get(),
     },
-    "hm-thumbnail-img-section",
+    "hm-thumbnail-img",
   );
 export const thumbnailDate = () =>
   cn(

@@ -7,7 +7,7 @@ interface Props {
   showModal: boolean;
   setShowModal: Dispatch<SetStateAction<boolean>>;
   hideCloseButton?: boolean;
-  children: React.ReactNode;
+  children: any;
 }
 
 const Modal: React.FC<Props> = ({

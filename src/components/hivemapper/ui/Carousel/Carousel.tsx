@@ -14,6 +14,7 @@ interface Props {
   activeFrameIndex: { value: number };
   setActiveFrameIndex: Dispatch<SetStateAction<{ value: number }>>;
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  showDates?: boolean;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -24,6 +25,7 @@ const Carousel: React.FC<Props> = ({
   activeFrameIndex,
   setActiveFrameIndex,
   setShowModal,
+  showDates = true,
 }) => {
   const isLastFrame =
     activeFrameIndex.value === activeSequence.length - 1 &&
@@ -110,15 +112,20 @@ const Carousel: React.FC<Props> = ({
         >
           <Maximize />
         </div>
-        <div className={cn.carouselDate()}>
-          <div>
-            {prettyDate(activeSequence[activeFrameIndex.value].timestamp, true)}
-            {", "}
-            {monthDayTime(
-              new Date(activeSequence[activeFrameIndex.value].timestamp),
-            )}
+        {showDates && (
+          <div className={cn.carouselDate()}>
+            <div>
+              {prettyDate(
+                activeSequence[activeFrameIndex.value].timestamp,
+                true,
+              )}
+              {", "}
+              {monthDayTime(
+                new Date(activeSequence[activeFrameIndex.value].timestamp),
+              )}
+            </div>
           </div>
-        </div>
+        )}
         <div className={cn.carouselSequence()}>
           {activeFrameIndex.value + 1} / {activeSequence.length}
         </div>
