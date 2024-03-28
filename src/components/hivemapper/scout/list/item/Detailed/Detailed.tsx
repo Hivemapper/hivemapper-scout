@@ -78,6 +78,7 @@ const Detailed: React.FC<DetailedProps> = ({
         if (allFrames.length === 0 && apiError) {
           setError(apiError);
           setApiCallsComplete(true);
+          setSortedSequences([]);
           return;
         }
 

@@ -96,6 +96,7 @@ const Imagery: React.FC<Props> = ({
       if (allFrames.length === 0 && apiError) {
         setError(apiError);
         setApiCallsComplete(true);
+        setSortedSequences([]);
         return;
       }
 
