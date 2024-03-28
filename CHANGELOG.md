@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.55
+
+### Patch Changes
+
+- e54844b: Fix no imagery returned bug
+
 ## 0.0.54
 
 ### Patch Changes
