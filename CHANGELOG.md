@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.54
+
+### Patch Changes
+
+- a255d31: Option to remove dates
+
 ## 0.0.53
 
 ### Patch Changes
