@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.56
+
+### Patch Changes
+
+- b9e2532: More aesthetic spacing
+
 ## 0.0.55
 
 ### Patch Changes
