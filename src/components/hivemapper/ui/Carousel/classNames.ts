@@ -5,28 +5,27 @@ export const carouselWrapper = () =>
 
 export const carouselMaximize = () =>
   cn(
-    { "absolute z-10 top-5 right-5 cursor-pointer": !twStore.get() },
+    { "absolute z-10 top-2 right-2 cursor-pointer": !twStore.get() },
     "hm-carousel-maximize",
   );
 
 export const carouselDate = () =>
   cn(
-    { "text-sm absolute z-10 bottom-5 left-5": !twStore.get() },
+    { "text-sm absolute z-10 bottom-2 left-3": !twStore.get() },
     "hm-carousel-date",
   );
 
 export const carouselSequence = () =>
   cn(
-    { "text-sm absolute font-semibold z-10 bottom-5 right-5": !twStore.get() },
+    { "text-sm absolute font-semibold z-10 bottom-2 right-3": !twStore.get() },
     "hm-carousel-sequence",
   );
 
 export const carouselLeftArrow = (isFirstFrame: boolean) =>
   cn(
     {
-      [`absolute z-10 top-1/2 left-4 transform translate-y-[-50%]" cursor-${
-        isFirstFrame ? "cursor-auto opacity-25" : "cursor-pointer opacity-100"
-      }`]: !twStore.get(),
+      [`absolute z-10 top-1/2 left-2 transform translate-y-[-50%]" cursor-${isFirstFrame ? "cursor-auto opacity-25" : "cursor-pointer opacity-100"
+        }`]: !twStore.get(),
     },
     "hm-carousel-left-arrow",
   );
@@ -34,9 +33,8 @@ export const carouselLeftArrow = (isFirstFrame: boolean) =>
 export const carouseRightArrow = (isLastFrame: boolean) =>
   cn(
     {
-      [`absolute z-10 top-1/2 right-4 transform translate-y-[-50%]" ${
-        isLastFrame ? "cursor-auto opacity-25" : "cursor-pointer opacity-100"
-      }`]: !twStore.get(),
+      [`absolute z-10 top-1/2 right-2 transform translate-y-[-50%]" ${isLastFrame ? "cursor-auto opacity-25" : "cursor-pointer opacity-100"
+        }`]: !twStore.get(),
     },
     "hm-carousel-right-arrow",
   );
