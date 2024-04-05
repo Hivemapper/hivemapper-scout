@@ -19,6 +19,7 @@ import { Frame, ScoutLocation } from "types/location";
 import { preventScroll } from "@utils/keyboard";
 import Loader from "@components/icons/Loader";
 import * as cn from "./classNames";
+import { useInView } from "react-intersection-observer";
 
 interface Props {
   apiKey: string;
@@ -62,60 +63,68 @@ const Imagery: React.FC<Props> = ({
   const divRef: RefObject<HTMLDivElement> = useRef(null);
   const thumbnailRefs = useRef<Array<RefObject<HTMLDivElement>>>([]);
 
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.01,
+  });
+
   let encodedCredentials: string | null = null;
   if (apiKey && username) {
     encodedCredentials = btoa(`${username}:${apiKey}`);
   }
 
   useEffect(() => {
-    const fetchImagery = async () => {
-      setRequestCost(null);
+    if (inView) {
+      const fetchImagery = async () => {
+        setRequestCost(null);
 
-      const allFrames = [];
-      const weeks = getLastThreeMondays();
-      let apiError = "";
-      let totalCost = 0;
+        const allFrames = [];
+        const weeks = getLastThreeMondays();
+        let apiError = "";
+        let totalCost = 0;
 
-      for (const week of weeks) {
-        const data = await getImagesForPolygon(
-          location,
-          week,
-          encodedCredentials,
-        );
+        for (const week of weeks) {
+          const data = await getImagesForPolygon(
+            location,
+            week,
+            encodedCredentials,
+          );
 
-        if ("error" in data) {
-          apiError = data.error;
-          continue;
+          if ("error" in data) {
+            apiError = data.error;
+            continue;
+          }
+
+          const { frames, cost } = data;
+          allFrames.push(...frames);
+          totalCost += cost;
         }
 
-        const { frames, cost } = data;
-        allFrames.push(...frames);
-        totalCost += cost;
-      }
+        if (allFrames.length === 0 && apiError) {
+          setError(apiError);
+          setApiCallsComplete(true);
+          setSortedSequences([]);
+          return;
+        }
 
-      if (allFrames.length === 0 && apiError) {
-        setError(apiError);
+        const framesFresherThan14Days =
+          filterFramesFresherThan14Days(allFrames);
+
+        if (framesFresherThan14Days.length > 0) {
+          const stitched = stitch(framesFresherThan14Days);
+          setSortedSequences(sortSequencesByTimestamp(stitched));
+          setFramesLength(framesFresherThan14Days.length);
+        }
+
+        setRequestCost(totalCost);
+        setActiveSequenceIndex(0);
+        setActiveFrameIndex({ value: 0 });
         setApiCallsComplete(true);
-        setSortedSequences([]);
-        return;
-      }
+      };
 
-      const framesFresherThan14Days = filterFramesFresherThan14Days(allFrames);
-
-      if (framesFresherThan14Days.length > 0) {
-        const stitched = stitch(framesFresherThan14Days);
-        setSortedSequences(sortSequencesByTimestamp(stitched));
-        setFramesLength(framesFresherThan14Days.length);
-      }
-
-      setRequestCost(totalCost);
-      setActiveSequenceIndex(0);
-      setActiveFrameIndex({ value: 0 });
-      setApiCallsComplete(true);
-    };
-
-    fetchImagery();
-  }, [setApiCallsComplete, location]);
+      fetchImagery();
+    }
+  }, [inView, setApiCallsComplete, location]);
 
   useEffect(() => {
     const divElement = divRef.current;
@@ -159,7 +168,7 @@ const Imagery: React.FC<Props> = ({
   }, [activeSequenceIndex]);
 
   return (
-    <div className={cn.imageryWrapper()}>
+    <div ref={ref} className={cn.imageryWrapper()}>
       {!apiCallsComplete ? (
         <div className={cn.imageryLoader()}>
           <Loader />
