@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.57
+
+### Patch Changes
+
+- 3992b76: Race condition bug
+
 ## 0.0.56
 
 ### Patch Changes
