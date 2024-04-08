@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.58
+
+### Patch Changes
+
+- 782aca7: Allow carousel to go back to first frame when reaching the end
+
 ## 0.0.57
 
 ### Patch Changes
