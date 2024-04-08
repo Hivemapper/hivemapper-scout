@@ -37,7 +37,11 @@ const Carousel: React.FC<Props> = ({
   const handleNavigation = useCallback(
     (direction: "left" | "right") => {
       if (direction === "right") {
-        if (isLastFrame) return;
+        if (isLastFrame) {
+          setActiveSequenceIndex(0);
+          setActiveFrameIndex({ value: 0 });
+          return;
+        }
 
         if (activeFrameIndex.value === activeSequence.length - 1) {
           setActiveSequenceIndex((prevState) => {
@@ -138,7 +142,7 @@ const Carousel: React.FC<Props> = ({
           </div>
         </div>
         <div
-          className={cn.carouseRightArrow(isLastFrame)}
+          className={cn.carouseRightArrow()}
           onClick={() => handleNavigation("right")}
         >
           <div>

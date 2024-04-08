@@ -30,11 +30,10 @@ export const carouselLeftArrow = (isFirstFrame: boolean) =>
     "hm-carousel-left-arrow",
   );
 
-export const carouseRightArrow = (isLastFrame: boolean) =>
+export const carouseRightArrow = () =>
   cn(
     {
-      [`absolute z-10 top-1/2 right-2 transform translate-y-[-50%]" ${isLastFrame ? "cursor-auto opacity-25" : "cursor-pointer opacity-100"
-        }`]: !twStore.get(),
+      [`absolute z-10 top-1/2 right-2 transform translate-y-[-50%] cursor-pointer opacity-100`]: !twStore.get(),
     },
     "hm-carousel-right-arrow",
   );
