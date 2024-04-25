@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.59
+
+### Patch Changes
+
+- db4aeea: Orphan quotation mark
+
 ## 0.0.58
 
 ### Patch Changes
