@@ -24,7 +24,7 @@ export const carouselSequence = () =>
 export const carouselLeftArrow = (isFirstFrame: boolean) =>
   cn(
     {
-      [`absolute z-10 top-1/2 left-2 transform translate-y-[-50%]" cursor-${isFirstFrame ? "cursor-auto opacity-25" : "cursor-pointer opacity-100"
+      [`absolute z-10 top-1/2 left-2 transform translate-y-[-50%] cursor-${isFirstFrame ? "cursor-auto opacity-25" : "cursor-pointer opacity-100"
         }`]: !twStore.get(),
     },
     "hm-carousel-left-arrow",
