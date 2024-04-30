@@ -1,5 +1,11 @@
 # @hivemapper/scout
 
+## 0.0.60
+
+### Patch Changes
+
+- be39221: Change api endpoint from last 14 days to latest
+
 ## 0.0.59
 
 ### Patch Changes
