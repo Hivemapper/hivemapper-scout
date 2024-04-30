@@ -58,36 +58,16 @@ export const prettyDate = (
     (day_diff < 7 && day_diff + (longFormat ? " days ago" : "d")) ||
     (day_diff < 31 &&
       Math.ceil(day_diff / 7) +
-        (longFormat
-          ? ` week${Math.ceil(day_diff / 7) > 1 ? "s" : ""} ago`
-          : "w")) ||
+      (longFormat
+        ? ` week${Math.ceil(day_diff / 7) > 1 ? "s" : ""} ago`
+        : "w")) ||
     (day_diff >= 31 &&
       Math.ceil(day_diff / 31) +
-        (longFormat
-          ? ` month${Math.ceil(day_diff / 31) > 1 ? "s" : ""} ago`
-          : "mo"));
+      (longFormat
+        ? ` month${Math.ceil(day_diff / 31) > 1 ? "s" : ""} ago`
+        : "mo"));
 
   return result || "";
-};
-
-export const getLastThreeMondays = (startDate?: Date): string[] => {
-  let mondays = [];
-  let date = new Date(startDate || new Date());
-  date.setHours(0, 0, 0, 0);
-
-  while (date.getDay() !== 1) {
-    date.setDate(date.getDate() - 1);
-  }
-
-  for (let i = 0; i < 3; i++) {
-    let year = date.getFullYear();
-    let month = (date.getMonth() + 1).toString().padStart(2, "0");
-    let day = date.getDate().toString().padStart(2, "0");
-    mondays.push(`${year}-${month}-${day}`);
-    date.setDate(date.getDate() - 7);
-  }
-
-  return mondays;
 };
 
 export const fourteenDaysAgo = new Date(

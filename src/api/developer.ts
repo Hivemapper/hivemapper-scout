@@ -3,13 +3,12 @@ import { Frame, ScoutLocation } from "types/location";
 
 export const getImagesForPolygon = async (
   location: ScoutLocation,
-  day: string | null,
   encodedCredentials: string | null,
 ): Promise<{ frames: Frame[]; cost: number } | { error: string }> => {
   try {
     const api = process.env.API_ROOT ?? `https://hivemapper.com/api`;
     const forwarder = `forwarder`;
-    const route = `developer/imagery/poly${day ? `?week=${day}` : ""}`;
+    const route = `developer/latest/poly`;
 
     const url = encodedCredentials ? `${api}/${route}` : `${api}/${forwarder}`;
 

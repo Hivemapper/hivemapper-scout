@@ -9,10 +9,6 @@ import React, {
 import Carousel from "@components/hivemapper/ui/Carousel";
 import Thumbnail from "@components/hivemapper/ui/Thumbnail";
 import { getImagesForPolygon } from "@api/developer";
-import {
-  filterFramesFresherThan14Days,
-  getLastThreeMondays,
-} from "@utils/dates";
 import { sortSequencesByTimestamp } from "@utils/sort";
 import { stitch } from "@utils/imagery";
 import { Frame, ScoutLocation } from "types/location";
@@ -78,45 +74,24 @@ const Imagery: React.FC<Props> = ({
       const fetchImagery = async () => {
         setRequestCost(null);
 
-        const allFrames = [];
-        const weeks = getLastThreeMondays();
-        let apiError = "";
-        let totalCost = 0;
+        const data = await getImagesForPolygon(location, encodedCredentials);
 
-        for (const week of weeks) {
-          const data = await getImagesForPolygon(
-            location,
-            week,
-            encodedCredentials,
-          );
-
-          if ("error" in data) {
-            apiError = data.error;
-            continue;
-          }
-
-          const { frames, cost } = data;
-          allFrames.push(...frames);
-          totalCost += cost;
-        }
-
-        if (allFrames.length === 0 && apiError) {
-          setError(apiError);
+        if ("error" in data) {
+          setError(data.error);
           setApiCallsComplete(true);
           setSortedSequences([]);
           return;
         }
 
-        const framesFresherThan14Days =
-          filterFramesFresherThan14Days(allFrames);
+        const { frames, cost } = data;
 
-        if (framesFresherThan14Days.length > 0) {
-          const stitched = stitch(framesFresherThan14Days);
+        if (frames.length > 0) {
+          const stitched = stitch(frames);
           setSortedSequences(sortSequencesByTimestamp(stitched));
-          setFramesLength(framesFresherThan14Days.length);
+          setFramesLength(frames.length);
         }
 
-        setRequestCost(totalCost);
+        setRequestCost(cost);
         setActiveSequenceIndex(0);
         setActiveFrameIndex({ value: 0 });
         setApiCallsComplete(true);
@@ -218,9 +193,7 @@ const Imagery: React.FC<Props> = ({
           ) : error ? (
             <div className={cn.imageryNullState()}>{error}</div>
           ) : (
-            <div className={cn.imageryNullState()}>
-              No imagery available in the last 14 days.
-            </div>
+            <div className={cn.imageryNullState()}>No imagery available.</div>
           )}
         </>
       )}
